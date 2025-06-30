@@ -25,19 +25,21 @@
             min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex;
             flex-direction: column;
+            overflow-x: hidden; /* Prevent horizontal scroll on small devices */
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Custom styles to match the original design's aesthetics using Tailwind where possible */
+        /* Reusable container for content width */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
 
+        /* Header styles (reused from previous version) */
         .main-header {
             background-color: #fff;
             padding: 1rem 0;
@@ -133,17 +135,46 @@
             transform: translateY(-2px);
         }
 
+        /* Hero Section (removed by user request, but keeping styles for reference in case it's re-added) */
+        .hero-section {
+            background: linear-gradient(to right, #047857, #10B981);
+            color: #fff;
+            padding: 4rem 1rem;
+            border-radius: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: fadeInZoom 0.8s ease-out forwards;
+        }
+        @keyframes fadeInZoom {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            opacity: 0.9;
+        }
 
         /* Unique styles for the search/filter section */
         .search-filter-section {
             background-color: #fff;
             border-radius: 1.5rem; /* More rounded corners for the section */
-            padding: 2.5rem; /* Increased padding */
-            margin-top: 1rem; /* Reduced margin-top here */
+            padding: 1rem 2.5rem; /* Adjusted padding to half height */
+            margin-top: 0; /* Adjusted margin to move to top */
             box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* More pronounced shadow */
             position: relative;
             z-index: 10;
             border: 1px solid #E5E7EB; /* Subtle border */
+            animation: fadeInDown 1s ease-out forwards; /* Changed animation to fadeInDown */
         }
 
         .search-input-group {
@@ -202,13 +233,13 @@
         .popular-tag {
             background-color: #E0F2F7; /* light blue-100 for a fresh look */
             color: #06B6D4; /* cyan-600 */
-            padding: 0.4rem 0.9rem; /* Reduced padding for height */
+            padding: 0.15rem 0.7rem; /* Adjusted padding to half height */
             border-radius: 9999px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid transparent; /* Added for hover effect */
-            font-size: 0.8rem; /* Reduced font size */
+            font-size: 0.75rem; /* Adjusted font size for smaller tags */
         }
         .popular-tag:hover {
             background-color: #CFF9FE; /* lighter blue on hover */
@@ -336,7 +367,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            max-height: calc(100vh - 250px); /* Adjusted height to account for header/footer and filters */
+            max-height: calc(100vh - 400px); /* Adjusted height to account for new filters */
             overflow-y: auto; /* Enable vertical scrolling */
             padding-right: 0.75rem; /* More space for scrollbar */
         }
@@ -360,7 +391,7 @@
         .tutor-listing-card {
             background-color: #fff;
             border-radius: 1.25rem; /* More rounded cards */
-            padding: 2rem; /* Increased padding */
+            padding: 1rem 2rem; /* Reduced vertical padding to halve height */
             box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Stronger initial shadow */
             display: flex;
             flex-direction: column;
@@ -374,7 +405,10 @@
         .tutor-listing-card:nth-child(1) { animation-delay: 0.1s; }
         .tutor-listing-card:nth-child(2) { animation-delay: 0.2s; }
         .tutor-listing-card:nth-child(3) { animation-delay: 0.3s; }
-        /* Add more delays for more cards if needed */
+        .tutor-listing-card:nth-child(4) { animation-delay: 0.4s; }
+        .tutor-listing-card:nth-child(5) { animation-delay: 0.5s; }
+        .tutor-listing-card:nth-child(6) { animation-delay: 0.6s; }
+
 
         @keyframes fadeInRight {
             from {
@@ -393,8 +427,8 @@
         }
 
         .tutor-listing-avatar {
-            width: 90px; /* Slightly larger avatar */
-            height: 90px;
+            width: 90px;
+            height: 90px; /* Restored to 1:1 aspect ratio */
             border-radius: 9999px;
             object-fit: cover;
             border: 4px solid #10B981; /* Thicker green border */
@@ -446,16 +480,16 @@
         .tutor-tags-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem; /* Increased gap between tags */
+            gap: 0.5rem; /* Adjusted gap between tags */
             margin-bottom: 1rem;
         }
 
         .tutor-tag {
             background-color: #E0F2F7; /* light blue-100 */
             color: #06B6D4; /* cyan-600 */
-            padding: 0.4rem 0.9rem; /* Reduced padding for height */
+            padding: 0.15rem 0.7rem; /* Adjusted padding to half height */
             border-radius: 9999px;
-            font-size: 0.8rem; /* Reduced font size */
+            font-size: 0.75rem; /* Adjusted font size for smaller tags */
             font-weight: 500;
             white-space: nowrap;
             transition: all 0.2s ease;
@@ -515,6 +549,16 @@
                 text-align: center;
                 justify-content: center;
                 margin-bottom: 1rem;
+            }
+            .hero-section {
+                padding: 2.5rem 1rem;
+                border-radius: 1rem;
+            }
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
             }
             .search-filter-section {
                 padding: 1.5rem;
@@ -630,9 +674,9 @@
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.2); /* Lighter, transparent border */
-            font-size: 0.95rem; /* Slightly larger copyright text */
-            color: #D1FAE5; /* Even lighter green for copyright */
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+            color: #D1FAE5;
         }
 
         @media (max-width: 768px) {
@@ -660,12 +704,9 @@
                 <span>TutorConnect</span>
             </a>
             <nav class="main-nav">
-                <!-- Removed "Home" from navigation -->
                 <a href="#">Find Tutors</a>
-                <!-- Removed "How It Works" from navigation as requested -->
             </nav>
             <div class="header-actions">
-                <!-- Removed Sign In and Sign Up buttons as requested -->
                 <a href="StudentProfile.html" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
                     My Profile <span class="ml-2">🧑‍🎓</span> 
                 </a>
@@ -675,8 +716,9 @@
 
     <main class="container py-8 flex-grow">
         <!-- Search and Filter Section -->
-        <section class="search-filter-section animate__animated animate__fadeInDown animate__slow">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-end"> <!-- Increased gap -->
+        <section id="search-filter-section-anchor" class="search-filter-section animate__animated animate__fadeInDown animate__slow">
+            <!-- Removed: <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Filter & Find Your Match</h2> -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-end">
                 <div class="md:col-span-2">
                     <label for="search-tutors" class="block text-sm font-medium text-gray-700 mb-1">Search Tutors</label>
                     <div class="search-input-group">
@@ -691,39 +733,48 @@
                     <label for="filter-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
                     <select id="filter-subject" name="filter-subject">
                         <option value="all">All Subjects</option>
-                        <option value="mathematics">Mathematics</option>
-                        <option value="english">English</option>
-                        <option value="science">Science</option>
-                        <option value="programming">Programming</option>
-                        <option value="physics">Physics</option>
-                        <option value="chemistry">Chemistry</option>
-                        <option value="biology">Biology</option>
-                        <option value="literature">Literature</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="English">English</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Calculus">Calculus</option>
+                        <option value="Algebra">Algebra</option>
+                        <option value="Pure Maths">Pure Maths</option>
+                        <option value="Creative Writing">Creative Writing</option>
+                        <option value="Grammar">Grammar</option>
                     </select>
                 </div>
                 <div class="filter-dropdown">
                     <label for="max-rate" class="block text-sm font-medium text-gray-700 mb-1">Max Hourly Rate</label>
                     <select id="max-rate" name="max-rate">
-                        <option value="100">$100</option>
-                        <option value="75">$75</option>
-                        <option value="50">$50</option>
-                        <option value="25">$25</option>
                         <option value="any">Any</option>
+                        <option value="2500">$2500</option>
+                        <option value="2000">$2000</option>
+                        <option value="1500">$1500</option>
+                        <option value="1000">$1000</option>
+                        <option value="500">$500</option>
+                        <option value="100">$100</option>
                     </select>
                 </div>
                 <div class="filter-dropdown">
-                    <label for="distance" class="block text-sm font-medium text-gray-700 mb-1">Distance</label>
+                    <label for="distance" class="block text-sm font-medium text-gray-700 mb-1">Distance (Miles)</label>
                     <select id="distance" name="distance">
+                        <option value="any">Any</option>
+                        <option value="5">5 Miles</option>
                         <option value="10">10 Miles</option>
                         <option value="25">25 Miles</option>
                         <option value="50">50 Miles</option>
-                        <option value="any">Any</option>
                     </select>
                 </div>
             </div>
-            <div class="mt-6"> <!-- Increased margin top -->
-                <span class="block text-sm font-medium text-gray-700 mb-2">Popular:</span>
-                <div class="flex flex-wrap gap-3"> <!-- Increased gap -->
+            <div class="mt-8 border-t pt-6 border-gray-100">
+                <span class="block text-sm font-medium text-gray-700 mb-3">Quick Search:</span>
+                <div class="flex flex-wrap gap-3" id="popular-tags-container">
                     <span class="popular-tag">Mathematics</span>
                     <span class="popular-tag">English</span>
                     <span class="popular-tag">Science</span>
@@ -755,7 +806,7 @@
             <!-- Tutor Listings Section -->
             <div class="tutor-listings animate__animated animate__fadeInRight">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-gray-800">8 Tutors Available</h2>
+                    <h2 class="text-2xl font-bold text-gray-800" id="tutor-count">0 Tutors Available</h2>
                     <div class="filter-dropdown w-auto">
                         <label for="sort-by" class="sr-only">Sort By</label>
                         <select id="sort-by" name="sort-by" class="text-sm">
@@ -768,237 +819,10 @@
                     </div>
                 </div>
 
-                <!-- Tutor Card 1 -->
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/D1FAE5/047857?text=JA" alt="Tutor Janaka Abewardana" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">Janaka Abewardana</h3>
-                            <div class="tutor-rating">
-                                ★★★★☆ <span class="text-gray-500 text-xs">(132 reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$1500/hr</p>
-                            <p class="tutor-description">Former Physics professor with a passion for easy methods. Helps students improve deep thinking skills.</p>
-                            <div class="tutor-tags-list">
-                                <span class="tutor-tag">Physics</span>
-                                <span class="tutor-tag">Mathematics</span>
-                                <span class="tutor-tag">Philosophy</span>
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    8 years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    2.5 miles away
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="#" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
+                <div id="tutors-container" class="space-y-4">
+                    <!-- Tutor Cards will be inserted here by JavaScript -->
                 </div>
 
-                <!-- Tutor Card 2 -->
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/A7F3D0/047857?text=RR" alt="Tutor Roshan Rolanka" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">Roshan Rolanka</h3>
-                            <div class="tutor-rating">
-                                ★★★★☆ <span class="text-gray-500 text-xs">(41 reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$1000/hr</p>
-                            <p class="tutor-description">Software engineer with expertise in multiple programming languages. Tutors students in coding...</p>
-                            <div class="tutor-tags-list">
-                                <span class="tutor-tag">Programming</span>
-                                <span class="tutor-tag">Computer Science</span>
-                                <span class="tutor-tag">Web Development</span>
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    7 years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    1.8 miles away
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="#" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
-                </div>
-
-                <!-- Tutor Card 3 -->
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/ECFDF5/047857?text=NJ" alt="Tutor Nilantha Jayasuriya" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">Nilantha Jayasuriya</h3>
-                            <div class="tutor-rating">
-                                ★★★★★ <span class="text-gray-500 text-xs">(28 reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$1200/hr</p>
-                            <p class="tutor-description">Experienced educator in English Literature and creative writing. Helps students craft compelling essays.</p>
-                            <div class="tutor-tags-list">
-                                <span class="tutor-tag">English Literature</span>
-                                <span class="tutor-tag">Creative Writing</span>
-                                <span class="tutor-tag">Grammar</span>
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    5 years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    0.7 miles away
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="#" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
-                </div>
-
-                <!-- Add more tutor cards here to demonstrate scrolling -->
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/D1FAE5/047857?text=SK" alt="Tutor Sarah Khan" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">Sarah Khan</h3>
-                            <div class="tutor-rating">
-                                ★★★★☆ <span class="text-gray-500 text-xs">(95 reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$900/hr</p>
-                            <p class="tutor-description">Specializing in high school chemistry and biology. Patient and engaging teaching style.</p>
-                            <div class="tutor-tags-list">
-                                <span class="tutor-tag">Chemistry</span>
-                                <span class="tutor-tag">Biology</span>
-                                <span class="tutor-tag">Science</span>
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    6 years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    3.1 miles away
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="#" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
-                </div>
-
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/A7F3D0/047857?text=AK" alt="Tutor Alex Kim" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">Alex Kim</h3>
-                            <div class="tutor-rating">
-                                ★★★★★ <span class="text-gray-500 text-xs">(150 reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$1300/hr</p>
-                            <p class="tutor-description">University lecturer in advanced calculus and linear algebra. Highly experienced with competitive exams.</p>
-                            <div class="tutor-tags-list">
-                                <span class="tutor-tag">Calculus</span>
-                                <span class="tutor-tag">Algebra</span>
-                                <span class="tutor-tag">Pure Maths</span>
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    10 years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    0.5 miles away
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="#" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
-                </div>
-
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/ECFDF5/047857?text=EM" alt="Tutor Emily Miller" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">Emily Miller</h3>
-                            <div class="tutor-rating">
-                                ★★★★☆ <span class="text-gray-500 text-xs">(78 reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$850/hr</p>
-                            <p class="tutor-description">Enthusiastic English tutor focusing on grammar, writing, and literature for all ages.</p>
-                            <div class="tutor-tags-list">
-                                <span class="tutor-tag">English</span>
-                                <span class="tutor-tag">Grammar</span>
-                                <span class="tutor-tag">Literature</span>
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    4 years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    4.2 miles away
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="#" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -1047,5 +871,188 @@
         </div>
     </footer>
 
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+        // Firebase config (Ensure this matches your actual Firebase project config)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+            authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+            projectId: "tutorconnect-a9b1e",
+            storageBucket: "tutorconnect-a9b1e.appspot.com",
+            messagingSenderId: "511276105084",
+            appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+            measurementId: "G-7M72STVQKP"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Get DOM elements
+        const searchInput = document.getElementById('search-tutors');
+        const filterSubject = document.getElementById('filter-subject');
+        const maxRate = document.getElementById('max-rate');
+        const distanceFilter = document.getElementById('distance');
+        const sortBy = document.getElementById('sort-by');
+        const tutorsContainer = document.getElementById('tutors-container');
+        const tutorCountElement = document.getElementById('tutor-count');
+        const popularTagsContainer = document.getElementById('popular-tags-container');
+
+        let allTutors = []; // Store all tutors after initial fetch for client-side filtering
+
+
+        // Function to create a tutor card HTML
+        function createTutorCard(tutor) {
+            const avatarText = tutor.name ? tutor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'NA';
+            const subjectsHtml = (tutor.subject || '').split(',').map(s => s.trim()).filter(s => s)
+                .map(s => `<span class="tutor-tag">${s}</span>`).join('');
+
+            // Random review count for display purposes, replace with actual data if available
+            const reviews = Math.floor(Math.random() * 200) + 20; 
+            const rating = (Math.random() * (5 - 3) + 3).toFixed(1); // Random rating between 3.0 and 5.0
+            const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+
+            // Placeholder for distance as we don't have geo-queries in basic Firestore setup
+            const distance = (Math.random() * 10).toFixed(1); // Random distance up to 10 miles
+
+            return `
+                <div class="tutor-listing-card">
+                    <div class="flex items-start md:items-center">
+                        <img src="https://placehold.co/90x90/D1FAE5/047857?text=${avatarText}" alt="Tutor ${tutor.name}" class="tutor-listing-avatar">
+                        <div class="tutor-info">
+                            <h3 class="tutor-name">${tutor.name}</h3>
+                            <div class="tutor-rating">
+                                ${stars} <span class="text-gray-500 text-xs">(${reviews} reviews)</span>
+                            </div>
+                            <p class="tutor-hourly-rate">$${tutor.rate}/hr</p>
+                            <p class="tutor-description">${tutor.about || 'No description provided.'}</p>
+                            <div class="tutor-tags-list">
+                                ${subjectsHtml}
+                            </div>
+                            <div class="tutor-stats">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    ${tutor.experience} years experience
+                                </span>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    ${tutor.method === 'online' ? 'Online' : tutor.location ? distance + ' miles away' : 'Flexible Location'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tutor-actions">
+                        <a href="TutorP.html?uid=${tutor.id}" class="btn btn-outline">View Full Profile</a>
+                        <a href="#" class="btn btn-primary">Contact</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render tutors
+        function renderTutors(tutorsToRender) {
+            tutorsContainer.innerHTML = ''; // Clear previous listings
+            if (tutorsToRender.length === 0) {
+                tutorsContainer.innerHTML = '<p class="text-center text-gray-500 text-lg py-10">No tutors found matching your criteria. Try adjusting your search!</p>';
+            } else {
+                tutorsToRender.forEach((tutor, index) => {
+                    const card = createTutorCard(tutor);
+                    tutorsContainer.innerHTML += card;
+                });
+            }
+            tutorCountElement.textContent = `${tutorsToRender.length} Tutors Available`;
+        }
+
+        // Function to fetch tutors from Firestore
+        async function fetchTutors() {
+            try {
+                const tutorsCol = collection(db, "tutors");
+                const q = query(tutorsCol, orderBy("createdAt", "desc")); // Order by creation date, newest first
+                const querySnapshot = await getDocs(q);
+                allTutors = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                // --- DEBUGGING LINE ADDED HERE ---
+                console.log("Fetched Tutors:", allTutors); 
+                // --- END DEBUGGING LINE ---
+
+                applyFiltersAndSort(); // Apply filters/sort initially
+            } catch (error) {
+                console.error("Error fetching tutors: ", error);
+                tutorsContainer.innerHTML = '<p class="text-center text-red-500 text-lg py-10">Error loading tutors. Please try again later.</p>';
+            }
+        }
+
+        // Function to apply filters and sorting
+        function applyFiltersAndSort() {
+            let filteredTutors = [...allTutors];
+
+            // 1. Search by Name/Subject
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm) {
+                filteredTutors = filteredTutors.filter(tutor =>
+                    tutor.name.toLowerCase().includes(searchTerm) ||
+                    (tutor.subject && tutor.subject.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            // 2. Filter by Subject
+            const selectedSubject = filterSubject.value;
+            if (selectedSubject !== 'all') {
+                filteredTutors = filteredTutors.filter(tutor =>
+                    tutor.subject && tutor.subject.toLowerCase().includes(selectedSubject.toLowerCase())
+                );
+            }
+
+            // 3. Filter by Max Hourly Rate
+            const selectedMaxRate = parseFloat(maxRate.value);
+            if (!isNaN(selectedMaxRate) && maxRate.value !== 'any') { // Check if it's a valid number and not 'any'
+                filteredTutors = filteredTutors.filter(tutor =>
+                    tutor.rate && parseFloat(tutor.rate) <= selectedMaxRate
+                );
+            }
+
+            // 4. Sort
+            const currentSort = sortBy.value;
+            if (currentSort === 'rate-asc') {
+                filteredTutors.sort((a, b) => parseFloat(a.rate || 0) - parseFloat(b.rate || 0));
+            } else if (currentSort === 'rate-desc') {
+                filteredTutors.sort((a, b) => parseFloat(b.rate || 0) - parseFloat(a.rate || 0));
+            } else if (currentSort === 'experience') {
+                filteredTutors.sort((a, b) => (b.experience || 0) - (a.experience || 0));
+            }
+            // Add more sorting logic for 'rating' if you add a rating field to your tutor documents
+
+            renderTutors(filteredTutors);
+        }
+
+        // Event Listeners for Filters and Search
+        searchInput.addEventListener('input', applyFiltersAndSort);
+        filterSubject.addEventListener('change', applyFiltersAndSort);
+        maxRate.addEventListener('change', applyFiltersAndSort);
+        // distanceFilter.addEventListener('change', applyFiltersAndSort); // Distance filtering needs geo-query or more complex logic
+        sortBy.addEventListener('change', applyFiltersAndSort);
+
+        // Event listeners for popular tags
+        popularTagsContainer.addEventListener('click', (event) => {
+            if (event.target.classList.contains('popular-tag')) {
+                const tagText = event.target.textContent;
+                filterSubject.value = tagText; // Set the subject filter to the clicked tag
+                applyFiltersAndSort();
+            }
+        });
+
+
+        // Initial fetch and render when the page loads
+        document.addEventListener('DOMContentLoaded', fetchTutors);
+
+    </script>
 </body>
 </html>
