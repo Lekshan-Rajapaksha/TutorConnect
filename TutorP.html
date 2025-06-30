@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorConnect - Tutor Profile</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* Base font styles for Inter and Poppins */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Reusable container for content width */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header styles (reused from Findt.html) */
+        .main-header {
+            background-color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10B981;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .logo-icon-bg {
+            background-color: #D1FAE5;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #047857;
+        }
+        .main-nav a {
+            color: #4B5563;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .main-nav a:hover {
+            color: #10B981;
+            transform: translateY(-2px);
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        .btn-primary {
+            background-color: #10B981;
+            color: #fff;
+            border: 2px solid #10B981;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        .btn-primary:hover {
+            background-color: #047857;
+            border-color: #047857;
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5);
+            transform: translateY(-2px) scale(1.01);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #10B981;
+            color: #10B981;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+        .btn-outline:hover {
+            background-color: #D1FAE5;
+            color: #047857;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Profile specific styles */
+        .profile-container {
+            background-color: #fff;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 1px solid #E5E7EB;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+        @media (min-width: 1024px) {
+            .profile-container {
+                grid-template-columns: 1fr 2fr; /* Photo/summary on left, details on right */
+            }
+        }
+
+        .profile-sidebar {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 5px solid #10B981;
+            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3);
+        }
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1F2937;
+            line-height: 1.1;
+        }
+        .profile-tagline {
+            font-size: 1.125rem;
+            color: #4B5563;
+            font-weight: 500;
+        }
+        .profile-rate {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #047857;
+            background-color: #D1FAE5;
+            padding: 0.5rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #F59E0B;
+            font-size: 1.25rem;
+        }
+        .profile-rating span {
+            font-size: 1rem;
+            color: #6B7280;
+        }
+        
+        .profile-details-section {
+            background-color: #F9FAFB; /* Light background for detail cards */
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #F3F4F6;
+        }
+        .profile-details-section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        .profile-details-section p, .profile-details-section ul {
+            font-size: 1rem;
+            color: #4B5563;
+            line-height: 1.7;
+        }
+        .profile-details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .profile-details-list {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        .profile-details-list li {
+            background-color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        .profile-details-list li svg {
+            color: #10B981;
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .subject-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem; /* Adjusted for better spacing within the list item */
+        }
+        .subject-tag {
+            background-color: #E0F2F7; /* light blue-100 */
+            color: #06B6D4; /* cyan-600 */
+            padding: 0.4rem 0.8rem; /* Slightly smaller for tags */
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .profile-contact-actions {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .profile-contact-actions .btn {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            .profile-contact-actions {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+            .profile-contact-actions .btn {
+                width: auto;
+            }
+        }
+
+        /* Review section */
+        .reviews-section {
+            margin-top: 2.5rem;
+            background-color: #F9FAFB;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #F3F4F6;
+        }
+        .reviews-section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        .review-card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #E5E7EB;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .review-author {
+            font-weight: 600;
+            color: #374151;
+        }
+        .review-stars {
+            color: #F59E0B;
+        }
+        .review-date {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-top: 0.5rem;
+            display: block; /* To push date to new line if author is long */
+        }
+        .review-text {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6B7280;
+            transition: color 0.2s ease;
+        }
+        .modal-close-btn:hover {
+            color: #1F2937;
+        }
+        .modal-content h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #E5E7EB;
+            padding-bottom: 0.75rem;
+        }
+        .modal-content label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        .modal-content input[type="number"],
+        .modal-content textarea,
+        .modal-content input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #374151;
+        }
+        .modal-content textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .modal-content input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+        .rating-input {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        .rating-input button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #D1D5DB; /* Grey for unselected stars */
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.1s ease;
+        }
+        .rating-input button.selected {
+            color: #F59E0B; /* Amber for selected stars */
+        }
+        .rating-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Message Box styles */
+        #message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #10B981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 110;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        /* Footer styles (reused from Findt.html) */
+        .main-footer {
+            background: linear-gradient(to right, #047857, #10B981);
+            color: #fff;
+            padding: 4rem 0 2rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .footer-about .logo {
+            color: #fff;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+        .footer-about .logo-icon-bg {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .footer-about p {
+            font-size: 1rem;
+            color: #E5E7EB;
+        }
+        .footer-links h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #fff;
+            position: relative;
+        }
+        .footer-links h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #A7F3D0;
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 0.9rem;
+        }
+        .footer-links ul li a {
+            color: #E5E7EB;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+            color: #D1FAE5;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container { justify-content: center; flex-wrap: wrap; }
+            .logo { width: 100%; text-align: center; justify-content: center; margin-bottom: 1rem; }
+            .main-nav, .header-actions { display: none; } /* Hide navigation on small screens */
+            .profile-container { padding: 1.5rem; gap: 1.5rem; }
+            .profile-sidebar { gap: 1rem; }
+            .profile-name { font-size: 2rem; }
+            .profile-rate { font-size: 1.75rem; padding: 0.4rem 1.2rem; }
+            .profile-details-section { padding: 1.5rem; }
+            .profile-details-section h3 { font-size: 1.5rem; }
+            .profile-contact-actions { flex-direction: column; gap: 0.75rem; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-links h4::after { margin-left: auto; margin-right: auto; }
+        }
+    </style>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body class="flex flex-col">
+
+    <header class="main-header animate__animated animate__fadeInDown animate__faster">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                </div>
+                <span>TutorConnect</span>
+            </a>
+            <nav class="main-nav">
+                <a href="Findt.html">Find Tutors</a>
+            </nav>
+            <div class="header-actions">
+                <a href="StudentProfile.html" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
+                    My Profile <span class="ml-2">🧑‍🎓</span> 
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-8 flex-grow animate__animated animate__fadeInUp animate__slow">
+        <div id="tutor-profile-content" class="profile-container">
+            <p class="text-center text-gray-500 text-lg col-span-full py-10">Loading tutor profile...</p>
+        </div>
+
+        <div class="reviews-section animate__animated animate__fadeInUp animate__slow" style="animation-delay: 0.2s;">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="flex items-center gap-2">
+                    <span class="text-3xl">⭐</span> Reviews & Testimonials 
+                    <span id="reviews-count-display" class="text-gray-500 text-lg">(0)</span>
+                </h3>
+                <button id="add-review-btn" class="btn btn-primary btn-sm flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Add Review
+                </button>
+            </div>
+            <div id="reviews-container" class="space-y-4">
+                <!-- Reviews will be loaded here dynamically -->
+                <p class="text-center text-gray-500 py-4" id="no-reviews-message">No reviews yet. Be the first to leave one!</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer mt-10">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon-bg">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                        </div>
+                        <span>TutorConnect</span>
+                    </a>
+                    <p>Connecting students with qualified tutors for personalized learning experiences.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>For Students</h4>
+                    <ul>
+                        <li><a href="Findt.html">Find Tutors</a></li>
+                        <li><a href="#">Browse Subjects</a></li>
+                        <li><a href="#">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>For Tutors</h4>
+                    <ul>
+                        <li><a href="TutorSignup.html">Become a Tutor</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Tutor FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 TutorConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Review Submission Modal -->
+    <div id="review-modal" class="modal-overlay">
+        <div class="modal-content animate__animated animate__zoomIn animate__faster">
+            <button class="modal-close-btn" aria-label="Close review form">&times;</button>
+            <h3>Submit Your Review</h3>
+            <form id="review-form">
+                <input type="hidden" id="review-tutor-uid">
+                <label for="review-rating">Rating:</label>
+                <div id="rating-input" class="rating-input mb-4">
+                    <button type="button" data-rating="1">★</button>
+                    <button type="button" data-rating="2">★</button>
+                    <button type="button" data-rating="3">★</button>
+                    <button type="button" data-rating="4">★</button>
+                    <button type="button" data-rating="5">★</button>
+                </div>
+                <label for="review-comment">Comment:</label>
+                <textarea id="review-comment" rows="4" placeholder="Share your experience with this tutor..." required></textarea>
+                <button type="submit" class="btn btn-primary w-full mt-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Submit Review
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tutor Request Modal -->
+    <div id="request-modal" class="modal-overlay">
+        <div class="modal-content animate__animated animate__zoomIn animate__faster">
+            <button class="modal-close-btn" aria-label="Close request form">&times;</button>
+            <h3>Request a Trial Lesson</h3>
+            <form id="request-form">
+                <input type="hidden" id="request-tutor-uid">
+                <label for="request-name">Your Name:</label>
+                <input type="text" id="request-name" placeholder="Enter your name" required>
+
+                <label for="request-email">Your Email:</label>
+                <input type="email" id="request-email" placeholder="Enter your email" required>
+
+                <label for="request-subject">Subject of Interest:</label>
+                <input type="text" id="request-subject" placeholder="e.g., Mathematics, Physics" required>
+
+                <label for="request-message">Your Message to the Tutor:</label>
+                <textarea id="request-message" rows="5" placeholder="Tell the tutor about your learning goals, preferred times, etc." required></textarea>
+                <button type="submit" class="btn btn-primary w-full mt-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Send Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Message Box for notifications -->
+    <div id="message-box" class="hidden"></div>
+
+
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables for Firebase config and app ID
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            // Placeholder config if not provided by Canvas, replace with your actual Firebase config
+            apiKey: "YOUR_API_KEY", 
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
+        };
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        let currentTutorUid = null; // Store the current tutor's UID
+        let currentUserId = null; // Store the current authenticated user's UID
+
+        // Get DOM elements
+        const tutorProfileContent = document.getElementById('tutor-profile-content');
+        const reviewsContainer = document.getElementById('reviews-container');
+        const reviewsCountDisplay = document.getElementById('reviews-count-display');
+        const noReviewsMessage = document.getElementById('no-reviews-message');
+
+        // Modal Elements
+        const reviewModal = document.getElementById('review-modal');
+        const requestModal = document.getElementById('request-modal');
+        const addReviewBtn = document.getElementById('add-review-btn');
+        const scheduleTrialBtn = document.createElement('button'); // Will be added dynamically
+        const reviewForm = document.getElementById('review-form');
+        const requestForm = document.getElementById('request-form');
+        const ratingButtons = document.querySelectorAll('#rating-input button');
+        const reviewCommentInput = document.getElementById('review-comment');
+        const requestNameInput = document.getElementById('request-name');
+        const requestEmailInput = document.getElementById('request-email');
+        const requestSubjectInput = document.getElementById('request-subject');
+        const requestMessageInput = document.getElementById('request-message');
+        const messageBox = document.getElementById('message-box');
+
+        let selectedRating = 0; // To store the rating selected in the review form
+
+        /**
+         * Displays a message box with the given text and type.
+         * @param {string} message - The message to display.
+         * @param {string} type - 'success' or 'error'.
+         */
+        function showMessageBox(message, type = 'success') {
+            messageBox.textContent = message;
+            messageBox.className = ''; // Reset classes
+            messageBox.classList.add('fixed', 'top-20', 'left-1/2', '-translate-x-1/2', 'p-4', 'rounded-lg', 'shadow-lg', 'z-50', 'transition-all', 'duration-300');
+
+            if (type === 'success') {
+                messageBox.classList.add('bg-green-500', 'text-white');
+            } else if (type === 'error') {
+                messageBox.classList.add('bg-red-500', 'text-white');
+            } else {
+                messageBox.classList.add('bg-gray-700', 'text-white'); // Default for info
+            }
+
+            messageBox.classList.remove('hidden');
+            messageBox.classList.add('opacity-100', 'visible');
+
+            setTimeout(() => {
+                messageBox.classList.remove('opacity-100', 'visible');
+                messageBox.classList.add('opacity-0', 'hidden');
+            }, 3000); // Hide after 3 seconds
+        }
+
+        /**
+         * Opens a given modal overlay.
+         * @param {HTMLElement} modalElement - The modal overlay element.
+         */
+        function openModal(modalElement) {
+            modalElement.classList.add('open');
+        }
+
+        /**
+         * Closes a given modal overlay.
+         * @param {HTMLElement} modalElement - The modal overlay element.
+         */
+        function closeModal(modalElement) {
+            modalElement.classList.remove('open');
+        }
+
+        // Attach close listeners to all modal close buttons
+        document.querySelectorAll('.modal-close-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                closeModal(event.target.closest('.modal-overlay'));
+            });
+        });
+
+        // Close modal when clicking outside the content
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    closeModal(overlay);
+                }
+            });
+        });
+
+        /**
+         * Extracts the tutor UID from the URL query parameters.
+         * @returns {string|null} The tutor UID or null if not found.
+         */
+        function getTutorUidFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('uid');
+        }
+
+        /**
+         * Generates star rating HTML based on a numeric rating.
+         * @param {number} rating - The numerical rating (e.g., 4.5).
+         * @returns {string} HTML string for stars.
+         */
+        function getStarRatingHtml(rating) {
+            const fullStars = '★'.repeat(Math.floor(rating));
+            const halfStar = (rating % 1 >= 0.5) ? '½' : ''; // Optional: for half stars
+            const emptyStars = '☆'.repeat(5 - Math.ceil(rating));
+            return `<span class="text-amber-500">${fullStars}${halfStar}</span><span class="text-gray-300">${emptyStars}</span>`;
+        }
+
+        /**
+         * Renders the tutor profile details.
+         */
+        async function renderTutorProfile() {
+            currentTutorUid = getTutorUidFromUrl();
+
+            if (!currentTutorUid) {
+                tutorProfileContent.innerHTML = `
+                    <p class="text-center text-red-500 text-lg col-span-full py-10">
+                        Error: Tutor ID not found in URL.
+                    </p>
+                `;
+                return;
+            }
+
+            try {
+                const tutorDocRef = doc(db, `artifacts/${appId}/public/data/tutors`, currentTutorUid);
+                const tutorDocSnap = await getDoc(tutorDocRef);
+
+                if (tutorDocSnap.exists()) {
+                    const tutor = { id: tutorDocSnap.id, ...tutorDocSnap.data() };
+                    
+                    // Generate avatar text (initials)
+                    const avatarText = tutor.name ? tutor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'NA';
+                    // Split subjects into an array and create tags
+                    const subjects = tutor.subject ? tutor.subject.split(',').map(s => s.trim()).filter(s => s) : [];
+                    const subjectsHtml = subjects.map(s => `<span class="subject-tag">${s}</span>`).join('');
+
+                    // Dynamically create the Schedule Trial button
+                    scheduleTrialBtn.textContent = 'Schedule Trial';
+                    scheduleTrialBtn.classList.add('btn', 'btn-outline', 'w-full');
+                    scheduleTrialBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Schedule Trial
+                    `;
+                    scheduleTrialBtn.addEventListener('click', () => {
+                        if (currentUserId) {
+                             openModal(requestModal);
+                             document.getElementById('request-tutor-uid').value = currentTutorUid;
+                        } else {
+                            showMessageBox("Please sign in to schedule a trial.", "error");
+                        }
+                    });
+
+                    tutorProfileContent.innerHTML = `
+                        <div class="profile-sidebar">
+                            <img src="${tutor.profilePicUrl || 'https://placehold.co/150x150/D1FAE5/047857?text=' + avatarText}" 
+                                alt="Tutor ${tutor.name}" class="profile-avatar">
+                            <h2 class="profile-name">${tutor.name}</h2>
+                            <p class="profile-tagline">${tutor.education.split(';')[0].trim() || 'Experienced Educator'}</p>
+                            <p class="profile-rate">$${tutor.rate}/hr</p>
+                            <div class="profile-rating" id="tutor-average-rating">
+                                <!-- Stars will be updated by listener -->
+                                <span class="text-gray-500 text-base">(Loading reviews...)</span>
+                            </div>
+                            <button class="btn btn-primary mt-4 w-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 4v-4z" />
+                                </svg>
+                                Message Tutor
+                            </button>
+                            <!-- Schedule trial button appended here -->
+                        </div>
+
+                        <div>
+                            <div class="profile-details-section mb-6">
+                                <h3><span class="text-2xl">📖</span> About Me</h3>
+                                <p>${tutor.about || 'This tutor has not provided a detailed biography yet.'}</p>
+                            </div>
+
+                            <div class="profile-details-section mb-6">
+                                <h3><span class="text-2xl">📚</span> Teaching Expertise</h3>
+                                <ul class="profile-details-list">
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.208 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.792 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.792 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.208 18 16.5 18s-3.332.477-4.5 1.253" />
+                                        </svg>
+                                        <strong>Subjects:</strong>
+                                        <div class="subject-tags-container">${subjectsHtml || 'Not specified'}</div>
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <strong>Experience:</strong> ${tutor.experience || 0} years
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                                        </svg>
+                                        <strong>Education:</strong> ${tutor.education || 'Not specified'}
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-5-4v6m4-2H8m4 0a2 2 0 100-4 2 2 0 000 4zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <strong>Teaching Method:</strong> ${tutor.method ? tutor.method.charAt(0).toUpperCase() + tutor.method.slice(1) : 'Not specified'}
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <strong>Availability:</strong> ${tutor.availability || 'Not specified'}
+                                    </li>
+                                    ${tutor.method !== 'online' && tutor.location ? `
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <strong>Location:</strong> ${tutor.location}
+                                    </li>` : ''}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    // Append the schedule trial button after the message tutor button
+                    tutorProfileContent.querySelector('.profile-sidebar').appendChild(scheduleTrialBtn);
+
+                    // Start listening for reviews
+                    listenForTutorReviews(currentTutorUid);
+
+                } else {
+                    tutorProfileContent.innerHTML = `
+                        <p class="text-center text-gray-500 text-lg col-span-full py-10">
+                            Tutor not found. Please check the ID.
+                        </p>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error fetching tutor profile:", error);
+                tutorProfileContent.innerHTML = `
+                    <p class="text-center text-red-500 text-lg col-span-full py-10">
+                        Error loading tutor profile. Please try again later.
+                    </p>
+                `;
+            }
+        }
+
+        /**
+         * Listens for real-time updates to reviews for the current tutor.
+         * @param {string} tutorUid - The UID of the tutor.
+         */
+        function listenForTutorReviews(tutorUid) {
+            const reviewsColRef = collection(db, `artifacts/${appId}/public/data/tutors/${tutorUid}/reviews`);
+            onSnapshot(reviewsColRef, (snapshot) => {
+                const reviews = [];
+                let totalRating = 0;
+                snapshot.forEach(doc => {
+                    const review = doc.data();
+                    reviews.push(review);
+                    totalRating += review.rating || 0;
+                });
+
+                reviewsContainer.innerHTML = ''; // Clear existing reviews
+                if (reviews.length > 0) {
+                    noReviewsMessage.classList.add('hidden');
+                    reviews.forEach(review => {
+                        const reviewDate = review.timestamp?.toDate ? review.timestamp.toDate().toLocaleDateString() : 'N/A';
+                        reviewsContainer.innerHTML += `
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <div class="review-author">${review.reviewerName || 'Anonymous'}</div>
+                                    <div class="review-stars">${getStarRatingHtml(review.rating || 0)}</div>
+                                </div>
+                                <p class="review-text">"${review.comment || 'No comment provided.'}"</p>
+                                <p class="review-date">${reviewDate}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    noReviewsMessage.classList.remove('hidden');
+                }
+
+                const averageRating = reviews.length > 0 ? (totalRating / reviews.length) : 0;
+                reviewsCountDisplay.textContent = `(${reviews.length})`;
+                document.getElementById('tutor-average-rating').innerHTML = `
+                    ${getStarRatingHtml(averageRating)} 
+                    <span class="text-gray-500 text-base">(${averageRating.toFixed(1)} average based on ${reviews.length} reviews)</span>
+                `;
+            }, (error) => {
+                console.error("Error listening to reviews:", error);
+                reviewsContainer.innerHTML = `<p class="text-center text-red-500 py-4">Error loading reviews.</p>`;
+            });
+        }
+
+        // Event listener for "Add Review" button
+        addReviewBtn.addEventListener('click', () => {
+            if (currentUserId) {
+                document.getElementById('review-tutor-uid').value = currentTutorUid;
+                selectedRating = 0; // Reset selected rating
+                ratingButtons.forEach(btn => btn.classList.remove('selected')); // Clear star selection
+                reviewCommentInput.value = ''; // Clear comment
+                openModal(reviewModal);
+            } else {
+                showMessageBox("Please sign in to add a review.", "error");
+            }
+        });
+
+        // Event listeners for rating stars in the review modal
+        ratingButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                selectedRating = parseInt(button.dataset.rating);
+                ratingButtons.forEach(btn => {
+                    if (parseInt(btn.dataset.rating) <= selectedRating) {
+                        btn.classList.add('selected');
+                    } else {
+                        btn.classList.remove('selected');
+                    }
+                });
+            });
+        });
+
+        // Review form submission handler
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!currentUserId) {
+                showMessageBox("You must be signed in to submit a review.", "error");
+                return;
+            }
+            if (selectedRating === 0) {
+                showMessageBox("Please select a star rating.", "error");
+                return;
+            }
+
+            const tutorId = document.getElementById('review-tutor-uid').value;
+            const comment = reviewCommentInput.value.trim();
+
+            if (!tutorId || !comment) {
+                showMessageBox("Please fill in all review fields.", "error");
+                return;
+            }
+
+            try {
+                // Fetch student name (optional, but good for display)
+                const studentDocRef = doc(db, `artifacts/${appId}/users/${currentUserId}/students`, currentUserId);
+                const studentDocSnap = await getDoc(studentDocRef);
+                const reviewerName = studentDocSnap.exists() && studentDocSnap.data().name ? studentDocSnap.data().name : 'Anonymous';
+
+                await addDoc(collection(db, `artifacts/${appId}/public/data/tutors/${tutorId}/reviews`), {
+                    tutorId: tutorId,
+                    studentId: currentUserId,
+                    reviewerName: reviewerName,
+                    rating: selectedRating,
+                    comment: comment,
+                    timestamp: serverTimestamp()
+                });
+                showMessageBox("Review submitted successfully!");
+                closeModal(reviewModal);
+            } catch (error) {
+                console.error("Error submitting review:", error);
+                showMessageBox("Failed to submit review. Please try again.", "error");
+            }
+        });
+
+        // Request form submission handler
+        requestForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!currentUserId) {
+                showMessageBox("You must be signed in to send a request.", "error");
+                return;
+            }
+
+            const tutorId = document.getElementById('request-tutor-uid').value;
+            const studentName = requestNameInput.value.trim();
+            const studentEmail = requestEmailInput.value.trim();
+            const subject = requestSubjectInput.value.trim();
+            const message = requestMessageInput.value.trim();
+
+            if (!tutorId || !studentName || !studentEmail || !subject || !message) {
+                showMessageBox("Please fill in all request fields.", "error");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, `artifacts/${appId}/public/data/tutorRequests`), {
+                    tutorId: tutorId,
+                    studentId: currentUserId, // The authenticated user's ID
+                    studentName: studentName,
+                    studentEmail: studentEmail,
+                    subject: subject,
+                    message: message,
+                    status: 'pending', // Initial status
+                    timestamp: serverTimestamp()
+                });
+                showMessageBox("Trial request sent successfully!");
+                closeModal(requestModal);
+                requestForm.reset(); // Clear form
+            } catch (error) {
+                console.error("Error sending trial request:", error);
+                showMessageBox("Failed to send trial request. Please try again.", "error");
+            }
+        });
+
+        // Firebase Auth State Listener
+        // This will set currentUserId once authenticated and then render the profile
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserId = user.uid;
+                // You can fetch student profile details here if needed to pre-fill request form
+                const studentDocRef = doc(db, `artifacts/${appId}/users/${currentUserId}/students`, currentUserId);
+                const studentDocSnap = await getDoc(studentDocRef);
+                if (studentDocSnap.exists()) {
+                    const studentData = studentDocSnap.data();
+                    requestNameInput.value = studentData.name || '';
+                    requestEmailInput.value = studentData.email || '';
+                }
+                renderTutorProfile(); // Render profile once authenticated
+            } else {
+                // If no user is authenticated, attempt to sign in.
+                // Try custom token first, then fall back to anonymous.
+                if (initialAuthToken) {
+                    try {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                        // If successful, onAuthStateChanged will be triggered again with the user object
+                        return; // Exit here, let the next onAuthStateChanged call handle the user state
+                    } catch (customTokenError) {
+                        console.error("Error with custom token sign-in (auth/invalid-claims likely):", customTokenError);
+                        // Fallback to anonymous sign-in if custom token fails
+                        try {
+                            await signInAnonymously(auth);
+                            // If successful, onAuthStateChanged will be triggered again with the user object
+                            return; // Exit here
+                        } catch (anonError) {
+                            console.error("Error during anonymous sign-in:", anonError);
+                            showMessageBox("Could not authenticate. Some features may be limited.", "error");
+                        }
+                    }
+                } else {
+                    // If no initial token, sign in anonymously
+                    try {
+                        await signInAnonymously(auth);
+                        // If successful, onAuthStateChanged will be triggered again with the user object
+                        return; // Exit here
+                    } catch (anonError) {
+                        console.error("Error during anonymous sign-in:", anonError);
+                        showMessageBox("Could not authenticate. Some features may be limited.", "error");
+                    }
+                }
+                
+                // If, after all attempts, current user is still null, proceed to render with limited features
+                currentUserId = null; 
+                renderTutorProfile(); // Render profile even if authentication failed
+            }
+        });
+
+    </script>
+</body>
+</html>
