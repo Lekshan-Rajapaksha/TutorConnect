@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorConnect - My Tutor Profile</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Animate.css for subtle animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* Base styles for Poppins and Inter fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .main-header {
+            background-color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10B981;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon-bg {
+            background-color: #D1FAE5;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #047857;
+        }
+
+        .main-nav a {
+            color: #4B5563;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .main-nav a:hover {
+            color: #10B981;
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        .btn-primary {
+            background-color: #10B981;
+            color: #fff;
+            border: 2px solid #10B981;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #047857;
+            border-color: #047857;
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #10B981;
+            color: #10B981;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+        .btn-outline:hover {
+            background-color: #D1FAE5;
+            color: #047857;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .profile-card {
+            background-color: #fff;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 1px solid #E5E7EB;
+            margin-top: 2.5rem;
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 5px solid #10B981;
+            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+        }
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .info-block {
+            background-color: #F9FAFB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .info-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-block h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6B7280;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-block p, .info-block ul {
+            font-size: 1.05rem;
+            color: #1F2937;
+        }
+        .info-block ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+        .info-block ul li {
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-block ul li::before {
+            content: '👉'; /* Custom bullet point */
+            font-size: 0.8em;
+            line-height: 1;
+        }
+
+        .stat-card {
+            background-color: #EBF8F5; /* Light green background */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background-color: #D1FAE5; /* Slightly darker green on hover */
+        }
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #047857; /* Dark green for value */
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card .label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #374151; /* Dark gray for label */
+        }
+
+        /* Student request specific styling */
+        .request-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #E5E7EB;
+        }
+        .request-item:last-child {
+            border-bottom: none;
+        }
+        .request-item .name {
+            font-weight: 600;
+            color: #1F2937;
+            flex-grow: 1;
+        }
+        .request-item .subject {
+            font-size: 0.9em;
+            color: #6B7280;
+            margin-left: 0.5rem;
+        }
+        .request-item .action-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 0.5rem;
+            margin-left: 1rem;
+        }
+        .request-item .action-btn-primary {
+            background-color: #10B981;
+            color: #fff;
+            transition: background-color 0.2s ease;
+        }
+        .request-item .action-btn-primary:hover {
+            background-color: #047857;
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-nav { display: none; }
+            .header-actions { margin-left: auto; }
+            .profile-card { padding: 1.5rem; }
+            .profile-header { flex-direction: column; text-align: center; }
+            .profile-avatar { margin-bottom: 1.5rem; }
+            .stat-card { padding: 1rem; } /* Smaller padding on mobile */
+            .stat-card .value { font-size: 2rem; } /* Smaller value font on mobile */
+            .stat-card .label { font-size: 0.9rem; } /* Smaller label font on mobile */
+            .main-content-sections {
+                grid-template-columns: 1fr; /* Stack on mobile */
+            }
+            .main-content-sections > div {
+                grid-column: span 1 / span 1; /* Ensure full width for sections on mobile */
+            }
+        }
+
+        /* Footer Specific Styles */
+        .main-footer {
+            background: linear-gradient(to right, #047857, #10B981);
+            color: #fff;
+            padding: 4rem 0 2rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about .logo {
+            color: #fff;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+        .footer-about .logo-icon-bg {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .footer-about p {
+            font-size: 1rem;
+            color: #E5E7EB;
+        }
+
+        .footer-links h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #fff;
+            position: relative;
+        }
+        .footer-links h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #A7F3D0;
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links ul li a {
+            color: #E5E7EB;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+            color: #D1FAE5;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-links h4::after {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+
+    <header class="main-header animate__animated animate__fadeInDown animate__faster">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                </div>
+                <span>TutorConnect</span>
+            </a>
+            <nav class="main-nav">
+                <!-- Removed "Find Tutors" from main navigation -->
+                <a href="tutor_search_page.html">Find Tutors</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
+                    My Profile <span class="ml-2">👨‍🏫</span> 
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-8 flex-grow">
+        <section class="profile-card animate__animated animate__fadeInUp">
+            <div class="profile-header flex items-center gap-6 mb-8 pb-6 border-b border-gray-200">
+                <img src="https://placehold.co/150x150/047857/D1FAE5?text=Tutor" alt="Tutor Profile Picture" class="profile-avatar">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Welcome, <span class="text-green-600">Jane Doe!</span> ✨</h1>
+                    <p class="text-lg text-gray-600">Your personalized dashboard to manage students and teaching requests.</p>
+                </div>
+            </div>
+
+            <!-- Tutor Dashboard Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stat-card">
+                    <div class="value">5</div>
+                    <div class="label">New Messages ✉️</div>
+                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Messages...')">View Messages</button>
+                </div>
+                <div class="stat-card">
+                    <div class="value">2</div>
+                    <div class="label">New Requests 📝</div>
+                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Teaching Requests...')">Manage Requests</button>
+                </div>
+                <div class="stat-card">
+                    <div class="value">4.8</div>
+                    <div class="label">Avg. Rating ⭐</div>
+                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Reviews...')">View Reviews</button>
+                </div>
+                <div class="stat-card">
+                    <div class="value">25</div>
+                    <div class="label">Students Taught 🧑‍🎓</div>
+                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Student List...')">View Students</button>
+                </div>
+            </div>
+
+            <!-- Main Content Sections (Personal/Teaching Details and Student Requests) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 flex flex-col gap-8">
+                    <!-- Personal Details Section -->
+                    <div class="info-block">
+                        <h5><span class="text-xl">🌟</span> My Information</h5>
+                        <p><span class="font-medium text-gray-700">Email:</span> jane.doe@example.com</p>
+                        <p><span class="font-medium text-gray-700">Tutor ID:</span> TC-T-00456</p>
+                        <p><span class="font-medium text-gray-700">Member Since:</span> March 2023</p>
+                        <div class="mt-4 flex gap-4">
+                            <button class="btn btn-primary">Edit Profile</button>
+                            <button class="btn btn-outline">Change Password</button>
+                        </div>
+                    </div>
+
+                    <!-- Teaching Details Section -->
+                    <div class="info-block">
+                        <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
+                        <p><span class="font-medium text-gray-700">Subjects:</span> Mathematics, Calculus, Algebra, Geometry</p>
+                        <p><span class="font-medium text-gray-700">Years Exp:</span> 8 years</p>
+                        <p><span class="font-medium text-gray-700">Qualifications:</span> M.S. in Mathematics, University of Moratuwa</p>
+                        <p><span class="font-medium text-gray-700">Hourly Rate:</span> $1500/hr</p>
+                        <p><span class="font-medium text-gray-700">Teaching Method:</span> Online, In-Person</p>
+                        <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> Weekdays 4 PM - 8 PM, Weekends 10 AM - 5 PM (GMT+8)</p>
+                        <div class="mt-4">
+                            <button class="btn btn-primary">Update Teaching Info</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Teaching Requests Section -->
+                <div class="lg:col-span-1">
+                    <div class="info-block h-full flex flex-col">
+                        <h5><span class="text-xl">🔔</span> Student Teaching Requests</h5>
+                        <div class="flex-grow overflow-y-auto pr-2">
+                            <!-- Scrollable area for requests -->
+                            <div class="request-item">
+                                <span class="name">John Smith</span>
+                                <span class="subject text-gray-500"> - Physics (11th Grade)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                            <div class="request-item">
+                                <span class="name">Emily Chen</span>
+                                <span class="subject text-gray-500"> - Calculus I (College)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                            <div class="request-item">
+                                <span class="name">David Lee</span>
+                                <span class="subject text-gray-500"> - Algebra II (9th Grade)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                            <div class="request-item">
+                                <span class="name">Sophia Rao</span>
+                                <span class="subject text-gray-500"> - Chemistry (10th Grade)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                            <div class="request-item">
+                                <span class="name">Daniel Kim</span>
+                                <span class="subject text-gray-500"> - Geometry (8th Grade)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                             <div class="request-item">
+                                <span class="name">Olivia Green</span>
+                                <span class="subject text-gray-500"> - Pre-Algebra (7th Grade)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                            <div class="request-item">
+                                <span class="name">Liam Brown</span>
+                                <span class="subject text-gray-500"> - AP Physics (12th Grade)</span>
+                                <button class="action-btn action-btn-primary">View</button>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <button class="btn btn-primary w-full py-2 px-4 text-sm" onclick="alert('Navigating to all requests...')">View All Requests</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <button class="btn btn-outline text-red-500 hover:bg-red-50 hover:text-red-700 border-red-300 hover:border-red-400">
+                    Sign Out <span class="ml-2">🚪</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer mt-10">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon-bg">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                        </div>
+                        <span>TutorConnect</span>
+                    </a>
+                    <p>Connecting students with qualified tutors for personalized learning experiences.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>For Students</h4>
+                    <ul>
+                        <li><a href="#">Find Tutors</a></li>
+                        <li><a href="#">Browse Subjects</a></li>
+                        <li><a href="#">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>For Tutors</h4>
+                    <ul>
+                        <li><a href="#">Become a Tutor</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Tutor FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 TutorConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+    authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+    projectId: "tutorconnect-a9b1e",
+    storageBucket: "tutorconnect-a9b1e.appspot.com",
+    messagingSenderId: "511276105084",
+    appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+    measurementId: "G-7M72STVQKP"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const docRef = doc(db, "tutors", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        // Populate profile page
+        document.querySelector(".text-green-600").textContent = data.name;
+        document.querySelector(".info-block p:nth-child(2)").innerHTML = `<span class="font-medium text-gray-700">Email:</span> ${data.email}`;
+        document.querySelector(".info-block p:nth-child(4)").innerHTML = `<span class="font-medium text-gray-700">Member Since:</span> ${data.createdAt.toDate().toDateString()}`;
+
+        // Teaching details
+        const teachingBlock = document.querySelectorAll(".info-block")[1];
+        teachingBlock.innerHTML = `
+          <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
+          <p><span class="font-medium text-gray-700">Subjects:</span> ${data.subjects}</p>
+          <p><span class="font-medium text-gray-700">Years Exp:</span> ${data.experience}</p>
+          <p><span class="font-medium text-gray-700">Qualifications:</span> ${data.qualifications}</p>
+          <p><span class="font-medium text-gray-700">Hourly Rate:</span> ${data.hourlyRate}</p>
+          <p><span class="font-medium text-gray-700">Teaching Method:</span> ${data.method}</p>
+          <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> ${data.availability}</p>
+          <div class="mt-4"><button class="btn btn-primary">Update Teaching Info</button></div>
+        `;
+      } else {
+        alert("❌ Tutor data not found.");
+      }
+    } else {
+      window.location.href = "1.html"; // Redirect to login if not logged in
+    }
+  });
+</script>
+
+</body>
+</html>
