@@ -9,44 +9,40 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Animate.css for subtle animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" rel="stylesheet">
 
     <style>
         /* Base styles for Poppins and Inter fonts */
         body {
             font-family: 'Inter', sans-serif;
-            /* Enhanced background with a subtle, dynamic gradient for a modern feel */
-            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed); /* Lighter, more appealing gradient */
+            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed);
             color: #333;
             line-height: 1.6;
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden; /* Prevent horizontal scroll on small devices */
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Reusable container for content width */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
 
-        /* Header styles (reused from previous version) */
         .main-header {
             background-color: #fff;
             padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Slightly stronger shadow */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
-            z-index: 50; /* Ensure header stays on top */
+            z-index: 50;
         }
 
         .nav-container {
@@ -61,41 +57,40 @@
             gap: 0.5rem;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #10B981; /* green-500 */
+            color: #10B981;
             text-decoration: none;
             transition: transform 0.2s ease;
         }
         .logo:hover {
-            transform: scale(1.05); /* More noticeable hover effect */
+            transform: scale(1.05);
         }
 
         .logo-icon-bg {
-            background-color: #D1FAE5; /* green-100 */
+            background-color: #D1FAE5;
             padding: 0.5rem;
-            border-radius: 9999px; /* full rounded */
+            border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #047857; /* green-700 */    
+            color: #047857;   
         }
 
         .main-nav a {
-            color: #4B5563; /* gray-600 */
+            color: #4B5563;
             text-decoration: none;
             margin-left: 1.5rem;
             font-weight: 500;
-            transition: color 0.3s ease, transform 0.2s ease; /* Added transform for hover */
+            transition: color 0.3s ease, transform 0.2s ease;
         }
 
         .main-nav a:hover {
-            color: #10B981; /* green-500 */
-            transform: translateY(-2px); /* Subtle lift on hover */
+            color: #10B981;
+            transform: translateY(-2px);
         }
 
-        /* Common button styles */
         .btn {
             padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem; /* Slightly more rounded buttons */
+            border-radius: 0.75rem;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -103,191 +98,120 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            transform: translateZ(0); /* For smoother animation on hover */
-            backface-visibility: hidden;
-            perspective: 1000px;
         }
-
         .btn-primary {
-            background-color: #10B981; /* green-500 */
+            background-color: #10B981;
             color: #fff;
             border: 2px solid #10B981;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); /* Stronger initial shadow */
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
         }
-
         .btn-primary:hover {
-            background-color: #047857; /* green-700 */
+            background-color: #047857;
             border-color: #047857;
-            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5); /* Even stronger shadow on hover */
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5);
             transform: translateY(-2px) scale(1.01);
         }
-
         .btn-outline {
             background-color: transparent;
             border: 2px solid #10B981;
             color: #10B981;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
         }
         .btn-outline:hover {
             background-color: #D1FAE5;
             color: #047857;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
             transform: translateY(-2px);
         }
 
-        /* Hero Section (removed by user request, but keeping styles for reference in case it's re-added) */
-        .hero-section {
-            background: linear-gradient(to right, #047857, #10B981);
-            color: #fff;
-            padding: 4rem 1rem;
-            border-radius: 1.5rem;
-            margin-top: 1.5rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-            animation: fadeInZoom 0.8s ease-out forwards;
-        }
-        @keyframes fadeInZoom {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .hero-section h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
-        .hero-section p {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin: 0 auto 2rem auto;
-            opacity: 0.9;
-        }
-
-        /* Unique styles for the search/filter section */
+        /* New Search Filter Section Styles */
         .search-filter-section {
-            background-color: #fff;
-            border-radius: 1.5rem; /* More rounded corners for the section */
-            padding: 1rem 2.5rem; /* Adjusted padding to half height */
-            margin-top: 0; /* Adjusted margin to move to top */
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* More pronounced shadow */
+            background: linear-gradient(135deg, #ffffff, #f0f4f8);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-top: 2.5rem;
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+        }
+
+        .search-heading {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1F2937;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .filter-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .filter-group {
             position: relative;
-            z-index: 10;
-            border: 1px solid #E5E7EB; /* Subtle border */
-            animation: fadeInDown 1s ease-out forwards; /* Changed animation to fadeInDown */
         }
 
-        .search-input-group {
-            position: relative;
-        }
-
-        .search-input-group input {
-            padding-left: 3rem; /* More space for icon */
-            padding-right: 1.5rem; /* Consistent padding */
-            padding-top: 0.8rem; /* Taller input field */
-            padding-bottom: 0.8rem; /* Taller input field */
-            border-radius: 0.75rem; /* More rounded input */
-            border: 1px solid #D1D5DB; /* gray-300 */
-            transition: all 0.3s ease; /* Smoother transition */
-            font-size: 1.05rem; /* Slightly larger font */
-        }
-        .search-input-group input:focus {
-            border-color: #10B981;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3); /* Stronger focus shadow */
-            outline: none;
-        }
-        .search-input-group svg {
-            position: absolute;
-            left: 1rem; /* Adjust icon position */
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9CA3AF; /* gray-400 */
-            transition: color 0.3s ease;
-        }
-        .search-input-group input:focus + svg {
-            color: #10B981; /* Icon color changes on focus */
-        }
-
-        .filter-dropdown select {
-            width: 100%;
-            padding: 0.8rem 1rem; /* Taller dropdown */
-            border-radius: 0.75rem; /* More rounded dropdown */
-            border: 1px solid #D1D5DB;
-            background-color: #fff;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1.5em;
-            transition: all 0.3s ease;
-            font-size: 1.05rem; /* Slightly larger font */
-        }
-        .filter-dropdown select:focus {
-            border-color: #10B981;
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
-            outline: none;
-        }
-
-        .popular-tag {
-            background-color: #E0F2F7; /* light blue-100 for a fresh look */
-            color: #06B6D4; /* cyan-600 */
-            padding: 0.15rem 0.7rem; /* Adjusted padding to half height */
-            border-radius: 9999px;
+        .filter-label {
+            display: block;
+            font-size: 0.875rem;
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent; /* Added for hover effect */
-            font-size: 0.75rem; /* Adjusted font size for smaller tags */
-        }
-        .popular-tag:hover {
-            background-color: #CFF9FE; /* lighter blue on hover */
-            transform: translateY(-3px) scale(1.02); /* More dynamic lift and scale */
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            border-color: #06B6D4; /* cyan-600 border on hover */
+            color: #4B5563;
+            margin-bottom: 0.5rem;
         }
 
-        /* Main content area */
+        .filter-input, .ss-main {
+            width: 100%;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            color: #1F2937;
+            background-color: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .filter-input:focus, .ss-main.ss-open-above, .ss-main.ss-open-below {
+            outline: none;
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        
         .main-content-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2.5rem; /* Increased gap */
+            gap: 2.5rem;
             margin-top: 2.5rem;
-            flex-grow: 1; /* Allow content to grow and take available space */
+            flex-grow: 1;
         }
-        @media (min-width: 1024px) { /* Lg screens and up */
+        @media (min-width: 1024px) {
             .main-content-grid {
-                grid-template-columns: 3fr 2fr; /* Map takes 3 parts, tutors take 2 parts */
+                grid-template-columns: 3fr 2fr;
             }
         }
 
-        /* Map section */
         .map-section {
-            background-color: #e0e0e0; /* Placeholder background */
-            border-radius: 1.5rem; /* More rounded corners */
+            background-color: #e0e0e0;
+            border-radius: 1.5rem;
             overflow: hidden;
             position: relative;
-            min-height: 500px; /* Increased map height */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Stronger shadow */
+            min-height: 500px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #E5E7EB; /* Subtle border */
-            animation: fadeInScale 0.8s ease-out forwards; /* Custom animation */
+            border: 1px solid #E5E7EB;
         }
-        /* Custom animation for map section */
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
         .map-section img {
             width: 100%;
             height: 100%;
@@ -296,398 +220,60 @@
             top: 0;
             left: 0;
         }
-        .map-overlay {
-            position: absolute;
-            background-color: rgba(16, 185, 129, 0.25); /* Slightly less transparent green */
-            border: 3px dashed #10B981; /* Thicker dashed border */
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #047857;
-            font-size: 1rem; /* Slightly larger text */
-            pointer-events: none;
-            opacity: 0.9;
-            animation: pulse 2s infinite ease-in-out; /* Pulsing animation for overlay */
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.02); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.9; }
-        }
 
-        .map-overlay-large {
-            width: 85%; /* Slightly larger overlay */
-            height: 85%;
-        }
-
-        .map-marker {
-            position: absolute;
-            background-color: #EF4444; /* red-500 */
-            width: 14px; /* Slightly larger markers */
-            height: 14px;
-            border-radius: 50%;
-            border: 3px solid #fff; /* Thicker white border */
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5); /* Stronger glow */
-            cursor: pointer;
-            transition: all 0.2s ease;
-            animation: bounceIn 0.8s forwards; /* Animation for markers */
-            opacity: 0; /* Start hidden for animation */
-        }
-        .map-marker:hover {
-            transform: scale(1.8); /* More pronounced scale on hover */
-            box-shadow: 0 0 0 5px rgba(239, 68, 68, 0.8);
-        }
-        /* Animation for markers (delay for stagger effect) */
-        .map-marker:nth-child(1) { animation-delay: 0.1s; }
-        .map-marker:nth-child(2) { animation-delay: 0.2s; }
-        .map-marker:nth-child(3) { animation-delay: 0.3s; }
-        .map-marker:nth-child(4) { animation-delay: 0.4s; }
-        .map-marker:nth-child(5) { animation-delay: 0.5s; }
-        .map-marker:nth-child(6) { animation-delay: 0.6s; }
-
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        /* Positioning example markers */
-        .marker-1 { top: 20%; left: 30%; }
-        .marker-2 { top: 40%; left: 60%; }
-        .marker-3 { top: 60%; left: 25%; }
-        .marker-4 { top: 35%; left: 45%; }
-        .marker-5 { top: 50%; left: 70%; }
-        .marker-6 { top: 75%; left: 50%; }
-
-        /* Tutor listings section */
         .tutor-listings {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            max-height: calc(100vh - 400px); /* Adjusted height to account for new filters */
-            overflow-y: auto; /* Enable vertical scrolling */
-            padding-right: 0.75rem; /* More space for scrollbar */
+            max-height: calc(100vh - 350px);
+            overflow-y: auto;
+            padding-right: 0.75rem;
         }
-        /* Style for scrollbar - Webkit browsers */
-        .tutor-listings::-webkit-scrollbar {
-            width: 10px; /* Thicker scrollbar */
-        }
-        .tutor-listings::-webkit-scrollbar-track {
-            background: #E5E7EB; /* Light gray track */
-            border-radius: 10px;
-        }
-        .tutor-listings::-webkit-scrollbar-thumb {
-            background: #9CA3AF; /* Darker gray thumb */
-            border-radius: 10px;
-        }
-        .tutor-listings::-webkit-scrollbar-thumb:hover {
-            background: #6B7280; /* Even darker on hover */
-        }
-
+        .tutor-listings::-webkit-scrollbar { width: 10px; }
+        .tutor-listings::-webkit-scrollbar-track { background: #E5E7EB; border-radius: 10px; }
+        .tutor-listings::-webkit-scrollbar-thumb { background: #9CA3AF; border-radius: 10px; }
+        .tutor-listings::-webkit-scrollbar-thumb:hover { background: #6B7280; }
 
         .tutor-listing-card {
             background-color: #fff;
-            border-radius: 1.25rem; /* More rounded cards */
-            padding: 1rem 2rem; /* Reduced vertical padding to halve height */
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Stronger initial shadow */
+            border-radius: 1.25rem;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
             transition: all 0.3s ease;
             position: relative;
-            border: 1px solid #F3F4F6; /* Subtle light border */
-            animation: fadeInRight 0.6s ease-out forwards; /* Custom entry animation */
-            opacity: 0; /* Start hidden for animation */
+            border: 1px solid #F3F4F6;
         }
-        /* Staggered animation for tutor cards */
-        .tutor-listing-card:nth-child(1) { animation-delay: 0.1s; }
-        .tutor-listing-card:nth-child(2) { animation-delay: 0.2s; }
-        .tutor-listing-card:nth-child(3) { animation-delay: 0.3s; }
-        .tutor-listing-card:nth-child(4) { animation-delay: 0.4s; }
-        .tutor-listing-card:nth-child(5) { animation-delay: 0.5s; }
-        .tutor-listing-card:nth-child(6) { animation-delay: 0.6s; }
-
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         .tutor-listing-card:hover {
-            transform: translateY(-5px) scale(1.005); /* More prominent lift and slight scale */
-            box-shadow: 0 12px 30px rgba(0,0,0,0.18); /* Stronger shadow on hover */
+            transform: translateY(-5px) scale(1.005);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
         }
 
-        .tutor-listing-avatar {
-            width: 90px;
-            height: 90px; /* Restored to 1:1 aspect ratio */
-            border-radius: 9999px;
-            object-fit: cover;
-            border: 4px solid #10B981; /* Thicker green border */
-            margin-right: 1.5rem;
-            flex-shrink: 0;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); /* Subtle glow around avatar */
-        }
-
-        .tutor-info {
-            flex-grow: 1;
-        }
-
-        .tutor-name {
-            font-size: 1.75rem; /* Larger name font */
-            font-weight: 700; /* Bolder name */
-            color: #1F2937;
-            margin-bottom: 0.25rem;
-        }
-
-        .tutor-hourly-rate {
-            font-size: 1.35rem; /* Slightly larger rate */
-            font-weight: 700;
-            color: #047857; /* green-700 */
-            position: absolute;
-            top: 1.5rem;
-            right: 2rem; /* Adjusted right position */
-            background-color: #D1FAE5; /* Light green background for rate */
-            padding: 0.3rem 0.8rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .tutor-rating {
-            color: #F59E0B; /* amber-500 */
-            font-size: 1rem; /* Slightly larger rating */
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .tutor-description {
-            font-size: 1rem; /* Slightly larger description text */
-            color: #4B5563;
-            margin-bottom: 1rem;
-            line-height: 1.6; /* Improved readability */
-        }
-
-        .tutor-tags-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem; /* Adjusted gap between tags */
-            margin-bottom: 1rem;
-        }
-
-        .tutor-tag {
-            background-color: #E0F2F7; /* light blue-100 */
-            color: #06B6D4; /* cyan-600 */
-            padding: 0.15rem 0.7rem; /* Adjusted padding to half height */
-            border-radius: 9999px;
-            font-size: 0.75rem; /* Adjusted font size for smaller tags */
-            font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-        }
-        .tutor-tag:hover {
-            background-color: #CFF9FE;
-            transform: translateY(-2px);
-        }
-
-        .tutor-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem; /* Increased gap */
-            font-size: 0.95rem; /* Slightly larger stat font */
-            color: #6B7280;
-            margin-bottom: 1.5rem;
-        }
-        .tutor-stats span {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem; /* Increased gap */
-        }
-        .tutor-stats svg {
-            width: 1.1rem; /* Slightly larger icons */
-            height: 1.1rem;
-            color: #6B7280; /* Darker gray for consistency */
-        }
-
-        .tutor-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #E5E7EB; /* Lighter divider */
-        }
-        .tutor-actions .btn {
-            font-size: 0.95rem; /* Slightly larger button font */
-            padding: 0.7rem 1.4rem; /* Larger padding */
-        }
-
-
-        /* Responsive adjustments for mobile menu */
-        @media (max-width: 768px) {
-            .main-nav {
-                display: none;
-            }
-            .header-actions {
-                display: none; /* Hide header actions on small screens */
-            }
-            .nav-container {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .logo {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-                margin-bottom: 1rem;
-            }
-            .hero-section {
-                padding: 2.5rem 1rem;
-                border-radius: 1rem;
-            }
-            .hero-section h1 {
-                font-size: 2.5rem;
-            }
-            .hero-section p {
-                font-size: 1rem;
-            }
-            .search-filter-section {
-                padding: 1.5rem;
-            }
-            .main-content-grid {
-                grid-template-columns: 1fr;
-            }
-            .map-section {
-                min-height: 300px; /* Adjust height for mobile */
-            }
-            .tutor-listings {
-                max-height: unset; /* Remove fixed height for mobile, allow full page scroll */
-                overflow-y: visible;
-                padding-right: 0;
-            }
-            .tutor-listing-card {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding-top: 4rem; /* Give space for rate at top */
-            }
-            .tutor-listing-avatar {
-                margin-right: 0;
-                margin-bottom: 1rem;
-            }
-            .tutor-hourly-rate {
-                top: 1.5rem;
-                left: 50%;
-                transform: translateX(-50%); /* Center rate on mobile */
-                right: auto;
-            }
-            .tutor-actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.75rem;
-            }
-            .tutor-actions .btn {
-                width: 100%;
-            }
-        }
-
-        /* --- Footer Specific Styles for uniqueness --- */
-        .main-footer {
-            background: linear-gradient(to right, #047857, #10B981); /* Green gradient background */
-            color: #fff; /* White text for contrast */
-            padding: 4rem 0 2rem 0;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.2); /* Shadow pushing up */
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted minmax for more flexible columns */
-            gap: 2.5rem; /* Increased gap */
-            margin-bottom: 3rem;
-        }
-
-        .footer-about .logo {
-            color: #fff; /* White logo in footer */
-            margin-bottom: 1.25rem; /* More space below logo */
-            font-size: 1.75rem; /* Larger logo text */
-        }
-        .footer-about .logo-icon-bg {
-            background-color: rgba(255,255,255,0.2); /* Transparent white background for icon */
-            color: #fff; /* White icon */
-        }
-
-        .footer-about p {
-            font-size: 1rem; /* Slightly larger text */
-            color: #E5E7EB; /* Lighter gray for readability on dark background */
-        }
-
-        .footer-links h4 {
-            font-size: 1.25rem; /* Larger heading */
-            font-weight: 700; /* Bolder heading */
-            margin-bottom: 1.25rem; /* More space below heading */
-            color: #fff;
-            position: relative;
-        }
-        .footer-links h4::after {
-            content: '';
-            display: block;
-            width: 40px; /* Underline effect */
-            height: 3px;
-            background-color: #A7F3D0; /* Light green underline */
-            margin-top: 0.5rem;
-            border-radius: 2px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 0.9rem; /* More space between links */
-        }
-
-        .footer-links ul li a {
-            color: #E5E7EB; /* Lighter gray for links */
-            text-decoration: none;
-            transition: color 0.3s ease, transform 0.2s ease;
-            display: inline-block; /* Allows transform */
-        }
-
-        .footer-links ul li a:hover {
-            color: #fff; /* White on hover */
-            transform: translateX(5px); /* Slide effect on hover */
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            font-size: 0.95rem;
-            color: #D1FAE5;
-        }
+        .tutor-listing-avatar { width: 80px; height: 80px; border-radius: 9999px; object-fit: cover; border: 4px solid #10B981; margin-right: 1.5rem; flex-shrink: 0; }
+        .tutor-info { flex-grow: 1; }
+        .tutor-name { font-size: 1.5rem; font-weight: 700; color: #1F2937; margin-bottom: 0.25rem; }
+        .tutor-hourly-rate { font-size: 1.25rem; font-weight: 700; color: #047857; position: absolute; top: 1.5rem; right: 2rem; background-color: #D1FAE5; padding: 0.3rem 0.8rem; border-radius: 0.75rem; }
+        .tutor-rating { color: #F59E0B; display: flex; align-items: center; gap: 0.25rem; margin-bottom: 0.5rem; }
+        .tutor-description { font-size: 0.95rem; color: #4B5563; margin-bottom: 1rem; line-height: 1.6; }
+        .tutor-tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .tutor-tag { background-color: #E0F2F7; color: #06B6D4; padding: 0.2rem 0.7rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; white-space: nowrap; }
+        .tutor-stats { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.9rem; color: #6B7280; margin-bottom: 1.5rem; }
+        .tutor-stats span { display: flex; align-items: center; gap: 0.4rem; }
+        .tutor-stats svg { width: 1rem; height: 1rem; color: #6B7280; }
+        .tutor-actions { display: flex; gap: 1rem; justify-content: flex-end; margin-top: auto; padding-top: 1rem; border-top: 1px solid #E5E7EB; }
+        .tutor-actions .btn { font-size: 0.9rem; padding: 0.6rem 1.2rem; }
+        
+        /* Custom styling for Slim Select */
+        .ss-main { border: none; border-radius: 0.75rem; padding: 0; width: 100%; background-color: #fff; }
+        .ss-single-selected, .ss-multi-selected { padding: 0.75rem 1rem; border: 1px solid #D1D5DB; border-radius: 0.75rem; }
+        .ss-content { border-radius: 0.5rem; }
 
         @media (max-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 1fr; /* Stack columns on mobile */
-                text-align: center; /* Center align on mobile */
-            }
-            .footer-links h4::after {
-                margin-left: auto;
-                margin-right: auto;
-            }
+            .main-nav, .header-actions { display: none; }
+            .nav-container { justify-content: center; flex-wrap: wrap; }
+            .logo { width: 100%; text-align: center; justify-content: center; margin-bottom: 1rem; }
+            .tutor-listings { max-height: unset; overflow-y: visible; padding-right: 0; }
         }
     </style>
     
@@ -707,176 +293,67 @@
                 <a href="#">Find Tutors</a>
             </nav>
             <div class="header-actions">
-                <a href="StudentProfile.html" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
-                    My Profile <span class="ml-2">🧑‍🎓</span> 
-                </a>
+                <a href="StudentProfile.html" class="btn btn-outline">My Profile</a>
             </div>
         </div>
     </header>
 
     <main class="container py-8 flex-grow">
-        <!-- Search and Filter Section -->
-        <section id="search-filter-section-anchor" class="search-filter-section animate__animated animate__fadeInDown animate__slow">
-            <!-- Removed: <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Filter & Find Your Match</h2> -->
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-end">
-                <div class="md:col-span-2">
-                    <label for="search-tutors" class="block text-sm font-medium text-gray-700 mb-1">Search Tutors</label>
-                    <div class="search-input-group">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <input type="text" id="search-tutors" name="search-tutors" placeholder="Tutor name or subject..."
-                               class="w-full text-base text-gray-700">
-                    </div>
+        <section id="search-filter-section-anchor" class="search-filter-section">
+            <h2 class="search-heading">Find Your Perfect Tutor</h2>
+            <div class="filter-grid">
+                <div class="filter-group lg:col-span-2">
+                    <label for="search-tutors" class="filter-label">Search by Name or Subject</label>
+                    <input type="text" id="search-tutors" name="search-tutors" placeholder="e.g., Jane Doe or Physics" class="filter-input">
                 </div>
-                <div class="filter-dropdown">
-                    <label for="filter-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                    <select id="filter-subject" name="filter-subject">
-                        <option value="all">All Subjects</option>
-                        <option value="Physics">Physics</option>
-                        <option value="Mathematics">Mathematics</option>
-                        <option value="English">English</option>
-                        <option value="Programming">Programming</option>
-                        <option value="Chemistry">Chemistry</option>
-                        <option value="Biology">Biology</option>
-                        <option value="Literature">Literature</option>
-                        <option value="Computer Science">Computer Science</option>
-                        <option value="Web Development">Web Development</option>
-                        <option value="Calculus">Calculus</option>
-                        <option value="Algebra">Algebra</option>
-                        <option value="Pure Maths">Pure Maths</option>
-                        <option value="Creative Writing">Creative Writing</option>
-                        <option value="Grammar">Grammar</option>
+                 <div class="filter-group">
+                    <label for="filter-subject" class="filter-label">Filter by Subject</label>
+                    <select id="filter-subject" name="filter-subject"></select>
+                </div>
+                 <div class="filter-group">
+                    <label for="max-rate" class="filter-label">Max Hourly Rate</label>
+                    <select id="max-rate" name="max-rate" class="filter-input">
+                        <option value="any">Any Rate</option>
+                        <option value="5000">Up to Rs. 5000</option>
+                        <option value="3000">Up to Rs. 3000</option>
+                        <option value="2000">Up to Rs. 2000</option>
+                        <option value="1500">Up to Rs. 1500</option>
+                        <option value="1000">Up to Rs. 1000</option>
                     </select>
                 </div>
-                <div class="filter-dropdown">
-                    <label for="max-rate" class="block text-sm font-medium text-gray-700 mb-1">Max Hourly Rate</label>
-                    <select id="max-rate" name="max-rate">
-                        <option value="any">Any</option>
-                        <option value="2500">$2500</option>
-                        <option value="2000">$2000</option>
-                        <option value="1500">$1500</option>
-                        <option value="1000">$1000</option>
-                        <option value="500">$500</option>
-                        <option value="100">$100</option>
-                    </select>
+                <div class="filter-group">
+                    <label for="user-hometown" class="filter-label">Your Hometown</label>
+                    <select id="user-hometown"></select>
                 </div>
-                <div class="filter-dropdown">
-                    <label for="distance" class="block text-sm font-medium text-gray-700 mb-1">Distance (Miles)</label>
-                    <select id="distance" name="distance">
-                        <option value="any">Any</option>
-                        <option value="5">5 Miles</option>
-                        <option value="10">10 Miles</option>
-                        <option value="25">25 Miles</option>
-                        <option value="50">50 Miles</option>
-                    </select>
-                </div>
-            </div>
-            <div class="mt-8 border-t pt-6 border-gray-100">
-                <span class="block text-sm font-medium text-gray-700 mb-3">Quick Search:</span>
-                <div class="flex flex-wrap gap-3" id="popular-tags-container">
-                    <span class="popular-tag">Mathematics</span>
-                    <span class="popular-tag">English</span>
-                    <span class="popular-tag">Science</span>
-                    <span class="popular-tag">Programming</span>
-                    <span class="popular-tag">History</span>
-                    <span class="popular-tag">Arts</span>
+                <div class="filter-group lg:col-span-2">
+                    <label for="user-nearby-towns" class="filter-label">Nearby Towns of Interest</label>
+                    <select id="user-nearby-towns" multiple></select>
                 </div>
             </div>
         </section>
 
-        <!-- Main Content Grid: Map and Tutor Listings -->
         <section class="main-content-grid">
-            <!-- Map Section -->
-            <div class="map-section animate__animated animate__fadeInLeft">
-                <img src="https://placehold.co/800x600/e0ffe0/047857?text=Interactive+Map+Placeholder" alt="Map of tutor locations">
-                <div class="map-overlay map-overlay-large">Search Radius</div>
-                <!-- Example Markers (for visual representation only) -->
-                <div class="map-marker marker-1"></div>
-                <div class="map-marker marker-2"></div>
-                <div class="map-marker marker-3"></div>
-                <div class="map-marker marker-4"></div>
-                <div class="map-marker marker-5"></div>
-                <div class="map-marker marker-6"></div>
-                <div class="absolute bottom-4 left-4 text-xs text-gray-600 bg-white bg-opacity-80 p-2 rounded-md shadow-sm">
-                    Map Data © OpenStreetMap contributors
-                </div>
+            <div class="map-section">
+                <img src="https://placehold.co/800x600/e0ffe0/047857?text=Map+View" alt="Map of tutor locations">
             </div>
 
-            <!-- Tutor Listings Section -->
-            <div class="tutor-listings animate__animated animate__fadeInRight">
+            <div class="tutor-listings">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-bold text-gray-800" id="tutor-count">0 Tutors Available</h2>
-                    <div class="filter-dropdown w-auto">
-                        <label for="sort-by" class="sr-only">Sort By</label>
-                        <select id="sort-by" name="sort-by" class="text-sm">
-                            <option value="relevance">Sorted by: Relevance</option>
-                            <option value="rate-asc">Rate: Low to High</option>
-                            <option value="rate-desc">Rate: High to Low</option>
-                            <option value="experience">Experience</option>
-                            <option value="rating">Rating</option>
-                        </select>
-                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800" id="tutor-count">Loading tutors...</h2>
                 </div>
-
                 <div id="tutors-container" class="space-y-4">
-                    <!-- Tutor Cards will be inserted here by JavaScript -->
                 </div>
-
             </div>
         </section>
     </main>
-
-    <!-- Footer from index.html (optional, depending on overall site structure) -->
-    <footer class="main-footer mt-10">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <a href="index.html" class="logo">
-                        <div class="logo-icon-bg">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                        </div>
-                        <span>TutorConnect</span>
-                    </a>
-                    <p>Connecting students with qualified tutors for personalized learning experiences.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>For Students</h4>
-                    <ul>
-                        <li><a href="#">Find Tutors</a></li>
-                        <li><a href="#">Browse Subjects</a></li>
-                        <li><a href="#">How It Works</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>For Tutors</h4>
-                    <ul>
-                        <li><a href="#">Become a Tutor</a></li>
-                        <li><a href="#">Resources</a></li>
-                        <li><a href="#">Tutor FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 TutorConnect. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
 
     <script type="module">
-        // Firebase imports
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
-        // Firebase config (Ensure this matches your actual Firebase project config)
         const firebaseConfig = {
             apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
             authDomain: "tutorconnect-a9b1e.firebaseapp.com",
@@ -887,172 +364,136 @@
             measurementId: "G-7M72STVQKP"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        // Get DOM elements
         const searchInput = document.getElementById('search-tutors');
-        const filterSubject = document.getElementById('filter-subject');
         const maxRate = document.getElementById('max-rate');
-        const distanceFilter = document.getElementById('distance');
-        const sortBy = document.getElementById('sort-by');
         const tutorsContainer = document.getElementById('tutors-container');
         const tutorCountElement = document.getElementById('tutor-count');
-        const popularTagsContainer = document.getElementById('popular-tags-container');
 
-        let allTutors = []; // Store all tutors after initial fetch for client-side filtering
+        let allTutors = [];
+        let hometownFilter, nearbyTownsFilter, subjectFilter;
 
+        const sriLankaTowns = ["Achchuvely", "Adampan", "Addalaichenai", "Adhikarigama", "Adippala", "Agalawatta", "Agaliya", "Agarapathana", "Agbopura", "Ahangama", "Ahungalla", "Akaragama", "Akarawita", "Akarella", "Akkaraipattu", "Akmeemana", "Akuramboda", "Akurana", "Akuressa", "Alahengama", "Alahitiyawa", "Alapaladeniya", "Alawala", "Alawatugoda", "Alawatura", "Alawatuwala", "Alawwa", "Algama", "Allaipiddi", "Alubomulla", "Alutgama", "Alutnuwara", "Aluthwala", "Alvai", "Alwatta", "Ambalangoda", "Ambalantota", "Ambana", "Ambanpola", "Ampara", "Ampitiya", "Amunakole", "Anaicoddai", "Analaitivu", "Anamaduwa", "Andiambalama", "Andigama", "Angoda", "Angunakolapelessa", "Anguruwatota", "Anhandiya", "Ankokkawala", "Ankumbura", "Anuradhapura", "Apparekka", "Aralaganwila", "Aranayaka", "Arawakumbura", "Aruggammana", "Aselapura", "Atabage", "Atakalanpanna", "Atale", "Ataragalla", "Athurugiriya", "Attanagalla", "Avissawella", "Ayithiyamalai", "Badalkumbura", "Baddegama", "Badulla", "Baduraliya", "Bakamuna", "Bakiella", "Balagolla", "Balalla", "Balangoda", "Balapitiya", "Bambalapitiya", "Bambarapana", "Bandaragama", "Bandarawela", "Bangadeniya", "Barawakumbuka", "Batapola", "Batawala", "Battaramulla", "Batticaloa", "Batuwatta", "Beliatta", "Belihuloya", "Bellana", "Bemmulla", "Bentota", "Beruwala", "Bibile", "Bingiriya", "Biyagama", "Bokalagama", "Bollete (WP)", "Bope", "Boralesgamuwa", "Borella", "Bothale Ihalagama", "Bowalagama", "Bulathkohupitiya", "Bulathsinhala", "Buttala", "Chankanai", "Chavakachcheri", "Cheddikulam", "Chenkaladi", "Chilaw", "Chunnakam", "Colombo", "Colpetty", "Dambadeniya", "Dambagalla", "Dambana", "Dambulla", "Dankotuwa", "Danowita", "Dedigamuwa", "Deegala Lenama", "Dehiattakandiya", "Dehiowita", "Dehiwala-Mount Lavinia", "Dekatana", "Delgoda", "Dellawa", "Delmella", "Deltara", "Deltota", "Demanhandiya", "Denagama", "Deniyaya", "Deraniyagala", "Devinuwara", "Dharga Town", "Digana", "Dikoya", "Dikwella", "Divulapitiya", "Dodangaslanda", "Doluwa", "Dompe", "Doranagoda", "Dumbara", "Dunagaha", "Eheliyagoda", "Elpitiya", "Embilipitiya", "Eppawala", "Eravur", "Etawatunuwewa", "Ethkandura", "Fort", "Galagedara", "Galaha", "Galapitamada", "Galatara", "Galenbindunuwewa", "Galewela", "Galgamuwa", "Galle", "Galpatha", "Gampaha", "Gampola", "Ganemulla", "Ganga Ihala Korale", "Ganewatta", "Ginigathhena", "Giriulla", "Godagama", "Godakawela", "Gokarella", "Gonagaldeniya", "Gonapinuwala", "Gonawala", "Gothatuwa", "Habarakada", "Habarana", "Hakmana", "Hali-Ela", "Hambantota", "Handapangoda", "Handessa", "Hanguranketha", "Hanwella", "Hapugastalawa", "Haputale", "Harispattuwa", "Hatton", "Havelock Town", "Hendala", "Henegama", "Hettimulla", "Hettipola", "Hewainna", "Hikkaduwa", "Hingula", "Hingurakgoda", "Hingurana", "Hiripitya", "Hiswella", "Hokandara", "Homagama", "Horana", "Horampella", "Hulangamuwa", "Hunumulla", "Ibbagamuwa", "Ihala Madampella", "Imaduwa", "Imbulgoda", "Ingiriya", "Inuvil", "Ipalogama", "Ittapana", "Ja-Ela", "Jaffna", "Kadawatha", "Kadugannawa", "Kaduwela", "Kahaduwa", "Kahataruppa", "Kahawatta", "Kalagedihena", "Kalawana", "Kalkudah", "Kalmunai", "Kalutara", "Kamburupitiya", "Kandana", "Kandy", "Kantale", "Kapugoda", "Karadiyanaru", "Karagahatenna", "Karampon", "Karaveddy", "Kataragama", "Kathiraveli", "Kattankudy", "Katunayake", "Katuneriya", "Katuwana", "Kebithigollewa", "Kegalle", "Kekirawa", "Kelaniya", "Kendagolla", "Kesbewa", "Kilinochchi", "Kinniya", "Kirama", "Kiran", "Kiribathgoda", "Kirinda", "Kiriwattuduwa", "Kirulapone", "Kitulgala", "Kochchikade", "Kodikamam", "Koggala", "Kohuwala", "Kokkadicholai", "Kolonnawa", "Kopay", "Kosgama", "Kosgoda", "Koslanda", "Kotahena", "Kotikawatta", "Kottawa", "Kotte", "Kottegoda", "Kuliyapitiya", "Kundasale", "Kurunegala", "Kuruvita", "Lihiriyagama", "Loluwagoda", "Lunugamvehera", "Lunugala", "Lunugama", "Lunuvila", "Mabole", "Madahapola", "Madampe", "Madapatha", "Madawachchiya", "Madelgamuwa", "Madulla", "Madulsima", "Mahagama", "Mahakumbukkadawala", "Mahanuwara", "Maharagama", "Mahawela", "Mahiyanganaya", "Makandura", "Makewita", "Makola", "Malabe", "Mallakam", "Mandapam", "Mandawala", "Mannar", "Mapalagama", "Maradana", "Marassana", "Marawila", "Maskeliya", "Matale", "Matara", "Mattegoda", "Matugama", "Mawanella", "Mawathagama", "Medawachchiya", "Meddegama", "Medirigiriya", "Meegahatenna", "Meegoda", "Meethirigala", "Melsiripura", "Middeniya", "Mihintale", "Millaniya", "Minuwangoda", "Mirigama", "Mirissa", "Monaragala", "Moragahahena", "Moratuwa", "Morawaka", "Mount Lavinia", "Mullaitivu", "Mulleriyawa New Town", "Mutur", "Mutwal", "Nagoda", "Nakkawatta", "Nalanda", "Nanu Oya", "Napawela", "Narahenpita", "Narammala", "Nattandiya", "Naula", "Nawalapitiya", "Nawana", "Negombo", "Nelliady", "Nikaweratiya", "Nittambuwa", "Nugegoda", "Nuwara Eliya", "Oddamavadi", "Ohiya", "Padukka", "Paiyagala", "Palavi", "Pallekele", "Pallewela", "Pamanugama", "Panadura", "Pannala", "Pannipitiya", "Parakaduwa", "Passara", "Pasyala", "Pelawatta", "Peliyagoda", "Pelmadulla", "Peradeniya", "Pettah", "Pilimathalawa", "Piliyandala", "Pitigala", "Point Pedro", "Polgahawela", "Polgasowita", "Polonnaruwa", "Polpithimukulana", "Poruwadanda", "Pottuvil", "Pugoda", "Pujapitiya", "Punakarin", "Pundaluoya", "Pussellawa", "Puttalam", "Puwakpitiya", "Radawana", "Radawadunna", "Raddolugama", "Ragama", "Rajagiriya", "Rakwana", "Rambukkana", "Ranala", "Ranna", "Rathgama", "Ratmalana", "Ratnapura", "Ridee", "Ruwanwella", "Sainthamaruthu", "Saliyapura", "Sandilipay", "Seeduwa", "Serunuwara", "Siddamulla", "Sigiriya", "Slave Island", "Soranathota", "Sri Jayawardenepura Kotte", "Talawatugoda", "Talawakelle", "Tanamalwila", "Tangalle", "Teldeniya", "Tellippalai", "Thambuththegama", "Thanamalvila", "Thavady", "Theldeniya", "Thihagoda", "Thimbirigaskatuwa", "Tirunelveli", "Tissamaharama", "Trincomalee", "Tummodara", "Udagama", "Udappu", "Udathuthiripitiya", "Udugampola", "Udugoda", "Udumulla", "Uduvil", "Uggalboda", "Undugoda", "Unnichchai", "Urumpirai", "Uswetakeiyawa", "Vakaneri", "Valaichenai", "Valvettithurai", "Vavuniya", "Veyangoda", "Wadduwa", "Waga", "Waikkal", "Warakapola", "Wariyapola", "Watareka", "Wattala", "Wattegama", "Weligama", "Welikanda", "Welimada", "Wellawatta", "Wellawaya", "Wennappuwa", "Yakkala", "Yala", "Yatiyantota"].sort();
 
-        // Function to create a tutor card HTML
-        function createTutorCard(tutor) {
+        const createTutorCard = (tutor) => {
             const avatarText = tutor.name ? tutor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'NA';
-            const subjectsHtml = (tutor.subject || '').split(',').map(s => s.trim()).filter(s => s)
-                .map(s => `<span class="tutor-tag">${s}</span>`).join('');
-
-            // Random review count for display purposes, replace with actual data if available
-            const reviews = Math.floor(Math.random() * 200) + 20; 
-            const rating = (Math.random() * (5 - 3) + 3).toFixed(1); // Random rating between 3.0 and 5.0
+            const subjectsHtml = (tutor.subject || '').split(',').map(s => s.trim()).filter(s => s).map(s => `<span class="tutor-tag">${s}</span>`).join('');
+            const rating = (Math.random() * (5 - 3.5) + 3.5).toFixed(1);
             const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
-
-            // Placeholder for distance as we don't have geo-queries in basic Firestore setup
-            const distance = (Math.random() * 10).toFixed(1); // Random distance up to 10 miles
-
-            return `
-                <div class="tutor-listing-card">
-                    <div class="flex items-start md:items-center">
-                        <img src="https://placehold.co/90x90/D1FAE5/047857?text=${avatarText}" alt="Tutor ${tutor.name}" class="tutor-listing-avatar">
-                        <div class="tutor-info">
-                            <h3 class="tutor-name">${tutor.name}</h3>
-                            <div class="tutor-rating">
-                                ${stars} <span class="text-gray-500 text-xs">(${reviews} reviews)</span>
-                            </div>
-                            <p class="tutor-hourly-rate">$${tutor.rate}/hr</p>
-                            <p class="tutor-description">${tutor.about || 'No description provided.'}</p>
-                            <div class="tutor-tags-list">
-                                ${subjectsHtml}
-                            </div>
-                            <div class="tutor-stats">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    ${tutor.experience} years experience
-                                </span>
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    ${tutor.method === 'online' ? 'Online' : tutor.location ? distance + ' miles away' : 'Flexible Location'}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tutor-actions">
-                        <a href="TutorP.html?uid=${tutor.id}" class="btn btn-outline">View Full Profile</a>
-                        <a href="#" class="btn btn-primary">Contact</a>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Function to render tutors
-        function renderTutors(tutorsToRender) {
-            tutorsContainer.innerHTML = ''; // Clear previous listings
+            return `<div class="tutor-listing-card"><div class="flex items-start"><img src="https://placehold.co/80x80/D1FAE5/047857?text=${avatarText}" alt="Tutor ${tutor.name}" class="tutor-listing-avatar"><div class="tutor-info"><h3 class="tutor-name">${tutor.name}</h3><div class="tutor-rating">${stars} <span class="text-gray-500 text-xs ml-1">(${rating})</span></div><p class="tutor-hourly-rate">Rs. ${tutor.rate}/hr</p><p class="tutor-description">${tutor.education || 'Experienced and dedicated tutor.'}</p><div class="tutor-tags-list">${subjectsHtml}</div><div class="tutor-stats"><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>${tutor.experience || 0} years exp.</span><span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>${tutor.hometown || 'Not set'}</span></div></div></div><div class="tutor-actions"><a href="TutorP.html?uid=${tutor.id}" class="btn btn-outline">View Profile</a><a href="TutorP.html?uid=${tutor.id}#request-booking-btn" class="btn btn-primary">Request to Book</a></div></div>`;
+        };
+        
+        const renderTutors = (tutorsToRender) => {
+            tutorsContainer.innerHTML = '';
             if (tutorsToRender.length === 0) {
-                tutorsContainer.innerHTML = '<p class="text-center text-gray-500 text-lg py-10">No tutors found matching your criteria. Try adjusting your search!</p>';
+                tutorsContainer.innerHTML = '<p class="text-center text-gray-500 text-lg py-10">No tutors found matching your criteria.</p>';
             } else {
-                tutorsToRender.forEach((tutor, index) => {
-                    const card = createTutorCard(tutor);
-                    tutorsContainer.innerHTML += card;
+                tutorsToRender.forEach((tutor) => {
+                    tutorsContainer.innerHTML += createTutorCard(tutor);
                 });
             }
             tutorCountElement.textContent = `${tutorsToRender.length} Tutors Available`;
-        }
+        };
 
-        // Function to fetch tutors from Firestore
-        async function fetchTutors() {
-            try {
-                const tutorsCol = collection(db, "tutors");
-                const q = query(tutorsCol, orderBy("createdAt", "desc")); // Order by creation date, newest first
-                const querySnapshot = await getDocs(q);
-                allTutors = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                
-                // --- DEBUGGING LINE ADDED HERE ---
-                console.log("Fetched Tutors:", allTutors); 
-                // --- END DEBUGGING LINE ---
-
-                applyFiltersAndSort(); // Apply filters/sort initially
-            } catch (error) {
-                console.error("Error fetching tutors: ", error);
-                tutorsContainer.innerHTML = '<p class="text-center text-red-500 text-lg py-10">Error loading tutors. Please try again later.</p>';
-            }
-        }
-
-        // Function to apply filters and sorting
-        function applyFiltersAndSort() {
+        const applyFiltersAndSort = () => {
             let filteredTutors = [...allTutors];
-
-            // 1. Search by Name/Subject
             const searchTerm = searchInput.value.toLowerCase().trim();
             if (searchTerm) {
                 filteredTutors = filteredTutors.filter(tutor =>
-                    tutor.name.toLowerCase().includes(searchTerm) ||
-                    (tutor.subject && tutor.subject.toLowerCase().includes(searchTerm))
+                    tutor.name.toLowerCase().includes(searchTerm) || (tutor.subject && tutor.subject.toLowerCase().includes(searchTerm))
                 );
             }
-
-            // 2. Filter by Subject
-            const selectedSubject = filterSubject.value;
-            if (selectedSubject !== 'all') {
+            const selectedSubject = subjectFilter.selected();
+            if (selectedSubject && selectedSubject !== 'all') {
                 filteredTutors = filteredTutors.filter(tutor =>
                     tutor.subject && tutor.subject.toLowerCase().includes(selectedSubject.toLowerCase())
                 );
             }
-
-            // 3. Filter by Max Hourly Rate
             const selectedMaxRate = parseFloat(maxRate.value);
-            if (!isNaN(selectedMaxRate) && maxRate.value !== 'any') { // Check if it's a valid number and not 'any'
+            if (!isNaN(selectedMaxRate) && maxRate.value !== 'any') {
                 filteredTutors = filteredTutors.filter(tutor =>
                     tutor.rate && parseFloat(tutor.rate) <= selectedMaxRate
                 );
             }
-
-            // 4. Sort
-            const currentSort = sortBy.value;
-            if (currentSort === 'rate-asc') {
-                filteredTutors.sort((a, b) => parseFloat(a.rate || 0) - parseFloat(b.rate || 0));
-            } else if (currentSort === 'rate-desc') {
-                filteredTutors.sort((a, b) => parseFloat(b.rate || 0) - parseFloat(a.rate || 0));
-            } else if (currentSort === 'experience') {
-                filteredTutors.sort((a, b) => (b.experience || 0) - (a.experience || 0));
+            const userHometown = hometownFilter.selected();
+            const userNearbyTowns = nearbyTownsFilter.selected();
+            if (userHometown) {
+                 filteredTutors.sort((a, b) => {
+                    const getScore = (tutor) => {
+                        const tutorNearby = Array.isArray(tutor.nearbyTowns) ? tutor.nearbyTowns : [];
+                        const userNearby = Array.isArray(userNearbyTowns) ? userNearbyTowns : [];
+                        if (tutor.hometown === userHometown || tutorNearby.includes(userHometown)) return 1;
+                        if (userNearby.length > 0) {
+                            if (userNearby.includes(tutor.hometown)) return 2;
+                            if (tutorNearby.some(tutorTown => userNearby.includes(tutorTown))) return 2;
+                        }
+                        if (tutor.method === 'online' || tutor.method === 'both') return 3;
+                        return 4;
+                    };
+                    return getScore(a) - getScore(b);
+                });
             }
-            // Add more sorting logic for 'rating' if you add a rating field to your tutor documents
-
             renderTutors(filteredTutors);
+        };
+
+        const initializeFilters = (tutors) => {
+            const allSubjects = new Set();
+            tutors.forEach(tutor => {
+                if(tutor.subject) tutor.subject.split(',').forEach(s => allSubjects.add(s.trim()));
+            });
+            const subjectOptions = [{ text: 'All Subjects', value: 'all' }, ...Array.from(allSubjects).sort().map(s => ({ text: s, value: s }))];
+            subjectFilter = new SlimSelect({
+                select: '#filter-subject', data: subjectOptions, onChange: applyFiltersAndSort
+            });
+            hometownFilter = new SlimSelect({
+                select: '#user-hometown', data: [{text: 'Select Hometown', placeholder: true}, ...sriLankaTowns.map(t => ({text: t, value: t}))], onChange: applyFiltersAndSort
+            });
+            nearbyTownsFilter = new SlimSelect({
+                select: '#user-nearby-towns', data: sriLankaTowns.map(t => ({text: t, value: t})), placeholder: 'Select nearby towns', onChange: applyFiltersAndSort
+            });
+        };
+        
+        async function handleUserSession(user) {
+            if (user) {
+                const studentDocRef = doc(db, "students", user.uid);
+                try {
+                    const studentDocSnap = await getDoc(studentDocRef);
+                    if (studentDocSnap.exists()) {
+                        const studentData = studentDocSnap.data();
+                        if (studentData.hometown && hometownFilter) {
+                            hometownFilter.set(studentData.hometown);
+                        }
+                    }
+                } catch (error) { console.error("Error fetching student profile:", error); }
+            }
         }
 
-        // Event Listeners for Filters and Search
-        searchInput.addEventListener('input', applyFiltersAndSort);
-        filterSubject.addEventListener('change', applyFiltersAndSort);
-        maxRate.addEventListener('change', applyFiltersAndSort);
-        // distanceFilter.addEventListener('change', applyFiltersAndSort); // Distance filtering needs geo-query or more complex logic
-        sortBy.addEventListener('change', applyFiltersAndSort);
-
-        // Event listeners for popular tags
-        popularTagsContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('popular-tag')) {
-                const tagText = event.target.textContent;
-                filterSubject.value = tagText; // Set the subject filter to the clicked tag
+        async function fetchTutorsAndSetup() {
+            try {
+                const tutorsCol = collection(db, "tutors");
+                const q = query(tutorsCol, orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                allTutors = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                initializeFilters(allTutors);
                 applyFiltersAndSort();
+                
+                onAuthStateChanged(auth, (user) => {
+                    handleUserSession(user);
+                });
+
+            } catch (error) {
+                console.error("Error fetching tutors: ", error);
+                tutorsContainer.innerHTML = '<p class="text-center text-red-500">Error loading tutors.</p>';
             }
-        });
+        }
 
-
-        // Initial fetch and render when the page loads
-        document.addEventListener('DOMContentLoaded', fetchTutors);
-
+        searchInput.addEventListener('input', applyFiltersAndSort);
+        maxRate.addEventListener('change', applyFiltersAndSort);
+        document.addEventListener('DOMContentLoaded', fetchTutorsAndSetup);
     </script>
 </body>
 </html>
