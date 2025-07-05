@@ -9,9 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Animate.css for subtle animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
@@ -231,9 +229,10 @@
         /* Student request specific styling */
         .request-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Align text to top */
             padding: 0.75rem 0;
             border-bottom: 1px dashed #E5E7EB;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
         }
         .request-item:last-child {
             border-bottom: none;
@@ -242,17 +241,20 @@
             font-weight: 600;
             color: #1F2937;
             flex-grow: 1;
+            min-width: 120px; /* Ensure name doesn't get too squished */
         }
         .request-item .subject {
             font-size: 0.9em;
             color: #6B7280;
             margin-left: 0.5rem;
+            flex-grow: 1;
         }
         .request-item .action-btn {
             padding: 0.4rem 0.8rem;
             font-size: 0.85rem;
             border-radius: 0.5rem;
             margin-left: 1rem;
+            white-space: nowrap; /* Prevent button text from wrapping */
         }
         .request-item .action-btn-primary {
             background-color: #10B981;
@@ -262,7 +264,89 @@
         .request-item .action-btn-primary:hover {
             background-color: #047857;
         }
+        .request-item .message {
+            width: 100%; /* Full width for message */
+            font-size: 0.9em;
+            color: #4B5563;
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 2px solid #D1FAE5; /* Subtle visual cue for message */
+        }
 
+
+        /* Review Section for Tutor Profile */
+        .my-reviews-section {
+            background-color: #F9FAFB;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #F3F4F6;
+            margin-top: 2rem;
+        }
+        .my-reviews-section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        .my-reviews-container {
+            max-height: 400px; /* Limit height for scrollability */
+            overflow-y: auto;
+            padding-right: 0.5rem; /* Space for scrollbar */
+        }
+        .my-reviews-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .my-reviews-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .my-reviews-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .my-reviews-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Custom Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 450px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content {
+            transform: scale(1);
+        }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -279,6 +363,21 @@
             }
             .main-content-sections > div {
                 grid-column: span 1 / span 1; /* Ensure full width for sections on mobile */
+            }
+            .request-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-bottom: 1.5rem;
+            }
+            .request-item .name, .request-item .subject {
+                margin-left: 0;
+                width: 100%;
+                margin-bottom: 0.25rem;
+            }
+            .request-item .action-btn {
+                margin-left: 0;
+                margin-top: 0.75rem;
+                width: 100%;
             }
         }
 
@@ -375,6 +474,16 @@
 </head>
 <body class="flex flex-col">
 
+    <!-- Custom Modal for Alerts and Confirmations -->
+    <div id="custom-modal" class="modal-backdrop">
+        <div class="modal-content text-center">
+            <p id="modal-message" class="text-lg mb-6"></p>
+            <div id="modal-actions" class="flex justify-center gap-4">
+                <!-- Buttons are added dynamically -->
+            </div>
+        </div>
+    </div>
+
     <header class="main-header animate__animated animate__fadeInDown animate__faster">
         <div class="container nav-container">
             <a href="index.html" class="logo">
@@ -384,8 +493,7 @@
                 <span>TutorConnect</span>
             </a>
             <nav class="main-nav">
-                <!-- Removed "Find Tutors" from main navigation -->
-                <a href="tutor_search_page.html">Find Tutors</a>
+                <a href="Findt.html">Find Tutors</a>
             </nav>
             <div class="header-actions">
                 <a href="#" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
@@ -397,119 +505,94 @@
 
     <main class="container py-8 flex-grow">
         <section class="profile-card animate__animated animate__fadeInUp">
-            <div class="profile-header flex items-center gap-6 mb-8 pb-6 border-b border-gray-200">
-                <img src="https://placehold.co/150x150/047857/D1FAE5?text=Tutor" alt="Tutor Profile Picture" class="profile-avatar">
+            <div class="profile-header flex items-center gap-6 mb-8 pb-6 border-b border-gray-200 flex-wrap md:flex-nowrap justify-center md:justify-start">
+                <!-- Profile Picture Uploader -->
+                <div class="relative group">
+                    <img src="https://placehold.co/150x150/047857/D1FAE5?text=Tutor" alt="Tutor Profile Picture" id="profile-avatar-img" class="profile-avatar">
+                    <label for="profile-picture-input" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold">
+                        Change
+                    </label>
+                    <input type="file" id="profile-picture-input" class="hidden" accept="image/*">
+                </div>
+
                 <div>
-                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Welcome, <span class="text-green-600">Jane Doe!</span> ✨</h1>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Welcome, <span class="text-green-600" id="tutor-name-display">Tutor!</span> ✨</h1>
                     <p class="text-lg text-gray-600">Your personalized dashboard to manage students and teaching requests.</p>
                 </div>
             </div>
 
-            <!-- Tutor Dashboard Stats -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="stat-card">
                     <div class="value">5</div>
                     <div class="label">New Messages ✉️</div>
-                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Messages...')">View Messages</button>
+                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="showModal('This feature is coming soon!', 'alert')">View Messages</button>
                 </div>
                 <div class="stat-card">
-                    <div class="value">2</div>
+                    <div class="value" id="new-requests-count">0</div>
                     <div class="label">New Requests 📝</div>
-                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Teaching Requests...')">Manage Requests</button>
+                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="document.getElementById('student-requests-section').scrollIntoView({ behavior: 'smooth' });">Manage Requests</button>
                 </div>
                 <div class="stat-card">
-                    <div class="value">4.8</div>
+                    <div class="value" id="avg-rating-display">0</div>
                     <div class="label">Avg. Rating ⭐</div>
-                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Reviews...')">View Reviews</button>
+                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="document.getElementById('my-reviews-section').scrollIntoView({ behavior: 'smooth' });">View Reviews</button>
                 </div>
                 <div class="stat-card">
-                    <div class="value">25</div>
+                    <div class="value" id="students-taught-display">0</div>
                     <div class="label">Students Taught 🧑‍🎓</div>
-                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="alert('Navigating to Student List...')">View Students</button>
+                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="showModal('This feature is coming soon!', 'alert')">View Students</button>
                 </div>
             </div>
 
-            <!-- Main Content Sections (Personal/Teaching Details and Student Requests) -->
+            <!-- Main content grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2 flex flex-col gap-8">
-                    <!-- Personal Details Section -->
-                    <div class="info-block">
-                        <h5><span class="text-xl">🌟</span> My Information</h5>
-                        <p><span class="font-medium text-gray-700">Email:</span> jane.doe@example.com</p>
-                        <p><span class="font-medium text-gray-700">Tutor ID:</span> TC-T-00456</p>
-                        <p><span class="font-medium text-gray-700">Member Since:</span> March 2023</p>
-                        <div class="mt-4 flex gap-4">
-                            <button class="btn btn-primary">Edit Profile</button>
-                            <button class="btn btn-outline">Change Password</button>
-                        </div>
+                    <div class="info-block" id="my-info-block">
+                        <!-- My Info content loaded by JS -->
                     </div>
-
-                    <!-- Teaching Details Section -->
-                    <div class="info-block">
-                        <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
-                        <p><span class="font-medium text-gray-700">Subjects:</span> Mathematics, Calculus, Algebra, Geometry</p>
-                        <p><span class="font-medium text-gray-700">Years Exp:</span> 8 years</p>
-                        <p><span class="font-medium text-gray-700">Qualifications:</span> M.S. in Mathematics, University of Moratuwa</p>
-                        <p><span class="font-medium text-gray-700">Hourly Rate:</span> $1500/hr</p>
-                        <p><span class="font-medium text-gray-700">Teaching Method:</span> Online, In-Person</p>
-                        <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> Weekdays 4 PM - 8 PM, Weekends 10 AM - 5 PM (GMT+8)</p>
-                        <div class="mt-4">
-                            <button class="btn btn-primary">Update Teaching Info</button>
-                        </div>
+                    <div class="info-block" id="teaching-details-block">
+                        <!-- Teaching Details content loaded by JS -->
                     </div>
                 </div>
 
-                <!-- Student Teaching Requests Section -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-1" id="student-requests-section">
                     <div class="info-block h-full flex flex-col">
-                        <h5><span class="text-xl">🔔</span> Student Teaching Requests</h5>
-                        <div class="flex-grow overflow-y-auto pr-2">
-                            <!-- Scrollable area for requests -->
-                            <div class="request-item">
-                                <span class="name">John Smith</span>
-                                <span class="subject text-gray-500"> - Physics (11th Grade)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
-                            <div class="request-item">
-                                <span class="name">Emily Chen</span>
-                                <span class="subject text-gray-500"> - Calculus I (College)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
-                            <div class="request-item">
-                                <span class="name">David Lee</span>
-                                <span class="subject text-gray-500"> - Algebra II (9th Grade)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
-                            <div class="request-item">
-                                <span class="name">Sophia Rao</span>
-                                <span class="subject text-gray-500"> - Chemistry (10th Grade)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
-                            <div class="request-item">
-                                <span class="name">Daniel Kim</span>
-                                <span class="subject text-gray-500"> - Geometry (8th Grade)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
-                             <div class="request-item">
-                                <span class="name">Olivia Green</span>
-                                <span class="subject text-gray-500"> - Pre-Algebra (7th Grade)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
-                            <div class="request-item">
-                                <span class="name">Liam Brown</span>
-                                <span class="subject text-gray-500"> - AP Physics (12th Grade)</span>
-                                <button class="action-btn action-btn-primary">View</button>
-                            </div>
+                        <h5><span class="text-xl">🔔</span> Student Teaching Requests (<span id="requests-count-display">0</span>)</h5>
+                        <div class="flex-grow overflow-y-auto pr-2" id="requests-container">
+                            <p class="text-center text-gray-500 py-4">No new requests.</p>
                         </div>
                         <div class="mt-4 text-center">
-                            <button class="btn btn-primary w-full py-2 px-4 text-sm" onclick="alert('Navigating to all requests...')">View All Requests</button>
+                            <button class="btn btn-primary w-full py-2 px-4 text-sm" onclick="showModal('This feature is coming soon!', 'alert')">View All Requests</button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Photo Gallery Section -->
+            <div class="my-reviews-section mt-8 animate__animated animate__fadeInUp animate__slow" id="my-gallery-section">
+                <h3><span class="text-3xl">🖼️</span> My Photo Gallery</h3>
+                <div class="text-center my-4">
+                    <label for="gallery-upload-input" class="btn btn-primary cursor-pointer">
+                        Upload Photos
+                    </label>
+                    <input type="file" id="gallery-upload-input" class="hidden" accept="image/*" multiple>
+                    <p class="text-sm text-gray-500 mt-2">Add photos of your classroom or teaching materials.</p>
+                </div>
+                <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <p class="text-center text-gray-500 col-span-full">No photos uploaded yet.</p>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="my-reviews-section animate__animated animate__fadeInUp animate__slow" id="my-reviews-section">
+                <h3><span class="text-3xl">⭐</span> My Reviews (<span id="tutor-reviews-count-display">0</span>)</h3>
+                <div id="my-reviews-container" class="my-reviews-container space-y-4">
+                    <p class="text-center text-gray-500">Loading reviews...</p>
                 </div>
             </div>
 
             <div class="mt-10 text-center">
-                <button class="btn btn-outline text-red-500 hover:bg-red-50 hover:text-red-700 border-red-300 hover:border-red-400">
+                <button class="btn btn-outline text-red-500 hover:bg-red-50 hover:text-red-700 border-red-300 hover:border-red-400" id="sign-out-btn">
                     Sign Out <span class="ml-2">🚪</span>
                 </button>
             </div>
@@ -558,58 +641,520 @@
             </div>
         </div>
     </footer>
+
     <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, orderBy, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
-    authDomain: "tutorconnect-a9b1e.firebaseapp.com",
-    projectId: "tutorconnect-a9b1e",
-    storageBucket: "tutorconnect-a9b1e.appspot.com",
-    messagingSenderId: "511276105084",
-    appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
-    measurementId: "G-7M72STVQKP"
-  };
+        // IMPORTANT: Replace with your actual Firebase project configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+            authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+            projectId: "tutorconnect-a9b1e",
+            storageBucket: "tutorconnect-a9b1e.appspot.com",
+            messagingSenderId: "511276105084",
+            appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+            measurementId: "G-7M72STVQKP"
+        };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const docRef = doc(db, "tutors", user.uid);
-      const docSnap = await getDoc(docRef);
+        // DOM Elements
+        const tutorNameDisplay = document.getElementById('tutor-name-display');
+        const profileAvatarImg = document.getElementById('profile-avatar-img');
+        const profilePictureInput = document.getElementById('profile-picture-input');
+        const galleryContainer = document.getElementById('gallery-container');
+        const galleryUploadInput = document.getElementById('gallery-upload-input');
+        const signOutBtn = document.getElementById('sign-out-btn');
+        const myInfoBlock = document.getElementById('my-info-block');
+        const teachingDetailsBlock = document.getElementById('teaching-details-block');
+        const avgRatingDisplay = document.getElementById('avg-rating-display');
+        const studentsTaughtDisplay = document.getElementById('students-taught-display');
+        const tutorReviewsCountDisplay = document.getElementById('tutor-reviews-count-display');
+        const myReviewsContainer = document.getElementById('my-reviews-container');
+        const newRequestsCount = document.getElementById('new-requests-count');
+        const requestsCountDisplay = document.getElementById('requests-count-display');
+        const requestsContainer = document.getElementById('requests-container');
+        
+        // Modal elements
+        const modal = document.getElementById('custom-modal');
+        const modalMessage = document.getElementById('modal-message');
+        const modalActions = document.getElementById('modal-actions');
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
+        let currentTutorData = {};
+        let currentTutorReviews = [];
 
-        // Populate profile page
-        document.querySelector(".text-green-600").textContent = data.name;
-        document.querySelector(".info-block p:nth-child(2)").innerHTML = `<span class="font-medium text-gray-700">Email:</span> ${data.email}`;
-        document.querySelector(".info-block p:nth-child(4)").innerHTML = `<span class="font-medium text-gray-700">Member Since:</span> ${data.createdAt.toDate().toDateString()}`;
+        // --- Custom Modal Functions ---
+        function showModal(message, type = 'alert', onConfirm = null) {
+            modalMessage.innerHTML = ''; // Clear previous content
+            modalActions.innerHTML = ''; // Clear previous buttons
 
-        // Teaching details
-        const teachingBlock = document.querySelectorAll(".info-block")[1];
-        teachingBlock.innerHTML = `
-          <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
-          <p><span class="font-medium text-gray-700">Subjects:</span> ${data.subjects}</p>
-          <p><span class="font-medium text-gray-700">Years Exp:</span> ${data.experience}</p>
-          <p><span class="font-medium text-gray-700">Qualifications:</span> ${data.qualifications}</p>
-          <p><span class="font-medium text-gray-700">Hourly Rate:</span> ${data.hourlyRate}</p>
-          <p><span class="font-medium text-gray-700">Teaching Method:</span> ${data.method}</p>
-          <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> ${data.availability}</p>
-          <div class="mt-4"><button class="btn btn-primary">Update Teaching Info</button></div>
-        `;
-      } else {
-        alert("❌ Tutor data not found.");
-      }
-    } else {
-      window.location.href = "1.html"; // Redirect to login if not logged in
-    }
-  });
-</script>
+            if (type === 'loading') {
+                const loadingHTML = `
+                    <div class="flex justify-center items-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>${message}</span>
+                    </div>
+                `;
+                modalMessage.innerHTML = loadingHTML;
+            } else {
+                 modalMessage.textContent = message;
+                if (type === 'confirm') {
+                    const confirmBtn = document.createElement('button');
+                    confirmBtn.textContent = 'Confirm';
+                    confirmBtn.className = 'btn btn-primary';
+                    confirmBtn.onclick = () => {
+                        if(onConfirm) onConfirm();
+                        hideModal();
+                    };
+                    
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.textContent = 'Cancel';
+                    cancelBtn.className = 'btn btn-outline';
+                    cancelBtn.onclick = hideModal;
 
+                    modalActions.appendChild(cancelBtn);
+                    modalActions.appendChild(confirmBtn);
+                } else { // alert
+                    const okBtn = document.createElement('button');
+                    okBtn.textContent = 'OK';
+                    okBtn.className = 'btn btn-primary';
+                    okBtn.onclick = hideModal;
+                    modalActions.appendChild(okBtn);
+                }
+            }
+            modal.classList.add('active');
+        }
+
+        function hideModal() {
+            modal.classList.remove('active');
+        }
+        
+        function getStarRatingHtml(rating) {
+            const fullStars = '★'.repeat(Math.floor(rating));
+            const emptyStars = '☆'.repeat(5 - Math.floor(rating));
+            return `<span class="text-amber-500">${fullStars}</span><span class="text-gray-300">${emptyStars}</span>`;
+        }
+
+        // --- Main Application Logic ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await loadTutorProfile(user.uid);
+            } else {
+                window.location.href = "Signin.html"; // Redirect if not logged in
+            }
+        });
+
+        async function loadTutorProfile(userUid) {
+            const tutorDocRef = doc(db, "tutors", userUid);
+            try {
+                const tutorDocSnap = await getDoc(tutorDocRef);
+                if (tutorDocSnap.exists()) {
+                    currentTutorData = tutorDocSnap.data();
+                    
+                    // Populate UI
+                    tutorNameDisplay.textContent = currentTutorData.name || 'Tutor';
+                    profileAvatarImg.src = currentTutorData.profilePictureUrl || 'https://placehold.co/150x150/047857/D1FAE5?text=Tutor';
+
+                    renderMyInfo(false);
+                    renderTeachingDetails(false);
+                    renderGallery(currentTutorData.classPhotoUrls || []);
+                    loadReviewsAndRequests(userUid);
+                } else {
+                    showModal("Tutor profile not found. Please complete your registration.", "alert");
+                }
+            } catch (error) {
+                console.error("Error loading profile:", error);
+                showModal("Error loading your profile. Please try again later.", "alert");
+            }
+        }
+
+        function renderMyInfo(isEditing = false) {
+            if (isEditing) {
+                myInfoBlock.innerHTML = `
+                    <h5><span class="text-xl">🌟</span> My Information</h5>
+                    <p><span class="font-medium text-gray-700">Name:</span> <input type="text" id="tutor-name-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.name || ''}"></p>
+                    <p><span class="font-medium text-gray-700">Email:</span> <span>${currentTutorData.email}</span></p>
+                    <p><span class="font-medium text-gray-700">Tutor ID:</span> <span>${auth.currentUser.uid}</span></p>
+                    <p><span class="font-medium text-gray-700">Member Since:</span> <span>${currentTutorData.createdAt?.toDate().toDateString() || '—'}</span></p>
+                    <div class="mt-4 flex gap-4">
+                        <button class="btn btn-primary" id="save-my-info-btn">Save</button>
+                        <button class="btn btn-outline" id="cancel-my-info-btn">Cancel</button>
+                    </div>
+                `;
+            } else {
+                myInfoBlock.innerHTML = `
+                    <h5><span class="text-xl">🌟</span> My Information</h5>
+                    <p><span class="font-medium text-gray-700">Email:</span> <span>${currentTutorData.email}</span></p>
+                    <p><span class="font-medium text-gray-700">Tutor ID:</span> <span>${auth.currentUser.uid}</span></p>
+                    <p><span class="font-medium text-gray-700">Member Since:</span> <span>${currentTutorData.createdAt?.toDate().toDateString() || '—'}</span></p>
+                    <div class="mt-4 flex gap-4">
+                        <button class="btn btn-primary" id="edit-my-info-btn">Edit Profile</button>
+                        <button class="btn btn-outline">Change Password</button>
+                    </div>
+                `;
+            }
+        }
+
+        function renderTeachingDetails(isEditing = false) {
+            if (isEditing) {
+                teachingDetailsBlock.innerHTML = `
+                    <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
+                    <p><span class="font-medium text-gray-700">Subjects:</span> <input type="text" id="tutor-subject-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.subject || ''}"></p>
+                    <p><span class="font-medium text-gray-700">Years Exp:</span> <input type="number" id="tutor-experience-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.experience || 0}"></p>
+                    <p><span class="font-medium text-gray-700">Qualifications:</span> <input type="text" id="tutor-education-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.education || ''}"></p>
+                    <p><span class="font-medium text-gray-700">Hourly Rate:</span> $<input type="number" id="tutor-rate-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.rate || ''}"></p>
+                    <p><span class="font-medium text-gray-700">Teaching Method:</span> 
+                        <select id="tutor-method-input" class="form-select rounded-md border-gray-300 w-full mt-1">
+                            <option value="online" ${currentTutorData.method === 'online' ? 'selected' : ''}>Online</option>
+                            <option value="in-person" ${currentTutorData.method === 'in-person' ? 'selected' : ''}>In-person</option>
+                            <option value="hybrid" ${currentTutorData.method === 'hybrid' ? 'selected' : ''}>Hybrid</option>
+                        </select>
+                    </p>
+                    <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> <input type="text" id="tutor-availability-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.availability || ''}"></p>
+                    <div class="mt-4">
+                        <button class="btn btn-primary" id="save-teaching-info-btn">Save</button>
+                        <button class="btn btn-outline" id="cancel-teaching-info-btn">Cancel</button>
+                    </div>
+                `;
+            } else {
+                teachingDetailsBlock.innerHTML = `
+                    <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
+                    <p><span class="font-medium text-gray-700">Subjects:</span> ${currentTutorData.subject || 'Not specified'}</p>
+                    <p><span class="font-medium text-gray-700">Years Exp:</span> ${currentTutorData.experience || 0} years</p>
+                    <p><span class="font-medium text-gray-700">Qualifications:</span> ${currentTutorData.education || 'Not specified'}</p>
+                    <p><span class="font-medium text-gray-700">Hourly Rate:</span> $${currentTutorData.rate || 'N/A'}/hr</p>
+                    <p><span class="font-medium text-gray-700">Teaching Method:</span> ${currentTutorData.method ? currentTutorData.method.charAt(0).toUpperCase() + currentTutorData.method.slice(1) : 'Not specified'}</p>
+                    <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> ${currentTutorData.availability || 'Not specified'}</p>
+                    ${currentTutorData.method !== 'online' && currentTutorData.location ? `<p><span class="font-medium text-gray-700">Location:</span> ${currentTutorData.location}</p>` : ''}
+                    <div class="mt-4"><button class="btn btn-primary" id="edit-teaching-info-btn">Update Teaching Info</button></div>
+                `;
+            }
+        }
+        
+        async function loadReviewsAndRequests(userUid) {
+            // Load Reviews
+            const reviewsCollectionRef = collection(db, "tutors", userUid, "reviews");
+            const reviewsQuery = query(reviewsCollectionRef, orderBy("createdAt", "desc"));
+            const reviewsSnapshot = await getDocs(reviewsQuery);
+            currentTutorReviews = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+            let totalRating = 0;
+            currentTutorReviews.forEach(review => {
+                totalRating += review.rating;
+            });
+            const averageRating = currentTutorReviews.length > 0 ? (totalRating / currentTutorReviews.length).toFixed(1) : 0;
+
+            avgRatingDisplay.textContent = averageRating;
+            tutorReviewsCountDisplay.textContent = currentTutorReviews.length;
+            studentsTaughtDisplay.textContent = currentTutorData.studentsTaught || 0;
+
+            myReviewsContainer.innerHTML = '';
+            if (currentTutorReviews.length === 0) {
+                myReviewsContainer.innerHTML = '<p class="text-center text-gray-500 py-4">No reviews yet.</p>';
+            } else {
+                currentTutorReviews.forEach(review => {
+                    const reviewCard = `
+                        <div class="review-card bg-white p-4 rounded-lg shadow-sm border border-gray-200" id="review-${review.id}">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="font-bold text-gray-800">${review.studentName || 'Anonymous'}</div>
+                                    <div class="review-stars">${getStarRatingHtml(review.rating)}</div>
+                                </div>
+                                <button class="delete-review-btn text-gray-400 hover:text-red-500" data-review-id="${review.id}" title="Delete Review">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                                    </svg>
+                                </button> 
+                            </div>
+                            <p class="text-gray-600 mt-2">"${review.comment}"</p>
+                            <p class="text-xs text-gray-400 mt-2 text-right">${review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
+                        </div>
+                    `;
+                    myReviewsContainer.innerHTML += reviewCard;
+                });
+            }
+
+            // Load Requests
+            const requestsCollectionRef = collection(db, "tutors", userUid, "requests");
+            const requestsQuery = query(requestsCollectionRef, orderBy("createdAt", "desc"));
+            const requestsSnapshot = await getDocs(requestsQuery);
+            const studentRequests = requestsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+            newRequestsCount.textContent = studentRequests.length;
+            requestsCountDisplay.textContent = studentRequests.length;
+            requestsContainer.innerHTML = '';
+
+            if (studentRequests.length === 0) {
+                requestsContainer.innerHTML = '<p class="text-center text-gray-500 py-4">No new requests.</p>';
+            } else {
+                studentRequests.forEach(request => {
+                    const requestItem = `
+                        <div class="request-item">
+                            <span class="name">${request.studentName || 'Anonymous Student'}</span>
+                            <span class="subject"> - ${request.subject || 'Unspecified Subject'}</span>
+                            <button class="action-btn action-btn-primary">View</button>
+                            <p class="message">"${request.message}"</p>
+                            <p class="text-xs text-gray-400 mt-1 w-full text-right">${request.createdAt ? new Date(request.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                        </div>
+                    `;
+                    requestsContainer.innerHTML += requestItem;
+                });
+            }
+        }
+
+        function renderGallery(photos = []) {
+            galleryContainer.innerHTML = '';
+            if (photos.length === 0) {
+                galleryContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">No photos uploaded yet.</p>';
+                return;
+            }
+
+            photos.forEach(photo => {
+                const photoCard = document.createElement('div');
+                photoCard.className = 'relative group aspect-square';
+                photoCard.innerHTML = `
+                    <img src="${photo.url}" alt="Class photo" class="w-full h-full object-cover rounded-lg shadow-md">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                        <button class="delete-photo-btn text-white p-2 rounded-full bg-red-600 hover:bg-red-700" data-photo-path="${photo.path}" title="Delete Photo">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                galleryContainer.appendChild(photoCard);
+            });
+        }
+
+        // --- Event Listeners ---
+        profilePictureInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const user = auth.currentUser;
+            if (!user) {
+                showModal("Authentication error. Please sign out and sign in again.", "alert");
+                return;
+            }
+
+            showModal("Uploading profile picture...", "loading");
+            const filePath = `tutors/${user.uid}/profilePicture/profile.jpg`;
+            const storageRef = ref(storage, filePath);
+
+            try {
+                console.log(`Attempting to upload to: ${filePath}`);
+                await uploadBytes(storageRef, file);
+                console.log("Upload to Storage successful.");
+
+                const downloadURL = await getDownloadURL(storageRef);
+                console.log(`Successfully got download URL: ${downloadURL}`);
+                
+                const tutorDocRef = doc(db, "tutors", user.uid);
+                await updateDoc(tutorDocRef, { profilePictureUrl: downloadURL });
+                console.log("Firestore document successfully updated.");
+
+                profileAvatarImg.src = downloadURL;
+                currentTutorData.profilePictureUrl = downloadURL;
+                
+                hideModal();
+                showModal("✅ Profile picture updated successfully!", "alert");
+
+            } catch (error) {
+                console.error("--- UPLOAD FAILED ---");
+                console.error("Firebase Error Code:", error.code);
+                console.error("Firebase Error Message:", error.message);
+                
+                hideModal();
+                let userMessage = "Failed to upload profile picture. Please try again.";
+                if (error.code === 'storage/unauthorized') {
+                    userMessage = "Upload failed: You don't have permission. Please check Firebase Storage rules.";
+                } else {
+                    userMessage = `Upload failed: ${error.code}`;
+                }
+                showModal(userMessage, "alert");
+            }
+        });
+
+        galleryUploadInput.addEventListener('change', async (e) => {
+            const files = e.target.files;
+            if (files.length === 0) return;
+            const user = auth.currentUser;
+            if (!user) {
+                showModal("Authentication error. Please sign out and sign in again.", "alert");
+                return;
+            }
+
+            showModal(`Uploading ${files.length} photo(s)...`, "loading");
+            const tutorDocRef = doc(db, "tutors", user.uid);
+            let successfulUploads = 0;
+            let failedUploads = 0;
+
+            const uploadPromises = Array.from(files).map(async (file) => {
+                const filePath = `tutors/${user.uid}/classPhotos/${Date.now()}-${file.name}`;
+                const storageRef = ref(storage, filePath);
+                try {
+                    await uploadBytes(storageRef, file);
+                    const downloadURL = await getDownloadURL(storageRef);
+                    
+                    const newPhotoData = { url: downloadURL, path: filePath };
+                    await updateDoc(tutorDocRef, {
+                        classPhotoUrls: arrayUnion(newPhotoData)
+                    });
+
+                    if (!currentTutorData.classPhotoUrls) currentTutorData.classPhotoUrls = [];
+                    currentTutorData.classPhotoUrls.push(newPhotoData);
+                    successfulUploads++;
+                } catch (error) {
+                    console.error(`Failed to upload ${file.name}:`, error);
+                    failedUploads++;
+                }
+            });
+
+            await Promise.all(uploadPromises);
+
+            renderGallery(currentTutorData.classPhotoUrls);
+            hideModal();
+
+            if (failedUploads === 0) {
+                showModal(`✅ Successfully uploaded ${successfulUploads} photo(s)!`, "alert");
+            } else {
+                showModal(`⚠️ Completed with ${successfulUploads} uploads and ${failedUploads} failures. Check console for details.`, "alert");
+            }
+        });
+
+        galleryContainer.addEventListener('click', (e) => {
+            const deleteButton = e.target.closest('.delete-photo-btn');
+            if (deleteButton) {
+                const photoPath = deleteButton.dataset.photoPath;
+                showModal("Are you sure you want to delete this photo?", 'confirm', () => deleteGalleryPhoto(photoPath));
+            }
+        });
+        
+        async function deleteGalleryPhoto(photoPath) {
+            const user = auth.currentUser;
+            if (!user) return;
+            
+            showModal("Deleting photo...", "loading");
+            const storageRef = ref(storage, photoPath);
+            const tutorDocRef = doc(db, "tutors", user.uid);
+
+            try {
+                const photoToDelete = (currentTutorData.classPhotoUrls || []).find(p => p.path === photoPath);
+                if (photoToDelete) {
+                    await deleteObject(storageRef);
+                    await updateDoc(tutorDocRef, {
+                        classPhotoUrls: arrayRemove(photoToDelete)
+                    });
+                    currentTutorData.classPhotoUrls = currentTutorData.classPhotoUrls.filter(p => p.path !== photoPath);
+                    renderGallery(currentTutorData.classPhotoUrls);
+                    hideModal();
+                    showModal("Photo deleted successfully.", "alert");
+                } else {
+                    throw new Error("Photo data not found in profile.");
+                }
+            } catch (error) {
+                console.error("Error deleting photo:", error);
+                hideModal();
+                showModal("Failed to delete photo. It may have already been removed.", "alert");
+            }
+        }
+
+        signOutBtn.addEventListener('click', () => {
+            showModal("Are you sure you want to sign out?", 'confirm', async () => {
+                try {
+                    await signOut(auth);
+                    window.location.href = "Signin.html";
+                } catch (error) {
+                    console.error("Error signing out:", error);
+                    showModal("Failed to sign out. Please try again.", "alert");
+                }
+            });
+        });
+
+        document.addEventListener('click', async (e) => {
+            if (e.target && e.target.id === 'edit-my-info-btn') {
+                renderMyInfo(true);
+            }
+
+            if (e.target && e.target.id === 'cancel-my-info-btn') {
+                renderMyInfo(false);
+            }
+
+            if (e.target && e.target.id === 'save-my-info-btn') {
+                const newName = document.getElementById('tutor-name-input').value;
+                const tutorDocRef = doc(db, "tutors", auth.currentUser.uid);
+                try {
+                    await updateDoc(tutorDocRef, { name: newName });
+                    currentTutorData.name = newName;
+                    tutorNameDisplay.textContent = newName;
+                    renderMyInfo(false);
+                    showModal("Profile updated successfully!", "alert");
+                } catch (error) {
+                    console.error("Error updating profile:", error);
+                    showModal("Failed to update profile.", "alert");
+                }
+            }
+
+            if (e.target && e.target.id === 'edit-teaching-info-btn') {
+                renderTeachingDetails(true);
+            }
+
+            if (e.target && e.target.id === 'cancel-teaching-info-btn') {
+                renderTeachingDetails(false);
+            }
+            
+            if (e.target && e.target.id === 'save-teaching-info-btn') {
+                const newTeachingData = {
+                    subject: document.getElementById('tutor-subject-input').value,
+                    experience: Number(document.getElementById('tutor-experience-input').value),
+                    education: document.getElementById('tutor-education-input').value,
+                    rate: Number(document.getElementById('tutor-rate-input').value),
+                    method: document.getElementById('tutor-method-input').value,
+                    availability: document.getElementById('tutor-availability-input').value
+                };
+
+                const tutorDocRef = doc(db, "tutors", auth.currentUser.uid);
+                try {
+                    await updateDoc(tutorDocRef, newTeachingData);
+                    Object.assign(currentTutorData, newTeachingData);
+                    renderTeachingDetails(false);
+                    showModal("Teaching info updated successfully!", "alert");
+                } catch (error) {
+                    console.error("Error updating teaching info:", error);
+                    showModal("Failed to update teaching info.", "alert");
+                }
+            }
+
+            // Handle review deletion
+            const deleteButton = e.target.closest('.delete-review-btn');
+            if (deleteButton) {
+                const reviewId = deleteButton.dataset.reviewId;
+                if (!reviewId) return;
+
+                showModal("Are you sure you want to delete this review? This action cannot be undone.", "confirm", async () => {
+                    const user = auth.currentUser;
+                    if (user) {
+                        const reviewDocRef = doc(db, "tutors", user.uid, "reviews", reviewId);
+                        try {
+                            await deleteDoc(reviewDocRef);
+                            await loadTutorProfile(user.uid); // Reload to update stats
+                            showModal("Review deleted successfully.", "alert");
+                        } catch (error) {
+                            console.error("Error deleting review:", error);
+                            showModal("Failed to delete review. Please try again.", "alert");
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

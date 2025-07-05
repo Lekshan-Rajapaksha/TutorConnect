@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorConnect - Tutor Profile</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* Base font styles for Inter and Poppins */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Reusable container for content width */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header styles */
+        .main-header {
+            background-color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10B981;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .logo-icon-bg {
+            background-color: #D1FAE5;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #047857;
+        }
+        .main-nav a {
+            color: #4B5563;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        .main-nav a:hover {
+            color: #10B981;
+            transform: translateY(-2px);
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        .btn-primary {
+            background-color: #10B981;
+            color: #fff;
+            border: 2px solid #10B981;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+        .btn-primary:hover {
+            background-color: #047857;
+            border-color: #047857;
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5);
+            transform: translateY(-2px) scale(1.01);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #10B981;
+            color: #10B981;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+        .btn-outline:hover {
+            background-color: #D1FAE5;
+            color: #047857;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Profile specific styles */
+        .profile-container {
+            background-color: #fff;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 1px solid #E5E7EB;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+        @media (min-width: 1024px) {
+            .profile-container {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        .profile-sidebar {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 5px solid #10B981;
+            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3);
+        }
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1F2937;
+            line-height: 1.1;
+        }
+        .profile-tagline {
+            font-size: 1.125rem;
+            color: #4B5563;
+            font-weight: 500;
+        }
+        .profile-rate {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #047857;
+            background-color: #D1FAE5;
+            padding: 0.5rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #F59E0B;
+            font-size: 1.25rem;
+        }
+        .profile-rating span {
+            font-size: 1rem;
+            color: #6B7280;
+        }
+        
+        .profile-details-section {
+            background-color: #F9FAFB;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #F3F4F6;
+        }
+        .profile-details-section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        .profile-details-section p, .profile-details-section ul {
+            font-size: 1rem;
+            color: #4B5563;
+            line-height: 1.7;
+        }
+        .profile-details-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .profile-details-list {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        .profile-details-list li {
+            background-color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        .profile-details-list li svg {
+            color: #10B981;
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .subject-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .subject-tag {
+            background-color: #E0F2F7;
+            color: #06B6D4;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .reviews-section {
+            margin-top: 2.5rem;
+            background-color: #F9FAFB;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #F3F4F6;
+        }
+        .reviews-section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        .review-card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #E5E7EB;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .review-author {
+            font-weight: 600;
+            color: #374151;
+        }
+        .review-stars {
+            color: #F59E0B;
+        }
+        .review-date {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+        .review-text {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideInTop 0.3s forwards;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInTop {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .rating-input {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 5px;
+        }
+        .rating-input input {
+            display: none;
+        }
+        .rating-input label {
+            font-size: 2.5rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+        .rating-input label:hover,
+        .rating-input label:hover ~ label,
+        .rating-input input:checked ~ label {
+            color: #F59E0B;
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .collapsible-content.open {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .main-footer {
+            background: linear-gradient(to right, #047857, #10B981);
+            color: #fff;
+            padding: 4rem 0 2rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .footer-about .logo {
+            color: #fff;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+        .footer-about .logo-icon-bg {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .footer-about p {
+            font-size: 1rem;
+            color: #E5E7EB;
+        }
+        .footer-links h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #fff;
+            position: relative;
+        }
+        .footer-links h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #A7F3D0;
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 0.9rem;
+        }
+        .footer-links ul li a {
+            color: #E5E7EB;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .footer-links ul li a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+            color: #D1FAE5;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container { justify-content: center; flex-wrap: wrap; }
+            .logo { width: 100%; text-align: center; justify-content: center; margin-bottom: 1rem; }
+            .main-nav, .header-actions { display: none; }
+            .profile-container { padding: 1.5rem; gap: 1.5rem; }
+            .profile-sidebar { gap: 1rem; }
+            .profile-name { font-size: 2rem; }
+            .profile-rate { font-size: 1.75rem; padding: 0.4rem 1.2rem; }
+            .profile-details-section { padding: 1.5rem; }
+            .profile-details-section h3 { font-size: 1.5rem; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-links h4::after { margin-left: auto; margin-right: auto; }
+        }
+    </style>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body class="flex flex-col">
+    <header class="main-header animate__animated animate__fadeInDown animate__faster">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                </div>
+                <span>TutorConnect</span>
+            </a>
+            <nav class="main-nav">
+                <a href="Findt.html">Find Tutors</a>
+            </nav>
+            <div class="header-actions">
+                <a href="StudentProfile.html" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
+                    My Profile <span class="ml-2">🧑‍🎓</span> 
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-8 flex-grow animate__animated animate__fadeInUp animate__slow">
+        <div id="tutor-profile-content" class="profile-container">
+            <p class="text-center text-gray-500 text-lg col-span-full py-10">Loading tutor profile...</p>
+        </div>
+
+        <div class="text-center mt-8">
+            <button id="request-booking-btn" class="btn btn-primary text-xl py-3 px-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3V16.5M18.75 3V16.5m-1.5-3V7.5m-9-3v9m-3-3h.008v.008H3v-.008Zm0 0h.008v.008H3v-.008Zm0 0h.008v.008H3v-.008ZM3 16.5V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18v-1.5m-15 0V7.5M3 12H12m8.25-5.25H12" />
+                </svg>
+                Request to Book
+            </button>
+        </div>
+
+        <div class="reviews-section animate__animated animate__fadeInUp animate__slow" style="animation-delay: 0.2s;">
+            <h3><span class="text-3xl">⭐</span> Reviews & Testimonials (<span id="reviews-count">0</span>)</h3>
+            <button id="toggle-review-form-btn" class="btn btn-outline mb-6">Leave a Review</button>
+            <div id="review-form-collapsible" class="collapsible-content">
+                <form id="review-form" class="space-y-4 p-4 bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <h4 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Submit Your Review</h4>
+                    <div>
+                        <label for="review-rating" class="block text-sm font-medium text-gray-700 mb-2 text-center">Your Rating</label>
+                        <div class="rating-input">
+                            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars">★</label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="review-comment" class="block text-sm font-medium text-gray-700 mb-1">Your Feedback</label>
+                        <textarea id="review-comment" name="comment" rows="4" placeholder="Share your experience with this tutor..." required
+                                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-base transition duration-150 ease-in-out"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full py-3">Submit Review</button>
+                </form>
+            </div>
+            <div id="reviews-container" class="space-y-4">
+                <p class="text-center text-gray-500">No reviews yet. Be the first to leave one!</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer mt-10">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon-bg">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                        </div>
+                        <span>TutorConnect</span>
+                    </a>
+                    <p>Connecting students with qualified tutors for personalized learning experiences.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>For Students</h4>
+                    <ul>
+                        <li><a href="Findt.html">Find Tutors</a></li>
+                        <li><a href="#">Browse Subjects</a></li>
+                        <li><a href="#">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>For Tutors</h4>
+                    <ul>
+                        <li><a href="TutorSignup.html">Become a Tutor</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Tutor FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 TutorConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-booking-modal">×</span>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Request a Session with <span id="booking-tutor-name"></span></h2>
+            <form id="booking-form" class="space-y-4">
+                <div>
+                    <label for="booking-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject Needed</label>
+                    <input type="text" id="booking-subject" name="subject" placeholder="e.g., Calculus, English Essay" required
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="booking-message" class="block text-sm font-medium text-gray-700 mb-1">Your Message to Tutor</label>
+                    <textarea id="booking-message" name="message" rows="4" placeholder="Hi [Tutor Name], I'm interested in lessons for [Subject]..." required
+                              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-base transition duration-150 ease-in-out"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-full py-3">Send Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, query, getDocs, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+            authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+            projectId: "tutorconnect-a9b1e",
+            storageBucket: "tutorconnect-a9b1e.appspot.com",
+            messagingSenderId: "511276105084",
+            appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+            measurementId: "G-7M72STVQKP"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // DOM elements
+        const tutorProfileContent = document.getElementById('tutor-profile-content');
+        const reviewsContainer = document.getElementById('reviews-container');
+        const reviewsCountElement = document.getElementById('reviews-count');
+        const toggleReviewFormBtn = document.getElementById('toggle-review-form-btn');
+        const reviewFormCollapsible = document.getElementById('review-form-collapsible');
+        const reviewForm = document.getElementById('review-form');
+        const requestBookingBtn = document.getElementById('request-booking-btn');
+        const bookingModal = document.getElementById('booking-modal');
+        const closeBookingModalBtn = document.getElementById('close-booking-modal');
+        const bookingTutorName = document.getElementById('booking-tutor-name');
+        const bookingForm = document.getElementById('booking-form');
+
+        let currentTutorUid = null;
+        let loggedInUser = null;
+        let loggedInStudentName = null;
+        let isStudentUser = false;
+
+        // Function to extract tutor UID from URL
+        function getTutorUidFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('uid');
+        }
+
+        // Function to create star rating HTML
+        function getStarRatingHtml(rating) {
+            const fullStars = '★'.repeat(Math.floor(rating));
+            const emptyStars = '☆'.repeat(5 - Math.floor(rating));
+            return `<span class="text-amber-500">${fullStars}</span><span class="text-gray-300">${emptyStars}</span>`;
+        }
+
+        // Function to render reviews
+        function renderReviews(reviews) {
+            reviewsContainer.innerHTML = '';
+            if (reviews.length === 0) {
+                reviewsContainer.innerHTML = '<p class="text-center text-gray-500">No reviews yet. Be the first to leave one!</p>';
+            } else {
+                reviews.forEach(review => {
+                    const reviewCard = `
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-author">${review.studentName || 'Anonymous'}</div>
+                                <div class="review-stars">${getStarRatingHtml(review.rating)}</div>
+                            </div>
+                            <p class="review-text">"${review.comment}"</p>
+                            <p class="review-date">${review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
+                        </div>
+                    `;
+                    reviewsContainer.innerHTML += reviewCard;
+                });
+            }
+            reviewsCountElement.textContent = reviews.length;
+        }
+
+        // Function to fetch and render tutor profile and reviews
+        async function renderTutorProfileAndReviews() {
+            currentTutorUid = getTutorUidFromUrl();
+            if (!currentTutorUid) {
+                tutorProfileContent.innerHTML = `<p class="text-center text-red-500 text-lg col-span-full py-10">Error: Tutor ID not found in URL.</p>`;
+                return;
+            }
+
+            try {
+                const tutorDocRef = doc(db, "tutors", currentTutorUid);
+                const tutorDocSnap = await getDoc(tutorDocRef);
+
+                if (tutorDocSnap.exists()) {
+                    const tutor = { id: tutorDocSnap.id, ...tutorDocSnap.data() };
+                    
+                    const avatarText = tutor.name ? tutor.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'NA';
+                    const subjects = tutor.subject ? tutor.subject.split(',').map(s => s.trim()).filter(s => s) : [];
+                    const subjectsHtml = subjects.map(s => `<span class="subject-tag">${s}</span>`).join('');
+
+                    // CORRECTLY FORMAT THE LOCATION DATA
+                    const hometown = tutor.hometown || 'Not specified';
+                    const nearbyTowns = (tutor.nearbyTowns && tutor.nearbyTowns.length > 0) 
+                                        ? tutor.nearbyTowns.join(', ') 
+                                        : 'Not specified';
+
+                    // Fetch reviews to calculate average rating on the client side
+                    const reviewsCollectionRef = collection(db, "tutors", currentTutorUid, "reviews");
+                    const reviewsQuery = query(reviewsCollectionRef, orderBy("createdAt", "desc"));
+                    const reviewsSnapshot = await getDocs(reviewsQuery);
+                    const tutorReviews = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                    const totalRating = tutorReviews.reduce((sum, review) => sum + review.rating, 0);
+                    const averageRating = tutorReviews.length > 0 ? (totalRating / tutorReviews.length) : 0;
+
+                    tutorProfileContent.innerHTML = `
+                        <div class="profile-sidebar">
+                            <img src="${tutor.profilePicUrl || 'https://placehold.co/150x150/D1FAE5/047857?text=' + avatarText}" 
+                                onerror="this.onerror=null;this.src='https://placehold.co/150x150/D1FAE5/047857?text=${avatarText}';"
+                                alt="Tutor ${tutor.name}" class="profile-avatar">
+                            <h2 class="profile-name">${tutor.name}</h2>
+                            <p class="profile-tagline">${tutor.education ? tutor.education.split(';')[0].trim() : 'Experienced Educator'}</p>
+                            <p class="profile-rate">Rs. ${tutor.rate || 'N/A'}/hr</p>
+                            <div class="profile-rating">
+                                ${getStarRatingHtml(averageRating)} <span class="text-gray-500 text-base">(${tutorReviews.length} reviews)</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="profile-details-section mb-6">
+                                <h3><span class="text-2xl">📖</span> About Me</h3>
+                                <p>${tutor.about || 'This tutor has not provided a detailed biography yet.'}</p>
+                            </div>
+
+                            <div class="profile-details-section mb-6">
+                                <h3><span class="text-2xl">📚</span> Teaching Expertise</h3>
+                                <ul class="profile-details-list">
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.208 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.792 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.792 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.208 18 16.5 18s-3.332.477-4.5 1.253" /></svg>
+                                        <strong>Subjects:</strong>
+                                        <div class="subject-tags-container">${subjectsHtml || 'Not specified'}</div>
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <strong>Experience:</strong> ${tutor.experience || 0} years
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                                        <strong>Education:</strong> ${tutor.education || 'Not specified'}
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-5-4v6m4-2H8m4 0a2 2 0 100-4 2 2 0 000 4zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <strong>Teaching Method:</strong> ${tutor.method ? tutor.method.charAt(0).toUpperCase() + tutor.method.slice(1) : 'Not specified'}
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                        <strong>Availability:</strong> ${tutor.availability || 'Not specified'}
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                                        <strong>Hometown:</strong> ${hometown}
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503-12.495l-4.018-2.355a1.875 1.875 0 00-2.022 0l-4.018 2.355A1.875 1.875 0 003 4.5v12.339a.75.75 0 001.125.649l4.018-2.355a1.875 1.875 0 012.022 0l4.018 2.355a.75.75 0 001.125-.649V4.5a1.875 1.875 0 00-.997-1.706z" /></svg>
+                                        <strong>Service Areas:</strong> ${nearbyTowns}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    renderReviews(tutorReviews);
+                    bookingTutorName.textContent = tutor.name;
+                } else {
+                    tutorProfileContent.innerHTML = `<p class="text-center text-gray-500 text-lg col-span-full py-10">Tutor not found. Please check the ID.</p>`;
+                }
+            } catch (error) {
+                console.error("Error fetching tutor profile:", error);
+                tutorProfileContent.innerHTML = `<p class="text-center text-red-500 text-lg col-span-full py-10">Error loading tutor profile: ${error.message}</p>`;
+            }
+        }
+
+        // Toggle review form visibility
+        toggleReviewFormBtn.addEventListener('click', () => {
+            if (isStudentUser) {
+                reviewFormCollapsible.classList.toggle('open');
+                toggleReviewFormBtn.textContent = reviewFormCollapsible.classList.contains('open') ? 'Hide Review Form' : 'Leave a Review';
+            } else {
+                alert("Please sign in as a student to leave a review.");
+            }
+        });
+
+        // Handle review submission
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!isStudentUser) {
+                alert("You must be logged in as a student to submit a review.");
+                return;
+            }
+
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+            const comment = document.getElementById('review-comment').value.trim();
+
+            if (!ratingInput) {
+                alert("Please select a star rating.");
+                return;
+            }
+            if (!comment) {
+                alert("Please enter your feedback.");
+                return;
+            }
+
+            const reviewData = {
+                studentUid: loggedInUser.uid,
+                studentName: loggedInStudentName || "Anonymous",
+                rating: parseInt(ratingInput.value),
+                comment: comment,
+                createdAt: serverTimestamp()
+            };
+
+            try {
+                const tutorReviewsRef = collection(db, "tutors", currentTutorUid, "reviews");
+                await addDoc(tutorReviewsRef, reviewData);
+                
+                alert("Review submitted successfully!");
+                reviewFormCollapsible.classList.remove('open');
+                toggleReviewFormBtn.textContent = 'Leave a Review';
+                reviewForm.reset();
+                
+                renderTutorProfileAndReviews(); 
+
+            } catch (error) {
+                console.error("Review submission error:", error);
+                alert(`Failed to submit review: ${error.message}. Make sure your security rules allow students to create reviews.`);
+            }
+        });
+
+        // Request booking modal functionality
+        requestBookingBtn.addEventListener('click', () => {
+            if (isStudentUser) {
+                bookingModal.style.display = 'flex';
+            } else {
+                alert("Please sign in as a student to request a booking.");
+            }
+        });
+
+        closeBookingModalBtn.addEventListener('click', () => {
+            bookingModal.style.display = 'none';
+            bookingForm.reset();
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == bookingModal) {
+                bookingModal.style.display = 'none';
+                bookingForm.reset();
+            }
+        });
+
+        // Handle booking request submission
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!isStudentUser) {
+                alert("You must be logged in as a student to send a booking request.");
+                return;
+            }
+
+            const subject = document.getElementById('booking-subject').value.trim();
+            const message = document.getElementById('booking-message').value.trim();
+
+            if (!subject || !message) {
+                alert("Please fill in all booking details.");
+                return;
+            }
+
+            const bookingRequestData = {
+                tutorUid: currentTutorUid,
+                studentUid: loggedInUser.uid,
+                studentName: loggedInStudentName || "Anonymous",
+                subject: subject,
+                message: message,
+                status: 'pending',
+                createdAt: serverTimestamp()
+            };
+
+            try {
+                const tutorRequestsRef = collection(db, "tutors", currentTutorUid, "requests");
+                await addDoc(tutorRequestsRef, bookingRequestData);
+
+                alert("Booking request sent successfully!");
+                bookingModal.style.display = 'none';
+                bookingForm.reset();
+            } catch (error) {
+                console.error("Booking request error:", error);
+                alert(`Failed to send booking request: ${error.message}. Make sure your security rules allow students to create requests.`);
+            }
+        });
+
+        // Listen for auth state changes to determine user role
+        onAuthStateChanged(auth, async (user) => {
+            loggedInUser = user;
+            isStudentUser = false;
+            loggedInStudentName = null;
+
+            const actionButtons = [toggleReviewFormBtn, requestBookingBtn];
+
+            if (user) {
+                const studentDocRef = doc(db, "students", user.uid);
+                const studentDocSnap = await getDoc(studentDocRef);
+                
+                if (studentDocSnap.exists()) {
+                    isStudentUser = true;
+                    loggedInStudentName = studentDocSnap.data().name || "Anonymous";
+                    actionButtons.forEach(btn => btn.style.display = 'inline-flex');
+                } else {
+                    actionButtons.forEach(btn => btn.style.display = 'none');
+                }
+            } else {
+                actionButtons.forEach(btn => btn.style.display = 'none');
+            }
+            renderTutorProfileAndReviews();
+        });
+    </script>
+</body>
+</html>
