@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorConnect - Student Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Animate.css for subtle animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Slim Select CSS for beautiful and searchable select dropdowns -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" rel="stylesheet">
+    <style>
+        /* Base font styles for Inter and Poppins */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Using a more dynamic radial gradient for the background */
+            background: radial-gradient(circle at top right, #e0ffe0, #f0f2f5, #e0f0ff); /* Softer, dynamic look */
+            color: #374151; /* Darker gray for general text */
+            transition: background 0.5s ease-in-out; /* Smooth transition for background changes */
+        }
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Custom styles for gradients, shadows, and hover effects */
+        .gradient-bg {
+            background: linear-gradient(to right bottom, #10B981, #047857); /* Green gradient */
+        }
+
+        /* Input field focus styling */
+        .input-focus-ring:focus {
+            outline: none; /* Remove default outline */
+            border-color: #10B981; /* green-500 */
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.4); /* More pronounced green shadow */
+        }
+        /* Input field hover styling */
+        input:hover, textarea:hover, .ss-main:hover {
+            border-color: #A7F3D0; /* green-200 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Primary button with gradient and enhanced hover effect */
+        .btn-primary-gradient {
+            background: linear-gradient(to right, #10B981, #047857); /* Green gradient */
+            border: none;
+            transition: all 0.3s ease-in-out; /* Smoother transition */
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4); /* green-500 with alpha, more prominent */
+            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
+            letter-spacing: 0.025em; /* Slightly increased letter spacing */
+        }
+        .btn-primary-gradient:hover {
+            background: linear-gradient(to right, #047857, #065F46); /* Darker green gradient */
+            box-shadow: 0 12px 25px rgba(4, 120, 87, 0.5); /* even darker green with alpha, more shadow */
+            transform: translateY(-4px) scale(1.02); /* Lift and scale more on hover */
+        }
+
+        /* Enhanced card shadow for main container */
+        .card-shadow {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); /* Even more pronounced shadow */
+        }
+
+        /* Hover effect for form sections */
+        .form-section-card:hover {
+            transform: translateY(-5px); /* Lift slightly on hover */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Stronger shadow on hover */
+            border-color: #A7F3D0; /* green-200 border on hover */
+        }
+        
+        /* Custom styling for Slim Select */
+        .ss-main {
+            border: 1px solid #D1D5DB;
+            border-radius: 0.375rem;
+            padding: 0.1rem;
+            width: 100%;
+        }
+        .ss-single-selected, .ss-multi-selected {
+             padding: 0.5rem 0.75rem;
+        }
+        .ss-content {
+            border-radius: 0.375rem;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-4xl lg:max-w-6xl text-center mb-10 animate__animated animate__fadeInDown animate__fast">
+        <a href="index.html" class="inline-flex items-center space-x-3 text-green-600 mb-4 transform hover:scale-105 transition-transform duration-200">
+            <div class="bg-green-100 p-3 rounded-full shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-700"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            </div>
+            <span class="text-3xl font-extrabold text-gray-800">TutorConnect</span>
+        </a>
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">Enroll as a <span class="text-green-600">Student</span></h1>
+        <p class="text-lg text-gray-600 max-w-xl mx-auto">Unlock your potential with personalized tutoring. Sign up and find the perfect tutor to achieve your academic goals.</p>
+    </header>
+
+    <div class="bg-white p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl card-shadow w-full max-w-full lg:max-w-6xl animate__animated animate__fadeInUp animate__slow">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-8 pb-4 border-b border-gray-200">Your Learning Journey Begins Here</h2>
+        
+        <form id="signup-form" class="space-y-8">
+            <!-- Personal Information Section -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md form-section-card">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📝</span> Your Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="student-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="student-name" name="student-name" placeholder="Enter your full name" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="student-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="student-email" name="student-email" placeholder="Your email for notifications" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="student-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="student-password" name="student-password" placeholder="Create a strong password" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="student-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <input type="password" id="student-confirm-password" name="student-confirm-password" placeholder="Re-enter your password" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Preferences Section -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md form-section-card">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">🎯</span> Learning & Location Preferences
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="student-subject" class="block text-sm font-medium text-gray-700 mb-1">Subjects you need help with</label>
+                        <input type="text" id="student-subject" name="student-subject" placeholder="e.g., Algebra, Chemistry (comma-separated)"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                    <div>
+                        <label for="student-grade" class="block text-sm font-medium text-gray-700 mb-1">Your Grade/Level (Optional)</label>
+                        <input type="text" id="student-grade" name="student-grade" placeholder="e.g., 10th Grade, College Freshman"
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                     <!-- Hometown Selection -->
+                    <div>
+                        <label for="hometown" class="block text-sm font-medium text-gray-700 mb-1">Hometown</label>
+                        <select id="hometown" name="hometown" required></select>
+                    </div>
+                    <!-- Nearby Towns Selection -->
+                    <div>
+                        <label for="nearby-towns" class="block text-sm font-medium text-gray-700 mb-1">Nearby Towns (Optional)</label>
+                        <select id="nearby-towns" name="nearby-towns" multiple></select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="student-goals" class="block text-sm font-medium text-gray-700 mb-1">Your Learning Goals (Optional)</label>
+                        <textarea id="student-goals" name="student-goals" rows="3" placeholder="Tell us what you want to achieve with tutoring. E.g., 'Improve math grades', 'Prepare for SATs', 'Learn a new language'"
+                                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit"
+                    class="w-full flex justify-center py-3 px-6 rounded-md text-lg font-bold text-white btn-primary-gradient focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                Start Learning Now!
+            </button>
+        </form>
+
+        <p class="mt-8 text-center text-base text-gray-600">
+            Already have an account?
+            <a href="1.html" class="font-medium text-green-600 hover:text-green-500 transition duration-150 ease-in-out">Sign In</a>
+        </p>
+    </div>
+
+    <!-- Custom Modal for Alerts -->
+    <div id="alert-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div id="modal-icon" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <!-- Icon will be set by JS -->
+                </div>
+                <h3 id="modal-title" class="text-lg leading-6 font-medium text-gray-900"></h3>
+                <div class="mt-2 px-7 py-3">
+                    <p id="modal-message" class="text-sm text-gray-500"></p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="close-modal-btn" class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Slim Select JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
+
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js";
+
+        // Firebase config - **REPLACE WITH YOUR ACTUAL CONFIG**
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+    authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+    projectId: "tutorconnect-a9b1e",
+    storageBucket: "tutorconnect-a9b1e.firebasestorage.app",
+    messagingSenderId: "511276105084",
+    appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+    measurementId: "G-7M72STVQKP"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        try {
+            const analytics = getAnalytics(app);
+        } catch (e) {
+            console.log("Analytics not enabled or supported.");
+        }
+        
+
+        // --- Sri Lanka Towns List (Comprehensive Postal Towns) ---
+        const sriLankaTowns = [
+            "Achchuvely", "Adampan", "Addalaichenai", "Adhikarigama", "Adippala", "Agalawatta", "Agaliya", 
+            "Agarapathana", "Agbopura", "Ahangama", "Ahungalla", "Akaragama", "Akarawita", "Akarella", 
+            "Akkaraipattu", "Akmeemana", "Akuramboda", "Akurana", "Akuressa", "Alahengama", "Alahitiyawa", 
+            "Alapaladeniya", "Alawala", "Alawatugoda", "Alawatura", "Alawatuwala", "Alawwa", "Algama", 
+            "Allaipiddi", "Alubomulla", "Alutgama", "Alutnuwara", "Aluthwala", "Alvai", "Alwatta", 
+            "Ambalangoda", "Ambalantota", "Ambana", "Ambanpola", "Ampara", "Ampitiya", "Amunakole", 
+            "Anaicoddai", "Analaitivu", "Anamaduwa", "Andiambalama", "Andigama", "Angoda", "Angunakolapelessa", 
+            "Anguruwatota", "Anhandiya", "Ankokkawala", "Ankumbura", "Anuradhapura", "Apparekka", "Aralaganwila", 
+            "Aranayaka", "Arawakumbura", "Aruggammana", "Aselapura", "Atabage", "Atakalanpanna", "Atale", 
+            "Ataragalla", "Athurugiriya", "Attanagalla", "Avissawella", "Ayithiyamalai", "Badalkumbura", 
+            "Baddegama", "Badulla", "Baduraliya", "Bakamuna", "Bakiella", "Balagolla", "Balalla", "Balangoda", 
+            "Balapitiya", "Bambalapitiya", "Bambarapana", "Bandaragama", "Bandarawela", "Bangadeniya", 
+            "Barawakumbuka", "Batapola", "Batawala", "Battaramulla", "Batticaloa", "Batuwatta", "Beliatta", 
+            "Belihuloya", "Bellana", "Bemmulla", "Bentota", "Beruwala", "Bibile", "Bingiriya", "Biyagama", 
+            "Bokalagama", "Bollete (WP)", "Bope", "Boralesgamuwa", "Borella", "Bothale Ihalagama", "Bowalagama", 
+            "Bulathkohupitiya", "Bulathsinhala", "Buttala", "Chankanai", "Chavakachcheri", "Cheddikulam", 
+            "Chenkaladi", "Chilaw", "Chunnakam", "Colombo", "Colpetty", "Dambadeniya", "Dambagalla", "Dambana", 
+            "Dambulla", "Dankotuwa", "Danowita", "Dedigamuwa", "Deegala Lenama", "Dehiattakandiya", "Dehiowita", 
+            "Dehiwala-Mount Lavinia", "Dekatana", "Delgoda", "Dellawa", "Delmella", "Deltara", "Deltota", 
+            "Demanhandiya", "Denagama", "Deniyaya", "Deraniyagala", "Devinuwara", "Dharga Town", "Digana", 
+            "Dikoya", "Dikwella", "Divulapitiya", "Dodangaslanda", "Doluwa", "Dompe", "Doranagoda", "Dumbara", 
+            "Dunagaha", "Eheliyagoda", "Elpitiya", "Embilipitiya", "Eppawala", "Eravur", "Etawatunuwewa", 
+            "Ethkandura", "Fort", "Galagedara", "Galaha", "Galapitamada", "Galatara", "Galenbindunuwewa", 
+            "Galewela", "Galgamuwa", "Galle", "Galpatha", "Gampaha", "Gampola", "Ganemulla", "Ganga Ihala Korale", 
+            "Ganewatta", "Ginigathhena", "Giriulla", "Godagama", "Godakawela", "Gokarella", "Gonagaldeniya", 
+            "Gonapinuwala", "Gonawala", "Gothatuwa", "Habarakada", "Habarana", "Hakmana", "Hali-Ela", "Hambantota", 
+            "Handapangoda", "Handessa", "Hanguranketha", "Hanwella", "Hapugastalawa", "Haputale", "Harispattuwa", 
+            "Hatton", "Havelock Town", "Hendala", "Henegama", "Hettimulla", "Hettipola", "Hewainna", "Hikkaduwa", 
+            "Hingula", "Hingurakgoda", "Hingurana", "Hiripitya", "Hiswella", "Hokandara", "Homagama", "Horana", 
+            "Horampella", "Hulangamuwa", "Hunumulla", "Ibbagamuwa", "Ihala Madampella", "Imaduwa", "Imbulgoda", 
+            "Ingiriya", "Inuvil", "Ipalogama", "Ittapana", "Ja-Ela", "Jaffna", "Kadawatha", "Kadugannawa", 
+            "Kaduwela", "Kahaduwa", "Kahataruppa", "Kahawatta", "Kalagedihena", "Kalawana", "Kalkudah", "Kalmunai", 
+            "Kalutara", "Kamburupitiya", "Kandana", "Kandy", "Kantale", "Kapugoda", "Karadiyanaru", "Karagahatenna", 
+            "Karampon", "Karaveddy", "Kataragama", "Kathiraveli", "Kattankudy", "Katunayake", "Katuneriya", 
+            "Katuwana", "Kebithigollewa", "Kegalle", "Kekirawa", "Kelaniya", "Kendagolla", "Kesbewa", "Kilinochchi", 
+            "Kinniya", "Kirama", "Kiran", "Kiribathgoda", "Kirinda", "Kiriwattuduwa", "Kirulapone", "Kitulgala", 
+            "Kochchikade", "Kodikamam", "Koggala", "Kohuwala", "Kokkadicholai", "Kolonnawa", "Kopay", "Kosgama", 
+            "Kosgoda", "Koslanda", "Kotahena", "Kotikawatta", "Kottawa", "Kotte", "Kottegoda", "Kuliyapitiya", 
+            "Kundasale", "Kurunegala", "Kuruvita", "Lihiriyagama", "Loluwagoda", "Lunugamvehera", "Lunugala", 
+            "Lunugama", "Lunuvila", "Mabole", "Madahapola", "Madampe", "Madapatha", "Madawachchiya", "Madelgamuwa", 
+            "Madulla", "Madulsima", "Mahagama", "Mahakumbukkadawala", "Mahanuwara", "Maharagama", "Mahawela", 
+            "Mahiyanganaya", "Makandura", "Makewita", "Makola", "Malabe", "Mallakam", "Mandapam", "Mandawala", 
+            "Mannar", "Mapalagama", "Maradana", "Marassana", "Marawila", "Maskeliya", "Matale", "Matara", 
+            "Mattegoda", "Matugama", "Mawanella", "Mawathagama", "Medawachchiya", "Meddegama", "Medirigiriya", 
+            "Meegahatenna", "Meegoda", "Meethirigala", "Melsiripura", "Middeniya", "Mihintale", "Millaniya", 
+            "Minuwangoda", "Mirigama", "Mirissa", "Monaragala", "Moragahahena", "Moratuwa", "Morawaka", 
+            "Mount Lavinia", "Mullaitivu", "Mulleriyawa New Town", "Mutur", "Mutwal", "Nagoda", "Nakkawatta", 
+            "Nalanda", "Nanu Oya", "Napawela", "Narahenpita", "Narammala", "Nattandiya", "Naula", "Nawalapitiya", 
+            "Nawana", "Negombo", "Nelliady", "Nikaweratiya", "Nittambuwa", "Nugegoda", "Nuwara Eliya", 
+            "Oddamavadi", "Ohiya", "Padukka", "Paiyagala", "Palavi", "Pallekele", "Pallewela", "Pamanugama", 
+            "Panadura", "Pannala", "Pannipitiya", "Parakaduwa", "Passara", "Pasyala", "Pelawatta", "Peliyagoda", 
+            "Pelmadulla", "Peradeniya", "Pettah", "Pilimathalawa", "Piliyandala", "Pitigala", "Point Pedro", 
+            "Polgahawela", "Polgasowita", "Polonnaruwa", "Polpithimukulana", "Poruwadanda", "Pottuvil", "Pugoda", 
+            "Pujapitiya", "Punakarin", "Pundaluoya", "Pussellawa", "Puttalam", "Puwakpitiya", "Radawana", 
+            "Radawadunna", "Raddolugama", "Ragama", "Rajagiriya", "Rakwana", "Rambukkana", "Ranala", "Ranna", 
+            "Rathgama", "Ratmalana", "Ratnapura", "Ridee", "Ruwanwella", "Sainthamaruthu", "Saliyapura", 
+            "Sandilipay", "Seeduwa", "Serunuwara", "Siddamulla", "Sigiriya", "Slave Island", "Soranathota", 
+            "Sri Jayawardenepura Kotte", "Talawatugoda", "Talawakelle", "Tanamalwila", "Tangalle", "Teldeniya", 
+            "Tellippalai", "Thambuththegama", "Thanamalvila", "Thavady", "Theldeniya", "Thihagoda", 
+            "Thimbirigaskatuwa", "Tirunelveli", "Tissamaharama", "Trincomalee", "Tummodara", "Udagama", 
+            "Udappu", "Udathuthiripitiya", "Udugampola", "Udugoda", "Udumulla", "Uduvil", "Uggalboda", "Undugoda", 
+            "Unnichchai", "Urumpirai", "Uswetakeiyawa", "Vakaneri", "Valaichenai", "Valvettithurai", "Vavuniya", 
+            "Veyangoda", "Wadduwa", "Waga", "Waikkal","Walasmulla", "Warakapola", "Wariyapola", "Watareka", "Wattala", 
+            "Wattegama", "Weligama", "Welikanda", "Welimada", "Wellawatta", "Wellawaya", "Wennappuwa", "Yakkala", 
+            "Yala", "Yatiyantota"
+        ].sort();
+
+        // --- Initialize Slim Select Dropdowns ---
+        const hometownSelect = new SlimSelect({
+            select: '#hometown',
+            data: sriLankaTowns.map(town => ({text: town, value: town})),
+            placeholder: 'Select your hometown',
+            allowDeselect: true,
+        });
+
+        const nearbyTownsSelect = new SlimSelect({
+            select: '#nearby-towns',
+            data: sriLankaTowns.map(town => ({text: town, value: town})),
+            placeholder: 'Select nearby towns',
+        });
+
+        // --- Modal Alert Functionality ---
+        const modal = document.getElementById('alert-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMessage = document.getElementById('modal-message');
+        const modalIcon = document.getElementById('modal-icon');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        function showAlert(title, message, isError = false) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            
+            modalIcon.innerHTML = isError ? 
+                `<svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>` :
+                `<svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
+            
+            modalIcon.parentElement.className = `mx-auto flex items-center justify-center h-12 w-12 rounded-full ${isError ? 'bg-red-100' : 'bg-green-100'}`;
+
+            modal.classList.remove('hidden');
+        }
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        // --- Handle Form Submission ---
+        const form = document.getElementById("signup-form");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("student-name").value;
+            const email = document.getElementById("student-email").value;
+            const password = document.getElementById("student-password").value;
+            const confirmPassword = document.getElementById("student-confirm-password").value;
+            const subject = document.getElementById("student-subject").value;
+            const grade = document.getElementById("student-grade").value;
+            const goals = document.getElementById("student-goals").value;
+            const hometown = hometownSelect.selected();
+            const nearbyTowns = nearbyTownsSelect.selected();
+
+            if (password !== confirmPassword) {
+                showAlert("Error", "Passwords do not match!", true);
+                return;
+            }
+            if (!hometown) {
+                showAlert("Error", "Please select your hometown.", true);
+                return;
+            }
+
+            try {
+                // Register user
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save additional user info in Firestore
+                // NOTE: Storing data in a 'users' collection with a 'role' field is often more scalable.
+                // For this example, we'll stick to the 'students' collection.
+                await setDoc(doc(db, "students", user.uid), {
+                    name,
+                    email,
+                    subject,
+                    grade,
+                    goals,
+                    hometown,
+                    nearbyTowns, // This will be an array of strings
+                    createdAt: serverTimestamp()
+                });
+
+                showAlert("Success!", "Account created successfully! Redirecting you now...");
+                
+                // Redirect after a short delay to allow user to read the message
+                setTimeout(() => {
+                    window.location.href = "Findt.html"; // Or your student dashboard page
+                }, 2000);
+
+
+            } catch (error) {
+                showAlert("Authentication Error", error.message, true);
+            }
+        });
+    </script>
+</body>
+</html>

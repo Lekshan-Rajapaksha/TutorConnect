@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorConnect - My Student Profile</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Animate.css for subtle animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* Base styles for Poppins and Inter fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .main-header {
+            background-color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #10B981;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon-bg {
+            background-color: #D1FAE5;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #047857;
+        }
+
+        .main-nav a {
+            color: #4B5563;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .main-nav a:hover {
+            color: #10B981;
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        .btn-primary {
+            background-color: #10B981;
+            color: #fff;
+            border: 2px solid #10B981;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #047857;
+            border-color: #047857;
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #10B981;
+            color: #10B981;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+        }
+        .btn-outline:hover {
+            background-color: #D1FAE5;
+            color: #047857;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .profile-card {
+            background-color: #fff;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 1px solid #E5E7EB;
+            margin-top: 2.5rem;
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 5px solid #10B981;
+            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+        }
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .info-block {
+            background-color: #F9FAFB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .info-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-block h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6B7280;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-block p, .info-block ul {
+            font-size: 1.05rem;
+            color: #1F2937;
+        }
+        .info-block ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+        .info-block ul li {
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-block ul li::before {
+            content: '👉'; /* Custom bullet point */
+            font-size: 0.8em;
+            line-height: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-nav { display: none; }
+            .header-actions { margin-left: auto; } /* Push profile to right */
+            .profile-card { padding: 1.5rem; }
+            .profile-header { flex-direction: column; text-align: center; }
+            .profile-avatar { margin-bottom: 1.5rem; }
+        }
+
+        /* Footer Specific Styles */
+        .main-footer {
+            background: linear-gradient(to right, #047857, #10B981);
+            color: #fff;
+            padding: 4rem 0 2rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about .logo {
+            color: #fff;
+            margin-bottom: 1.25rem;
+            font-size: 1.75rem;
+        }
+        .footer-about .logo-icon-bg {
+            background-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .footer-about p {
+            font-size: 1rem;
+            color: #E5E7EB;
+        }
+
+        .footer-links h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: #fff;
+            position: relative;
+        }
+        .footer-links h4::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #A7F3D0;
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links ul li a {
+            color: #E5E7EB;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+            color: #D1FAE5;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-links h4::after {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+
+    <header class="main-header animate__animated animate__fadeInDown animate__faster">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                </div>
+                <span>TutorConnect</span>
+            </a>
+            <nav class="main-nav">
+                <!-- Removed "Find Tutors" from main navigation -->
+            </nav>
+            <div class="header-actions">
+                <a href="tutor_search_page.html" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
+                    Find Tutors <span class="ml-2">🔍</span> 
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-8 flex-grow">
+        <section class="profile-card animate__animated animate__fadeInUp">
+            <div class="profile-header flex items-center gap-6 mb-8 pb-6 border-b border-gray-200">
+                <img src="https://placehold.co/150x150/A7F3D0/047857?text=Student" alt="Student Profile Picture" class="profile-avatar">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Hello, <span class="text-green-600">Alex Smith!</span> 👋</h1>
+                    <p class="text-lg text-gray-600">Welcome to your personalized learning space. Here's a snapshot of your progress.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Personal Details Section -->
+                <div class="info-block">
+                    <h5><span class="text-xl">🌟</span> Personal Details</h5>
+                    <p><span class="font-medium text-gray-700">Email:</span> alex.smith@example.com</p>
+                    <p><span class="font-medium text-gray-700">Student ID:</span> TC-S-00123</p>
+                    <p><span class="font-medium text-gray-700">Grade Level:</span> 10th Grade</p>
+                    <p><span class="font-medium text-gray-700">Member Since:</span> January 2024</p>
+                    <div class="mt-4 flex gap-4">
+                        <button class="btn btn-primary">Edit Profile</button>
+                        <button class="btn btn-outline">Change Password</button>
+                    </div>
+                </div>
+
+                <!-- Learning Preferences Section -->
+                <div class="info-block">
+                    <h5><span class="text-xl">📚</span> Learning Preferences</h5>
+                    <p><span class="font-medium text-gray-700">Primary Subjects:</span> Mathematics, Physics</p>
+                    <p><span class="font-medium text-gray-700">Learning Style:</span> Visual, Problem-Solving</p>
+                    <p class="mt-2"><span class="font-medium text-gray-700">My Goals:</span> To improve my calculus skills for advanced placement and deepen my understanding of quantum physics.</p>
+                    <div class="mt-4">
+                        <button class="btn btn-primary">Update Preferences</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Removed Upcoming Lessons Section, so Connected Tutors will take full width -->
+                <!-- Connected Tutors Section -->
+                <div class="info-block">
+                    <h5><span class="text-xl">🤝</span> Connected Tutors</h5>
+                    <ul>
+                        <li><span class="font-medium">Mrs. Green</span> (Mathematics)</li>
+                        <li><span class="font-medium">Mr. Sharma</span> (Physics)</li>
+                        <li><span class="font-medium">Ms. Lee</span> (English)</li>
+                    </ul>
+                    <div class="mt-4">
+                        <button class="btn btn-primary">Find More Tutors</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <button class="btn btn-outline text-red-500 hover:bg-red-50 hover:text-red-700 border-red-300 hover:border-red-400">
+                    Sign Out <span class="ml-2">🚪</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer mt-10">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon-bg">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                        </div>
+                        <span>TutorConnect</span>
+                    </a>
+                    <p>Connecting students with qualified tutors for personalized learning experiences.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>For Students</h4>
+                    <ul>
+                        <li><a href="#">Find Tutors</a></li>
+                        <li><a href="#">Browse Subjects</a></li>
+                        <li><a href="#">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>For Tutors</h4>
+                    <ul>
+                        <li><a href="#">Become a Tutor</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Tutor FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 TutorConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+    authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+    projectId: "tutorconnect-a9b1e",
+    storageBucket: "tutorconnect-a9b1e.firebasestorage.app",
+    messagingSenderId: "511276105084",
+    appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+    measurementId: "G-7M72STVQKP"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Listen for auth state
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const uid = user.uid;
+      const docRef = doc(db, "students", uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+
+        // Set values in HTML
+        document.querySelector('.profile-avatar').alt = `Profile picture of ${data.name}`;
+        document.querySelector('h1 span').textContent = data.name;
+        document.querySelector('.info-block p:nth-of-type(1)').innerHTML = `<span class="font-medium text-gray-700">Email:</span> ${data.email}`;
+        document.querySelector('.info-block p:nth-of-type(2)').innerHTML = `<span class="font-medium text-gray-700">Student ID:</span> ${uid}`;
+        document.querySelector('.info-block p:nth-of-type(3)').innerHTML = `<span class="font-medium text-gray-700">Grade Level:</span> ${data.grade || 'Not provided'}`;
+        document.querySelector('.info-block p:nth-of-type(4)').innerHTML = `<span class="font-medium text-gray-700">Member Since:</span> ${data.createdAt?.toDate().toDateString() || '—'}`;
+
+        // Learning Preferences
+        document.querySelectorAll('.info-block')[1].innerHTML = `
+          <h5><span class="text-xl">📚</span> Learning Preferences</h5>
+          <p><span class="font-medium text-gray-700">Primary Subjects:</span> ${data.subject || '—'}</p>
+          <p><span class="font-medium text-gray-700">Learning Style:</span> —</p>
+          <p class="mt-2"><span class="font-medium text-gray-700">My Goals:</span> ${data.goals || '—'}</p>
+          <div class="mt-4">
+              <button class="btn btn-primary">Update Preferences</button>
+          </div>
+        `;
+
+      } else {
+        alert("No student profile found.");
+        window.location.href = "student_signup.html";
+      }
+    } else {
+      alert("Please log in to view your profile.");
+      window.location.href = "1.html"; // redirect to login
+    }
+  });
+</script>
+
+
+</body>
+</html>
