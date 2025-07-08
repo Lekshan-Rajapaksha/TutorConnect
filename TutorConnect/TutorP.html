@@ -256,8 +256,7 @@
     </header>
 
     <div id="tutor-profile-wrapper">
-        <!-- Tutor Profile Will Be Rendered Here by JavaScript -->
-    </div>
+        </div>
     
     <div id="notification-toast"></div>
 
@@ -281,7 +280,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, getDocs, query, orderBy, serverTimestamp, deleteDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -336,6 +335,10 @@
             return reviews.map(review => {
                 const authorInitials = review.studentName ? review.studentName.split(' ').map(n => n[0]).join('').toUpperCase() : '?';
                 const reviewDate = review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'a recent date';
+                
+                const deleteButtonHtml = loggedInUser && review.studentUid === loggedInUser.uid 
+                    ? `<button class="btn btn-outline btn-delete-review" data-review-id="${review.id}" style="padding: 0.2rem 0.8rem; font-size: 0.8rem; border-color: #ff6b6b; color: #ff6b6b;">Delete</button>` 
+                    : '';
 
                 return `
                 <div class="review-card">
@@ -346,11 +349,33 @@
                             <div class="review-date">Reviewed on ${reviewDate}</div>
                         </div>
                         <div class="profile-rating-stars">${getStarRatingHtml(review.rating)}</div>
+                        ${deleteButtonHtml} 
                     </div>
                     <p class="review-text">${review.comment}</p>
                 </div>
                 `;
             }).join('');
+        }
+        
+        async function handleDeleteReview(reviewId) {
+            if (!reviewId || !currentTutorUid) {
+                showNotification("Could not identify the review to delete.");
+                return;
+            }
+
+            if (!confirm("Are you sure you want to delete your review? This action cannot be undone.")) {
+                return;
+            }
+
+            try {
+                const reviewDocRef = doc(db, "tutors", currentTutorUid, "reviews", reviewId);
+                await deleteDoc(reviewDocRef);
+                showNotification("Your review has been deleted.");
+                await renderTutorProfile();
+            } catch (error) {
+                console.error("Error deleting review:", error);
+                showNotification("Failed to delete the review. Please try again.");
+            }
         }
 
         async function renderTutorProfile() {
@@ -457,8 +482,7 @@
                                         </h3>
                                         <button id="toggle-review-form-btn" class="btn btn-outline mb-6">Leave a Review</button>
                                         <div id="review-form-collapsible" class="collapsible-content">
-                                            <!-- Review Form will be injected here -->
-                                        </div>
+                                            </div>
                                         <div class="reviews-container">
                                             ${renderReviews(tutorReviews)}
                                         </div>
@@ -544,6 +568,13 @@
                     }
                 });
             }
+            
+            tutorProfileWrapper.addEventListener('click', (e) => {
+                if (e.target.matches('.btn-delete-review')) {
+                    const reviewId = e.target.dataset.reviewId;
+                    handleDeleteReview(reviewId);
+                }
+            });
         }
 
         function attachReviewFormSubmitListener() {
@@ -635,7 +666,6 @@
                     loggedInStudentName = studentDocSnap.data().name || "Anonymous";
                 }
             }
-            // Always render the profile, the booking button logic will handle visibility/functionality
             await renderTutorProfile();
         });
 
@@ -644,6 +674,10 @@
         .space-y-10 > :not([hidden]) ~ :not([hidden]) { margin-top: 2.5rem; }
         .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
         .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+        .btn-delete-review:hover {
+            background-color: #ff6b6b !important;
+            color: white !important;
+        }
     </style>
 </body>
 </html>
