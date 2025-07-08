@@ -5,209 +5,226 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TutorConnect - Sign In</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Animate.css for subtle animations -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        /* Base font styles for Inter and Poppins */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #e0ffe0, #f0f2f5, #e0f0ff); /* Subtle diagonal gradient */
-            color: #374151; /* Darker gray for general text */
-            transition: background 0.5s ease-in-out; /* Smooth transition for background changes */
+            background: linear-gradient(135deg, #6EE7B7, #3B82F6, #9333EA, #EC4899);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            color: #1F2937;
         }
         h1, h2, h3 {
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Input field focus styling */
-        .input-focus-ring:focus {
-            outline: none; /* Remove default outline */
-            border-color: #10B981; /* green-500 */
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.4); /* More pronounced green shadow */
-        }
-        /* Input field hover styling */
-        input:hover {
-            border-color: #A7F3D0; /* green-200 */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Primary button with gradient and enhanced hover effect */
-        .btn-primary-gradient {
-            background: linear-gradient(to right, #10B981, #047857); /* Green gradient */
-            border: none;
-            transition: all 0.3s ease-in-out; /* Smoother transition */
-            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4); /* green-500 with alpha, more prominent */
-            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); /* Stronger text shadow */
-            letter-spacing: 0.025em; /* Slightly increased letter spacing */
-        }
-        .btn-primary-gradient:hover {
-            background: linear-gradient(to right, #047857, #065F46); /* Darker green gradient */
-            box-shadow: 0 12px 25px rgba(4, 120, 87, 0.5); /* even darker green with alpha, more shadow */
-            transform: translateY(-4px) scale(1.02); /* Lift and scale more on hover */
-        }
-
-        /* Enhanced card shadow for main container */
-        .card-shadow {
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2); /* Even more pronounced shadow */
-        }
-
-        /* Checkbox custom styling */
-        input[type="checkbox"].form-checkbox {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            width: 1.25rem;
-            height: 1.25rem;
-            border: 2px solid #D1D5DB; /* gray-300 */
-            border-radius: 0.25rem; /* slightly rounded corners */
-            cursor: pointer;
+        /* Enhanced Glassmorphism Card Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             position: relative;
+            overflow: hidden;
+        }
+
+        /* Glowing Border Effect */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255,255,255,0.5), transparent, rgba(59, 130, 246, 0.5));
+        }
+
+        /* Input field styling */
+        .input-field {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
             outline: none;
-            transition: all 0.2s ease-in-out;
-            display: inline-block;
-            vertical-align: middle;
-            background-color: #fff;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4);
+            background: white;
+        }
+        .input-field::placeholder {
+            color: #4B5563;
         }
 
-        input[type="checkbox"].form-checkbox:checked {
-            background-color: #10B981; /* green-500 */
-            border-color: #10B981; /* green-500 */
+        /* Primary button styling */
+        .btn-primary {
+            background: linear-gradient(to right, #3B82F6, #2c00f1);
+            border: none;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 14px 35px rgba(93, 40, 217, 0.45);
+            transform: translateY(-4px) scale(1.03);
+            background-size: 200% auto;
         }
 
-        input[type="checkbox"].form-checkbox:checked::before {
-            content: '✓'; /* Checkmark icon */
-            display: block;
-            color: #ffffff;
-            font-size: 0.8rem;
-            text-align: center;
-            line-height: 1.1; /* Adjust for vertical centering */
+        /* Password toggle icon style */
+        .password-toggle {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            right: 1rem;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6B7280;
+            transition: color 0.2s ease;
+        }
+        .password-toggle:hover {
+            color: #3B82F6;
         }
 
-        input[type="checkbox"].form-checkbox:focus {
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3); /* green-500 with alpha */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
+<body class="min-h-screen">
+    <div class="flex flex-row-reverse w-full min-h-screen">
+       <div class="hidden lg:flex lg:w-3/5 items-center justify-center p-12 bg-no-repeat bg-cover bg-center" style="background-image: url('photo-1543269865-cbf427effbad (1).jpg');">
+             </div>
 
-    <!-- Header Section -->
-    <header class="w-full max-w-lg text-center mb-10 animate__animated animate__fadeInDown animate__fast">
-        <a href="index.html" class="inline-flex items-center space-x-3 text-green-600 mb-4 transform hover:scale-105 transition-transform duration-200">
-            <div class="bg-green-100 p-3 rounded-full shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-700"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-            </div>
-            <span class="text-3xl font-extrabold text-gray-800">TutorConnect</span>
-        </a>
-        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">Welcome <span class="text-green-600">Back!</span></h1>
-        <p class="text-lg text-gray-600 max-w-md mx-auto">Sign in to your TutorConnect account to continue your learning or teaching journey.</p>
-    </header>
+        <div class="w-full lg:w-2/5 flex flex-col items-center justify-center p-4">
+            <header class="w-full max-w-md text-center mb-10 animate__animated animate__fadeInDown">
+                <a href="index.html" class="inline-flex items-center space-x-4 text-white mb-6 transform hover:scale-105 transition-transform duration-300">
+                    <div class="bg-white/30 p-4 rounded-full shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                    </div>
+                    <span class="text-4xl font-bold">TutorConnect</span>
+                </a>
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-3" style="text-shadow: 0 3px 6px rgba(0,0,0,0.25);">Welcome Back!</h1>
+                <p class="text-lg text-white/80 max-w-sm mx-auto">Let's get you signed in to continue your journey.</p>
+            </header>
 
-    <div class="bg-white p-6 sm:p-8 md:p-10 rounded-2xl card-shadow w-full max-w-md animate__animated animate__fadeInUp animate__slow">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-8 pb-4 border-b border-gray-200">Sign In to Your Account</h2>
-        
-        <form class="space-y-6">
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required
-                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring sm:text-base transition duration-150 ease-in-out">
-            </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required
-                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring sm:text-base transition duration-150 ease-in-out">
-            </div>
+            <div class="glass-card p-6 sm:p-10 rounded-2xl w-full max-w-md animate__animated animate__fadeInUp" style="animation: float 6s ease-in-out infinite;">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Sign In</h2>
+                
+                <form class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required
+                               class="mt-1 block w-full px-4 py-3 rounded-lg shadow-sm sm:text-base input-field">
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" placeholder="••••••••" required
+                                   class="mt-1 block w-full px-4 py-3 rounded-lg shadow-sm sm:text-base input-field">
+                            <span id="password-toggle-icon" class="password-toggle">
+                                <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg id="eye-slashed" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><path d="M9.9 4.24A9.12 9.12 0 0 1 12 3c7 0 10 7 10 7a13.13 13.13 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" x2="22" y1="2" y2="22"></line></svg>
+                            </span>
+                        </div>
+                    </div>
 
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <input id="remember-me" name="remember-me" type="checkbox"
-                           class="form-checkbox text-green-600 focus:ring-green-500">
-                    <label for="remember-me" class="ml-2 block text-sm text-gray-700 select-none">
-                        Remember me
-                    </label>
-                </div>
-                <div class="text-sm">
-                    <a href="#" class="font-medium text-green-600 hover:text-green-500 transition duration-150 ease-in-out">
-                        Forgot your password?
+                    <div class="text-right text-sm">
+                        <a href="Contact.html" class="font-medium text-grey-600 hover:text-white-500 transition-colors duration-200">
+                            Forgot Password?
+                        </a>
+                    </div>
+                    
+                    <button type="submit"
+                            class="w-full flex justify-center py-3 px-6 rounded-lg text-lg font-bold text-white btn-primary focus:outline-none focus:ring-4 focus:ring-blue-500/50">
+                        Sign In
+                    </button>
+                </form>
+
+                <p class="mt-8 text-center text-base text-gray-700">
+                    Don't have an account?
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-x-4 gap-y-2 mt-4">
+                    <a href="Studentsign.html" class="font-semibold text-black-600 hover:text-white-500 transition-colors duration-200">
+                        Sign Up as a Student
+                    </a>
+                    <span class="hidden sm:block text-gray-400">|</span>
+                    <a href="Tutorsign.html" class="font-semibold text-black-600 hover:text-white-500 transition-colors duration-200">
+                        Sign Up as a Tutor
                     </a>
                 </div>
             </div>
-            
-            <button type="submit"
-                    class="w-full flex justify-center py-3 px-6 rounded-md text-lg font-bold text-white btn-primary-gradient focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
-                Sign In
-            </button>
-        </form>
-
-        <p class="mt-8 text-center text-base text-gray-600">
-            Don't have an account?
-            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
-                <a href="student_signup.html" class="font-medium text-blue-600 hover:text-blue-500 transition duration-150 ease-in-out">
-                    Sign Up as a Student
-                </a>
-                <a href="tutor_signup.html" class="font-medium text-purple-600 hover:text-purple-500 transition duration-150 ease-in-out">
-                    Sign Up as a Tutor
-                </a>
-            </div>
-        </p>
+        </div>
     </div>
+    
     <script type="module">
-    // 1) Imports
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        // Firebase and form logic remains the same
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
-    // 2) Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
-      authDomain: "tutorconnect-a9b1e.firebaseapp.com",
-      projectId: "tutorconnect-a9b1e",
-      storageBucket: "tutorconnect-a9b1e.appspot.com",
-      messagingSenderId: "511276105084",
-      appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
-      measurementId: "G-7M72STVQKP"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+            authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+            projectId: "tutorconnect-a9b1e",
+            storageBucket: "tutorconnect-a9b1e.appspot.com",
+            messagingSenderId: "511276105084",
+            appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+            measurementId: "G-7M72STVQKP"
+        };
 
-    // 3) Initialize
-    const app  = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db   = getFirestore(app);
+        const app  = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db   = getFirestore(app);
 
-    // 4) Form handling
-    const form = document.querySelector("form");
-    form.addEventListener("submit", async e => {
-      e.preventDefault();
-      const email    = form.email.value.trim();
-      const password = form.password.value;
+        const form = document.querySelector("form");
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.getElementById("password-toggle-icon");
+        const eyeOpen = document.getElementById("eye-open");
+        const eyeSlashed = document.getElementById("eye-slashed");
 
-      try {
-        // a) Sign in
-        const { user } = await signInWithEmailAndPassword(auth, email, password);
+        toggleIcon.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeOpen.classList.add('hidden');
+                eyeSlashed.classList.remove('hidden');
+            } else {
+                passwordInput.type = 'password';
+                eyeSlashed.classList.add('hidden');
+                eyeOpen.classList.remove('hidden');
+            }
+        });
 
-        // b) Check collections
-        const studentSnap = await getDoc(doc(db, "students", user.uid));
-        if (studentSnap.exists()) {
-          return window.location.href = "findt.html";
-        }
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+            const email    = form.email.value.trim();
+            const password = form.password.value;
 
-        const tutorSnap = await getDoc(doc(db, "tutors", user.uid));
-        if (tutorSnap.exists()) {
-          return window.location.href = "TutorProfile.html";
-        }
-
-        // c) Neither? Maybe they signed up but data not written yet:
-        alert("⚠️ No profile found. Please sign up first.");
-        auth.signOut();
-      }
-      catch (err) {
-        // Firebase Auth errors
-        alert("❌ " + err.message);
-      }
-    });
-  </script>
+            try {
+                const { user } = await signInWithEmailAndPassword(auth, email, password);
+                const studentSnap = await getDoc(doc(db, "students", user.uid));
+                if (studentSnap.exists()) {
+                    return window.location.href = "findt.html";
+                }
+                const tutorSnap = await getDoc(doc(db, "tutors", user.uid));
+                if (tutorSnap.exists()) {
+                    return window.location.href = "TutorProfile.html";
+                }
+                alert("⚠️ No profile found. Please sign up first.");
+                auth.signOut();
+            }
+            catch (err) {
+                alert("❌ " + err.message);
+            }
+        });
+    </script>
 </body>
 </html>

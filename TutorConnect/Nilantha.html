@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Profile | Nilantha Jayasuriya</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            /* Color Palette */
+            --p-navy-dark: #0a192f;
+            --p-navy-light: #112240;
+            --p-slate-light: #ccd6f6;
+            --p-slate-dark: #8892b0;
+            --p-teal: #64ffda;
+            --p-teal-dark: #13a884;
+            --p-background: #f0f4f8;
+            --p-surface: rgba(255, 255, 255, 0.75);
+            --p-border: #dfe6f0;
+            
+            /* Shadows & Radii */
+            --shadow-sm: 0 2px 8px rgba(10, 25, 47, 0.07);
+            --shadow-md: 0 6px 15px rgba(10, 25, 47, 0.1);
+            --shadow-lg: 0 20px 30px rgba(10, 25, 47, 0.12);
+            --shadow-glow: 0 0 15px rgba(100, 255, 218, 0.3);
+            --border-radius-md: 1rem;
+            --border-radius-lg: 1.5rem;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--p-background);
+            color: var(--p-slate-dark);
+            line-height: 1.7; /* Increased for better text readability */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--p-navy-dark);
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 2rem; /* Increased side padding for more breathing room on edges */
+        }
+        
+        /* Header: Added more vertical padding */
+        .main-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1.25rem 0; /* Increased from 1rem */
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--p-border);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; font-size: 1.5rem; font-weight: 800; color: var(--p-navy-dark); text-decoration: none; }
+        .logo-icon-bg { background: var(--p-navy-dark); padding: 0.6rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center; color: var(--p-teal); }
+        
+        /* Button */
+        .btn { padding: 0.8rem 1.75rem; border-radius: 9999px; text-decoration: none; font-family: 'Poppins', sans-serif; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 2px solid transparent; cursor: pointer; }
+        .btn-primary { background: var(--p-navy-dark); color: white; }
+        .btn-primary:hover { background: var(--p-navy-light); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .btn-teal { background: var(--p-teal); color: var(--p-navy-dark); box-shadow: var(--shadow-sm); }
+        .btn-teal:hover { background: #52e9c8; box-shadow: var(--shadow-glow); transform: translateY(-3px); }
+
+        /* Profile Hero: Increased gap for better separation */
+        .profile-hero {
+            padding: 4rem 0 9rem 0; /* Increased bottom padding for more overlap space */
+            background-color: var(--p-navy-dark);
+            background-image: linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23112240' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-a9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9z'/%3E%3Cpath d='M6 6h4v4H6V6zm10 0h4v4h-4V6zm10 0h4v4h-4V6zm10 0h4v4h-4V6zm10 0h4v4h-4V6zm10 0h4v4h-4V6zm10 0h4v4h-4V6zm10 0h4v4h-4V6zM6 16h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 26h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 36h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 46h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 56h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 66h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 76h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zM6 86h4v4H6v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4zm10 0h4v4h-4v-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            color: var(--p-slate-light);
+        }
+        .profile-hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2rem; /* Increased gap */ }
+        @media (min-width: 768px) { .profile-hero-content { flex-direction: row; text-align: left; } }
+
+        .profile-avatar { width: 160px; height: 160px; border-radius: 9999px; object-fit: cover; border: 4px solid white; outline: 4px solid var(--p-teal); box-shadow: var(--shadow-lg); flex-shrink: 0; }
+        .profile-name { font-size: 2.75rem; font-weight: 800; line-height: 1.1; color: white; }
+        .profile-tagline { font-size: 1.1rem; font-weight: 500; opacity: 0.9; color: var(--p-slate-light); margin-top: 0.5rem; }
+        .verified-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--p-teal); color: var(--p-navy-dark); padding: 0.3rem 0.8rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700; margin-top: 1.25rem; }
+        .profile-meta { display: flex; gap: 1.25rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center; }
+        @media (min-width: 768px) { .profile-meta { justify-content: flex-start; } }
+        .profile-meta-item { display: flex; align-items: center; gap: 0.5rem; background: var(--p-navy-light); padding: 0.5rem 1rem; border-radius: 9999px; font-weight: 500; border: 1px solid #233554; }
+        .profile-rating-stars { color: #ffac33; }
+
+        /* Main layout: Increased gap and adjusted overlap margin */
+        .profile-main-layout { display: grid; grid-template-columns: 1fr; gap: 2.5rem; margin-top: -6rem; /* Converted to rem */ position: relative; z-index: 10; padding-bottom: 5rem; /* Increased bottom space */ }
+        @media (min-width: 1024px) { .profile-main-layout { grid-template-columns: 1fr 380px; } }
+
+        .content-card { 
+            background: var(--p-surface);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius-lg); 
+            padding: 2.5rem; 
+            box-shadow: var(--shadow-md); 
+            border: 1px solid var(--p-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .content-card h3 { 
+            font-size: 1.5rem; 
+            margin-bottom: 2rem; /* Increased space below heading */
+            display: flex; 
+            align-items: center; 
+            gap: 1rem; /* Increased gap for icon */
+            padding-bottom: 1.25rem; /* Increased space for border */
+            border-bottom: 1px solid var(--p-border); 
+        }
+        .content-card h3 svg { color: var(--p-teal-dark); }
+        .prose { font-size: 1.1rem; }
+        .prose p:not(:last-child) { margin-bottom: 1.25rem; } /* Added specific paragraph spacing */
+
+        /* Details section: Increased all gaps for better visual separation */
+        .details-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; } /* Increased gap */
+        @media (min-width: 500px) { .details-grid { grid-template-columns: 1fr 1fr; } }
+        
+        .detail-item-full { grid-column: 1 / -1; } /* Helper class for full-width items */
+        .detail-item { 
+            background-color: var(--p-background); 
+            padding: 1.25rem 1.5rem; /* Increased padding */
+            border-radius: var(--border-radius-md); 
+            display: flex; 
+            align-items: center; 
+            gap: 1.25rem; /* Increased gap */
+            border: 1px solid var(--p-border);
+            transition: all 0.3s ease;
+        }
+        .detail-item:hover { transform: scale(1.02); box-shadow: var(--shadow-sm); border-color: var(--p-teal); }
+        .detail-item svg { color: var(--p-teal-dark); flex-shrink: 0; width: 2.5rem; height: 2.5rem; }
+        .detail-item strong { color: var(--p-navy-dark); font-weight: 600; display: block; margin-bottom: 0.25rem;}
+
+        .subject-tags-container { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; } /* Increased gap and top margin */
+        .subject-tag { background: var(--p-teal); color: var(--p-navy-dark); padding: 0.4rem 0.9rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 600; }
+
+        /* Reviews section */
+        .reviews-container { display: flex; flex-direction: column; gap: 2rem; } /* Increased gap between reviews */
+        .review-card { 
+            background-color: #fff;
+            border: 1px solid var(--p-border);
+            border-radius: var(--border-radius-md); 
+            padding: 2rem; /* Increased padding */
+        }
+        .review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; } /* Increased bottom margin */
+        .review-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; background: var(--p-slate-light); color: var(--p-navy-dark); display: flex; align-items: center; justify-content: center; font-weight: 600; font-family: 'Poppins'; flex-shrink: 0; }
+        .review-author-info { flex-grow: 1; }
+        .review-author { font-weight: 600; color: var(--p-navy-dark); font-size: 1.1rem; }
+        .review-date { font-size: 0.875rem; color: var(--p-slate-dark); }
+        .review-text { color: var(--p-slate-dark); font-style: italic; position: relative; padding-left: 2.5rem; } /* Increased padding */
+        .review-text::before { content: '“'; font-family: 'Poppins', serif; font-size: 4rem; color: var(--p-teal); position: absolute; left: -0.5rem; top: -0.5rem; line-height: 1; opacity: 0.5; }
+        
+        /* Booking Card: Increased spacing for stronger CTA focus */
+        .booking-card { position: sticky; top: 110px; } /* Adjusted sticky position */
+        .booking-card .content-card {
+             background: white;
+             border: 2px solid transparent;
+             background-clip: padding-box;
+             position: relative;
+        }
+        .booking-card .content-card::before {
+            content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1;
+            margin: -2px; border-radius: inherit; background: linear-gradient(135deg, var(--p-teal), var(--p-teal-dark));
+        }
+        .price-display { text-align: center; margin-bottom: 1rem; }
+        .price-display .amount { font-size: 2.5rem; font-weight: 800; color: var(--p-navy-dark); }
+        .price-display .period { font-size: 1rem; font-weight: 500; color: var(--p-slate-dark); }
+        .booking-card-description { text-align: center; margin-bottom: 2rem; } /* Increased bottom margin */
+        .booking-card .btn { width: 80%; padding-top: 1rem; padding-bottom: 1rem; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                </div>
+                <span>TutorConnect</span>
+            </a>
+            <a href="Signin.html" class="btn btn-primary">Find Tutors</a>
+        </div>
+    </header>
+
+    <div class="profile-hero">
+        <div class="container profile-hero-content animate__animated animate__fadeIn">
+            <img src="https://placehold.co/160x160/64ffda/0a192f?text=NJ" alt="Tutor Nilantha Jayasuriya" class="profile-avatar">
+            <div>
+                <h1 class="profile-name">Nilantha Jayasuriya</h1>
+                <p class="profile-tagline">M.S. in Physics, University Of Peradeniya</p>
+                <div class="verified-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    Verified Tutor
+                </div>
+                <div class="profile-meta">
+                    <div class="profile-meta-item"><span class="profile-rating-stars">★★★★☆</span>&nbsp;4.8 (28 reviews)</div>
+                    <div class="profile-meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                        Colombo, Sri Lanka
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="container">
+        <div class="profile-main-layout">
+            <div class="space-y-10"> <div class="content-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        About Me
+                    </h3>
+                    <div class="prose">
+                        <p>With a Master of Science in Mathematics from the prestigious University of Moratuwa, I bring a deep and thorough understanding of mathematical principles to every session. My passion is to demystify complex topics, making subjects like Calculus and Algebra not just understandable, but genuinely engaging for all students.</p>
+                        <p>My teaching philosophy is built on patience, clarity, and personalized support. I work to identify each student's unique challenges and build their confidence from the ground up.</p>
+                    </div>
+                </div>
+                <div class="content-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        Teaching Expertise
+                    </h3>
+                    <div class="space-y-6"> <div class="detail-item detail-item-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                            <div>
+                                <strong>Subjects Taught</strong>
+                                <div class="subject-tags-container">
+                                    <span class="subject-tag">Physics</span>
+                                    <span class="subject-tag">English</span>
+                                    <span class="subject-tag">Creative Writing</span>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div><strong>Experience</strong>8+ Years</div>
+                            </div>
+                            <div class="detail-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-5-4v6m4-2H8m4 0a2 2 0 100-4 2 2 0 000 4zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div><strong>Method</strong>Online & In-Person</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 12H16c-.6 0-1 .4-1 1v4c0 .6.4 1 1 1h5.5c.8 0 1.5-.7 1.5-1.5v-3c0-.8-.7-1.5-1.5-1.5z"></path><path d="M8 12h5.5c.8 0 1.5.7 1.5 1.5v3c0 .8-.7 1.5-1.5 1.5H3c-.6 0-1-.4-1-1v-4c0-.6.4-1 1-1h5z"></path><path d="M12 12v8"></path><path d="M5.5 5A3.5 3.5 0 0 1 9 1.5 3.5 3.5 0 0 1 12.5 5c0 1.6-1.4 2.9-3.5 3.5-2.1-.6-3.5-1.9-3.5-3.5z"></path><path d="M18.5 5A3.5 3.5 0 0 0 15 1.5 3.5 3.5 0 0 0 11.5 5c0 1.6 1.4 2.9 3.5 3.5 2.1-.6 3.5-1.9 3.5-3.5z"></path></svg>
+                        What Students Say
+                    </h3>
+                    <div class="reviews-container">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar">NP</div>
+                                <div class="review-author-info">
+                                    <div class="review-author">Nimali Perera</div>
+                                    <div class="review-date">Reviewed on July 05, 2025</div>
+                                </div>
+                                <div class="profile-rating-stars">★★★★★</div>
+                            </div>
+                            <p class="review-text">Mr. Abewardana is a fantastic tutor. My son's calculus grades have improved dramatically. Highly recommended!</p>
+                        </div>
+                        <div class="review-card">
+                             <div class="review-header">
+                                <div class="review-avatar">SS</div>
+                                 <div class="review-author-info">
+                                    <div class="review-author">Suresh Silva</div>
+                                    <div class="review-date">Reviewed on June 28, 2025</div>
+                                </div>
+                                <div class="profile-rating-stars">★★★★☆</div>
+                            </div>
+                            <p class="review-text">A very knowledgeable and patient teacher. He explains complex algebra problems in a way that is easy to grasp.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="content-card">
+                    <div class="price-display">
+                        <span class="amount">LKR 2,500</span>
+                        <span class="period">per hour</span>
+                    </div>
+                    <p class="booking-card-description">Ready to master mathematics? Send a request to schedule your first session.</p>
+                    <a href="Signin.html" class="btn btn-teal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M3.5 10h17"></path><path d="M20 21h-2.3a2.7 2.7 0 01-2.6-2.6V10a2 2 0 00-2-2h-3.2a2 2 0 00-2 2v8.4a2.7 2.7 0 01-2.6 2.6H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v13a2 2 0 01-2 2z"></path></svg>
+                        Request a Session
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <style>
+        .space-y-10 > :not([hidden]) ~ :not([hidden]) {
+            margin-top: 2.5rem;
+        }
+        .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+            margin-top: 1.5rem;
+        }
+    </style>
+</body>
+</html>

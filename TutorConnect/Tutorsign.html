@@ -6,9 +6,7 @@
     <title>TutorConnect - Tutor Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Animate.css for subtle animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <!-- Slim Select CSS for beautiful and searchable select dropdowns -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" rel="stylesheet">
     <style>
         /* Base font styles for Inter and Poppins */
@@ -66,7 +64,7 @@
             width: 100%;
         }
         .ss-single-selected, .ss-multi-selected {
-             padding: 0.5rem 0.75rem;
+            padding: 0.5rem 0.75rem;
         }
         .ss-content {
             border-radius: 0.375rem;
@@ -75,7 +73,6 @@
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
 
-    <!-- Header Section -->
     <header class="w-full max-w-4xl lg:max-w-6xl text-center mb-10 animate__animated animate__fadeInDown animate__fast">
         <a href="index.html" class="inline-flex items-center space-x-3 text-green-600 mb-4 transform hover:scale-105 transition-transform duration-200">
             <div class="bg-green-100 p-3 rounded-full shadow-md">
@@ -91,7 +88,6 @@
         <h2 class="text-2xl font-bold text-center text-gray-800 mb-8 pb-4 border-b border-gray-200">Your Journey Starts Here</h2>
         
         <form id="tutor-signup-form" class="space-y-8">
-            <!-- Personal Information Section -->
             <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="text-2xl">👤</span> Personal Information
@@ -108,6 +104,11 @@
                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
                     </div>
                     <div>
+                        <label for="tutor-mobile" class="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+                        <input type="tel" id="tutor-mobile" name="tutor-mobile" placeholder="e.g., 0771234567" required
+                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                    </div>
+                    <div>
                         <label for="tutor-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
                         <input type="password" id="tutor-password" name="tutor-password" placeholder="Create a strong password" required
                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
@@ -120,28 +121,24 @@
                 </div>
             </div>
 
-            <!-- Teaching Details Section -->
             <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="text-2xl">📚</span> Teaching & Location Details
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="tutor-subject" class="block text-sm font-medium text-gray-700 mb-1">Subjects you can teach</label>
-                        <input type="text" id="tutor-subject" name="tutor-subject" placeholder="e.g., Physics, Calculus (comma-separated)" required
-                               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
+                        <label for="tutor-subjects" class="block text-sm font-medium text-gray-700 mb-1">Subjects you can teach</label>
+                        <select id="tutor-subjects" name="tutor-subjects" required multiple></select>
                     </div>
                     <div>
                         <label for="tutor-experience" class="block text-sm font-medium text-gray-700 mb-1">Years of Teaching Experience</label>
                         <input type="number" id="tutor-experience" name="tutor-experience" placeholder="e.g., 2" min="0" required
                                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out">
                     </div>
-                    <!-- Hometown Selection -->
                     <div>
                         <label for="hometown" class="block text-sm font-medium text-gray-700 mb-1">Hometown</label>
                         <select id="hometown" name="hometown" required></select>
                     </div>
-                    <!-- Nearby Towns Selection -->
                     <div>
                         <label for="nearby-towns" class="block text-sm font-medium text-gray-700 mb-1">Towns You Can Tutor In</label>
                         <select id="nearby-towns" name="nearby-towns" multiple></select>
@@ -153,8 +150,19 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Availability and Rate Section -->
+
+            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📝</span> About Me
+                </h3>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="tutor-about" class="block text-sm font-medium text-gray-700 mb-1">Profile Summary</label>
+                        <textarea id="tutor-about" name="tutor-about" rows="4" placeholder="Share a brief introduction about yourself, your teaching style, and what makes you a great tutor. This will be shown on your public profile."
+                                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm input-focus-ring focus:ring-2 focus:border-green-500 sm:text-base transition duration-150 ease-in-out"></textarea>
+                    </div>
+                </div>
+            </div>
             <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
                     <span class="text-2xl">💰</span> Availability & Rate
@@ -201,17 +209,15 @@
 
         <p class="mt-8 text-center text-base text-gray-600">
             Already have an account?
-            <a href="1.html" class="font-medium text-green-600 hover:text-green-500 transition duration-150 ease-in-out">Sign In</a>
+            <a href="Signin.html" class="font-medium text-green-600 hover:text-green-500 transition duration-150 ease-in-out">Sign In</a>
         </p>
     </div>
 
-    <!-- Custom Modal for Alerts -->
     <div id="alert-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3 text-center">
                 <div id="modal-icon" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                    <!-- Icon will be set by JS -->
-                </div>
+                    </div>
                 <h3 id="modal-title" class="text-lg leading-6 font-medium text-gray-900"></h3>
                 <div class="mt-2 px-7 py-3">
                     <p id="modal-message" class="text-sm text-gray-500"></p>
@@ -225,7 +231,6 @@
         </div>
     </div>
 
-    <!-- Slim Select JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.js"></script>
 
     <script type="module">
@@ -235,88 +240,52 @@
 
         const firebaseConfig = {
             apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
-    authDomain: "tutorconnect-a9b1e.firebaseapp.com",
-    projectId: "tutorconnect-a9b1e",
-    storageBucket: "tutorconnect-a9b1e.firebasestorage.app",
-    messagingSenderId: "511276105084",
-    appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
-    measurementId: "G-7M72STVQKP"
+            authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+            projectId: "tutorconnect-a9b1e",
+            storageBucket: "tutorconnect-a9b1e.firebasestorage.app",
+            messagingSenderId: "511276105084",
+            appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+            measurementId: "G-7M72STVQKP"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         
+        // --- Sri Lanka Subjects List ---
+        const sriLankaSubjects = [
+            "Grade 1 Sinhala", "Grade 1 Mathematics", "Grade 1 Environmental", "Grade 1 Religion", "Grade 1 English",
+            "Grade 2 Sinhala", "Grade 2 Mathematics", "Grade 2 Environmental", "Grade 2 Religion", "Grade 2 English", 
+            "Grade 3 Sinhala", "Grade 3 Mathematics", "Grade 3 Environmental", "Grade 3 Religion", "Grade 3 English", "Grade 3 English", "Grade 3 Scolership", "Grade 3 Tamil",
+            "Grade 4 Sinhala", "Grade 4 Mathematics", "Grade 4 Environmental", "Grade 4 Religion", "Grade 4 English", "Grade 4 English", "Grade 4 Scolership", "Grade 4 Tamil",
+            "Grade 5 Sinhala", "Grade 5 Mathematics", "Grade 5 Environmental", "Grade 5 Religion", "Grade 5 English", "Grade 5 English", "Grade 5 Scolership", "Grade 5 Tamil",
+            "Grade 6 Sinhala", "Grade 6 Mathematics", "Grade 6 English", "Grade 6 Science", "Grade 6 History", "Grade 6 Religion", "Grade 6 Geography", "Grade 6 Civics Education", "Grade 6 Health ", "Grade 6 Tamil", "Grade 6 Dancing", 
+            "Grade 7 Sinhala", "Grade 7 Mathematics", "Grade 7 English", "Grade 7 Science", "Grade 7 History", "Grade 7 Religion", "Grade 7 Geography", "Grade 7 Civics Education", "Grade 7 Health ", "Grade 7 Tamil", "Grade 7 Dancing",  "Grade 7 ICT",
+            "Grade 8 Sinhala", "Grade 8 Mathematics", "Grade 8 English", "Grade 8 Science", "Grade 8 History", "Grade 8 Religion", "Grade 8 Geography", "Grade 8 Civics Education", "Grade 8 Health ", "Grade 8 Tamil", "Grade 8 Dancing",  "Grade 8 ICT",
+            "Grade 9 Sinhala", "Grade 9 Mathematics", "Grade 9 English", "Grade 9 Science", "Grade 9 History", "Grade 9 Religion", "Grade 9 Geography", "Grade 9 Civics Education", "Grade 9 Health ", "Grade 9 Tamil", "Grade 9 Dancing",  "Grade 9 ICT",
+            "Grade 10 Religion", "Grade 10 Sinhala", "Grade 10 English", "Grade 10 Mathematics", "Grade 10 Science", "Grade 10 History", "Grade 10 History", "Grade 10 Commerce", "Grade 10 English Literary ",
+            "Grade 11 Religion", "Grade 11 Sinhala", "Grade 11 English", "Grade 11 Mathematics", "Grade 11 Science", "Grade 11 History", "Grade 11 History", "Grade 11 Commerce", "Grade 11 English Literary ",
+            "A/L Combined Mathematics", "A/L Physics", "A/L Chemistry", "A/L Biology", "A/L Agricultural Science",
+            "A/L Accounting", "A/L Business Studies", "A/L Economics", "A/L Business Statistics",
+            "A/L Political Science", "A/L Logic and Scientific Method", "A/L History of Sri Lanka & Modern World", "A/L Geography", "A/L Buddhist Civilization", "A/L Hindu Civilization", "A/L Islamic Civilization", "A/L Christian Civilization", "A/L Greek and Roman Civilization",
+            "A/L French", "A/L German", "A/L Japanese", "A/L Hindi", "A/L Arabic", "A/L Chinese", "A/L Russian", "A/L Pali", "A/L Sanskrit", "A/L Sinhala", "A/L Tamil", "A/L English",
+            "A/L Drama and Theatre (Sinhala/Tamil/English)", "A/L Art", "A/L Music (Oriental/Carnatic/Western)", "A/L Dancing (Indigenous/Bharatha)",
+            "A/L Communication and Media Studies", "A/L Engineering Technology", "A/L Bio-systems Technology", "A/L Science for Technology",
+            "A/L General English", "A/L General Information Technology","Programming","Java","Web Development"
+        ].sort();
+
         // --- Sri Lanka Towns List (Comprehensive Postal Towns) ---
         const sriLankaTowns = [
-            "Achchuvely", "Adampan", "Addalaichenai", "Adhikarigama", "Adippala", "Agalawatta", "Agaliya", 
-            "Agarapathana", "Agbopura", "Ahangama", "Ahungalla", "Akaragama", "Akarawita", "Akarella", 
-            "Akkaraipattu", "Akmeemana", "Akuramboda", "Akurana", "Akuressa", "Alahengama", "Alahitiyawa", 
-            "Alapaladeniya", "Alawala", "Alawatugoda", "Alawatura", "Alawatuwala", "Alawwa", "Algama", 
-            "Allaipiddi", "Alubomulla", "Alutgama", "Alutnuwara", "Aluthwala", "Alvai", "Alwatta", 
-            "Ambalangoda", "Ambalantota", "Ambana", "Ambanpola", "Ampara", "Ampitiya", "Amunakole", 
-            "Anaicoddai", "Analaitivu", "Anamaduwa", "Andiambalama", "Andigama", "Angoda", "Angunakolapelessa", 
-            "Anguruwatota", "Anhandiya", "Ankokkawala", "Ankumbura", "Anuradhapura", "Apparekka", "Aralaganwila", 
-            "Aranayaka", "Arawakumbura", "Aruggammana", "Aselapura", "Atabage", "Atakalanpanna", "Atale", 
-            "Ataragalla", "Athurugiriya", "Attanagalla", "Avissawella", "Ayithiyamalai", "Badalkumbura", 
-            "Baddegama", "Badulla", "Baduraliya", "Bakamuna", "Bakiella", "Balagolla", "Balalla", "Balangoda", 
-            "Balapitiya", "Bambalapitiya", "Bambarapana", "Bandaragama", "Bandarawela", "Bangadeniya", 
-            "Barawakumbuka", "Batapola", "Batawala", "Battaramulla", "Batticaloa", "Batuwatta", "Beliatta", 
-            "Belihuloya", "Bellana", "Bemmulla", "Bentota", "Beruwala", "Bibile", "Bingiriya", "Biyagama", 
-            "Bokalagama", "Bollete (WP)", "Bope", "Boralesgamuwa", "Borella", "Bothale Ihalagama", "Bowalagama", 
-            "Bulathkohupitiya", "Bulathsinhala", "Buttala", "Chankanai", "Chavakachcheri", "Cheddikulam", 
-            "Chenkaladi", "Chilaw", "Chunnakam", "Colombo", "Colpetty", "Dambadeniya", "Dambagalla", "Dambana", 
-            "Dambulla", "Dankotuwa", "Danowita", "Dedigamuwa", "Deegala Lenama", "Dehiattakandiya", "Dehiowita", 
-            "Dehiwala-Mount Lavinia", "Dekatana", "Delgoda", "Dellawa", "Delmella", "Deltara", "Deltota", 
-            "Demanhandiya", "Denagama", "Deniyaya", "Deraniyagala", "Devinuwara", "Dharga Town", "Digana", 
-            "Dikoya", "Dikwella", "Divulapitiya", "Dodangaslanda", "Doluwa", "Dompe", "Doranagoda", "Dumbara", 
-            "Dunagaha", "Eheliyagoda", "Elpitiya", "Embilipitiya", "Eppawala", "Eravur", "Etawatunuwewa", 
-            "Ethkandura", "Fort", "Galagedara", "Galaha", "Galapitamada", "Galatara", "Galenbindunuwewa", 
-            "Galewela", "Galgamuwa", "Galle", "Galpatha", "Gampaha", "Gampola", "Ganemulla", "Ganga Ihala Korale", 
-            "Ganewatta", "Ginigathhena", "Giriulla", "Godagama", "Godakawela", "Gokarella", "Gonagaldeniya", 
-            "Gonapinuwala", "Gonawala", "Gothatuwa", "Habarakada", "Habarana", "Hakmana", "Hali-Ela", "Hambantota", 
-            "Handapangoda", "Handessa", "Hanguranketha", "Hanwella", "Hapugastalawa", "Haputale", "Harispattuwa", 
-            "Hatton", "Havelock Town", "Hendala", "Henegama", "Hettimulla", "Hettipola", "Hewainna", "Hikkaduwa", 
-            "Hingula", "Hingurakgoda", "Hingurana", "Hiripitya", "Hiswella", "Hokandara", "Homagama", "Horana", 
-            "Horampella", "Hulangamuwa", "Hunumulla", "Ibbagamuwa", "Ihala Madampella", "Imaduwa", "Imbulgoda", 
-            "Ingiriya", "Inuvil", "Ipalogama", "Ittapana", "Ja-Ela", "Jaffna", "Kadawatha", "Kadugannawa", 
-            "Kaduwela", "Kahaduwa", "Kahataruppa", "Kahawatta", "Kalagedihena", "Kalawana", "Kalkudah", "Kalmunai", 
-            "Kalutara", "Kamburupitiya", "Kandana", "Kandy", "Kantale", "Kapugoda", "Karadiyanaru", "Karagahatenna", 
-            "Karampon", "Karaveddy", "Kataragama", "Kathiraveli", "Kattankudy", "Katunayake", "Katuneriya", 
-            "Katuwana", "Kebithigollewa", "Kegalle", "Kekirawa", "Kelaniya", "Kendagolla", "Kesbewa", "Kilinochchi", 
-            "Kinniya", "Kirama", "Kiran", "Kiribathgoda", "Kirinda", "Kiriwattuduwa", "Kirulapone", "Kitulgala", 
-            "Kochchikade", "Kodikamam", "Koggala", "Kohuwala", "Kokkadicholai", "Kolonnawa", "Kopay", "Kosgama", 
-            "Kosgoda", "Koslanda", "Kotahena", "Kotikawatta", "Kottawa", "Kotte", "Kottegoda", "Kuliyapitiya", 
-            "Kundasale", "Kurunegala", "Kuruvita", "Lihiriyagama", "Loluwagoda", "Lunugamvehera", "Lunugala", 
-            "Lunugama", "Lunuvila", "Mabole", "Madahapola", "Madampe", "Madapatha", "Madawachchiya", "Madelgamuwa", 
-            "Madulla", "Madulsima", "Mahagama", "Mahakumbukkadawala", "Mahanuwara", "Maharagama", "Mahawela", 
-            "Mahiyanganaya", "Makandura", "Makewita", "Makola", "Malabe", "Mallakam", "Mandapam", "Mandawala", 
-            "Mannar", "Mapalagama", "Maradana", "Marassana", "Marawila", "Maskeliya", "Matale", "Matara", 
-            "Mattegoda", "Matugama", "Mawanella", "Mawathagama", "Medawachchiya", "Meddegama", "Medirigiriya", 
-            "Meegahatenna", "Meegoda", "Meethirigala", "Melsiripura", "Middeniya", "Mihintale", "Millaniya", 
-            "Minuwangoda", "Mirigama", "Mirissa", "Monaragala", "Moragahahena", "Moratuwa", "Morawaka", 
-            "Mount Lavinia", "Mullaitivu", "Mulleriyawa New Town", "Mutur", "Mutwal", "Nagoda", "Nakkawatta", 
-            "Nalanda", "Nanu Oya", "Napawela", "Narahenpita", "Narammala", "Nattandiya", "Naula", "Nawalapitiya", 
-            "Nawana", "Negombo", "Nelliady", "Nikaweratiya", "Nittambuwa", "Nugegoda", "Nuwara Eliya", 
-            "Oddamavadi", "Ohiya", "Padukka", "Paiyagala", "Palavi", "Pallekele", "Pallewela", "Pamanugama", 
-            "Panadura", "Pannala", "Pannipitiya", "Parakaduwa", "Passara", "Pasyala", "Pelawatta", "Peliyagoda", 
-            "Pelmadulla", "Peradeniya", "Pettah", "Pilimathalawa", "Piliyandala", "Pitigala", "Point Pedro", 
-            "Polgahawela", "Polgasowita", "Polonnaruwa", "Polpithimukulana", "Poruwadanda", "Pottuvil", "Pugoda", 
-            "Pujapitiya", "Punakarin", "Pundaluoya", "Pussellawa", "Puttalam", "Puwakpitiya", "Radawana", 
-            "Radawadunna", "Raddolugama", "Ragama", "Rajagiriya", "Rakwana", "Rambukkana", "Ranala", "Ranna", 
-            "Rathgama", "Ratmalana", "Ratnapura", "Ridee", "Ruwanwella", "Sainthamaruthu", "Saliyapura", 
-            "Sandilipay", "Seeduwa", "Serunuwara", "Siddamulla", "Sigiriya", "Slave Island", "Soranathota", 
-            "Sri Jayawardenepura Kotte", "Talawatugoda", "Talawakelle", "Tanamalwila", "Tangalle", "Teldeniya", 
-            "Tellippalai", "Thambuththegama", "Thanamalvila", "Thavady", "Theldeniya", "Thihagoda", 
-            "Thimbirigaskatuwa", "Tirunelveli", "Tissamaharama", "Trincomalee", "Tummodara", "Udagama", 
-            "Udappu", "Udathuthiripitiya", "Udugampola", "Udugoda", "Udumulla", "Uduvil", "Uggalboda", "Undugoda", 
-            "Unnichchai", "Urumpirai", "Uswetakeiyawa", "Vakaneri", "Valaichenai", "Valvettithurai", "Vavuniya", 
-            "Veyangoda", "Wadduwa", "Waga", "Waikkal", "Warakapola", "Wariyapola", "Watareka", "Wattala", 
-            "Wattegama", "Weligama", "Welikanda", "Welimada", "Wellawatta", "Wellawaya", "Wennappuwa", "Yakkala", 
-            "Yala", "Yatiyantota"
+            "Achchuvely", "Adampan", "Addalaichenai", "Adhikarigama", "Adippala", "Agalawatta", "Agaliya", "Agarapathana", "Agbopura", "Ahangama", "Ahungalla", "Akaragama", "Akarawita", "Akarella", "Akkaraipattu", "Akmeemana", "Akuramboda", "Akurana", "Akuressa", "Alahengama", "Alahitiyawa", "Alapaladeniya", "Alawala", "Alawatugoda", "Alawatura", "Alawatuwala", "Alawwa", "Algama", "Allaipiddi", "Alubomulla", "Alutgama", "Alutnuwara", "Aluthwala", "Alvai", "Alwatta", "Ambalangoda", "Ambalantota", "Ambana", "Ambanpola", "Ambewela", "Ampara", "Ampitiya", "Amunakole", "Anaicoddai", "Analaitivu", "Anamaduwa", "Andiambalama", "Andigama", "Angoda", "Angunakolapelessa", "Anguruwatota", "Anhandiya", "Ankokkawala", "Ankumbura", "Anuradhapura", "Apparekka", "Aralaganwila", "Aranayaka", "Arawakumbura", "Aruggammana", "Arugam Bay", "Aselapura", "Atabage", "Atakalanpanna", "Atale", "Ataragalla", "Athurugiriya", "Attanagalla", "Avissawella", "Ayagama", "Ayithiyamalai", "Badalkumbura", "Baddegama", "Badulla", "Baduraliya", "Bakamuna", "Bakiella", "Balagolla", "Balalla", "Balangoda", "Balapitiya", "Bambalapitiya", "Bambarapana", "Bandaragama", "Bandarawela", "Bangadeniya", "Barawakumbuka", "Batapola", "Batawala", "Battaramulla", "Batticaloa", "Batuwatta", "Beliatta", "Belihuloya", "Bellana", "Bellanwila", "Bemmulla", "Bentota", "Beruwala", "Bibile", "Bingiriya", "Biyagama", "Bogawantalawa", "Bokalagama", "Bollete (WP)", "Bope", "Boralesgamuwa", "Borella", "Bothale Ihalagama", "Bowalagama", "Bulathkohupitiya", "Bulathsinhala", "Buttala", "Chankanai", "Chavakachcheri", "Cheddikulam", "Chenkaladi", "Chilaw", "Chunnakam", "Colombo", "Colpetty", "Dambadeniya", "Dambagalla", "Dambana", "Dambulla", "Dankotuwa", "Danowita", "Dedigamuwa", "Deegala Lenama", "Dehiattakandiya", "Dehiowita", "Dehiwala-Mount Lavinia", "Dekatana", "Delgoda", "Dellawa", "Delmella", "Deltara", "Deltota", "Demanhandiya", "Denagama", "Deniyaya", "Deraniyagala", "Devinuwara", "Dharga Town", "Digana", "Dikoya", "Dikwella", "Diyatalawa", "Divulapitiya", "Dodangaslanda", "Doluwa", "Dompe", "Doranagoda", "Dumbara", "Dunagaha", "Eheliyagoda", "Elephant Pass", "Ella", "Elpitiya", "Embilipitiya", "Eppawala", "Eravur", "Etawatunuwewa", "Ethkandura", "Fort", "Galagedara", "Galaha", "Galapitamada", "Galatara", "Galenbindunuwewa", "Galewela", "Galgamuwa", "Galle", "Galnewa", "Galpatha", "Gampaha", "Gampola", "Ganemulla", "Ganga Ihala Korale", "Ganewatta", "Ginigathhena", "Giriulla", "Godagama", "Godakawela", "Gokarella", "Gonagaldeniya", "Gonapinuwala", "Gonawala", "Gothatuwa", "Habarakada", "Habarana", "Hakmana", "Hali-Ela", "Hambantota", "Handapangoda", "Handessa", "Hanguranketha", "Hanwella", "Hapugastalawa", "Haputale", "Harispattuwa", "Hatton", "Havelock Town", "Hendala", "Henegama", "Hettimulla", "Hettipola", "Hewainna", "Hikkaduwa", "Hingula", "Hingurakgoda", "Hingurana", "Hiripitya", "Hiswella", "Hokandara", "Homagama", "Horana", "Horampella", "Horowpathana", "Hulangamuwa", "Hunumulla", "Ibbagamuwa", "Ihala Madampella", "Imaduwa", "Imbulgoda", "Ingiriya", "Inuvil", "Ipalogama", "Ittapana", "Ja-Ela", "Jaffna", "Kadawatha", "Kadugannawa", "Kaduwela", "Kahaduwa", "Kahataruppa", "Kahawatta", "Kalagedihena", "Kalawana", "Kalkudah", "Kalmunai", "Kalpitiya", "Kalutara", "Kamburupitiya", "Kandana", "Kandeketiya", "Kandy", "Kantale", "Kapugoda", "Karadiyanaru", "Karagahatenna", "Karampon", "Karaveddy", "Kataragama", "Kathiraveli", "Kattankudy", "Katugastota", "Katunayake", "Katuneriya", "Katuwana", "Kayts", "Kebithigollewa", "Kegalle", "Kekirawa", "Kelaniya", "Kendagolla", "Kesbewa", "Kilinochchi", "Kinniya", "Kirama", "Kiran", "Kiribathgoda", "Kirinda", "Kiriwattuduwa", "Kirulapone", "Kitulgala", "Kochchikade", "Kodikamam", "Koggala", "Kokkilai", "Kohuwala", "Kokkadicholai", "Kolonnawa", "Kopay", "Kosgama", "Kosgoda", "Koslanda", "Kotagala", "Kotahena", "Kotikawatta", "Kottawa", "Kotte", "Kottegoda", "Kuliyapitiya", "Kundasale", "Kurunegala", "Kuruvita", "Lihiriyagama", "Lindula", "Loluwagoda", "Lunugamvehera", "Lunugala", "Lunugama", "Lunuvila", "Mabole", "Madahapola", "Madampe", "Madapatha", "Madawachchiya", "Madelgamuwa", "Madu Road", "Madulla", "Madulsima", "Mahagama", "Mahakumbukkadawala", "Mahanuwara", "Maharagama", "Mahawa", "Mahawela", "Mahiyanganaya", "Makandura", "Makewita", "Makola", "Malabe", "Mallakam", "Mandapam", "Mandawala", "Mankulam", "Mannar", "Mapalagama", "Maradana", "Marassana", "Marawila", "Maskeliya", "Matale", "Matara", "Mattegoda", "Matugama", "Mawanella", "Mawathagama", "Medawachchiya", "Meddegama", "Medirigiriya", "Meegahatenna", "Meegoda", "Meethirigala", "Melsiripura", "Middeniya", "Mihintale", "Millaniya", "Minuwangoda", "Mirigama", "Mirissa", "Monaragala", "Moragahahena", "Moratuwa", "Morawaka", "Mount Lavinia", "Mullaitivu", "Mulleriyawa New Town", "Mutur", "Mutwal", "Nagoda", "Nakkawatta", "Nalanda", "Nanu Oya", "Napawela", "Narahenpita", "Narammala", "Nattandiya", "Naula", "Nawalapitiya", "Nawana", "Negombo", "Nelliady", "Nikaweratiya", "Nilaveli", "Nildandahinna", "Nittambuwa", "Nochchiyagama", "Norwood", "Nugegoda", "Nuwara Eliya", "Oddamavadi", "Oddusuddan", "Ohiya", "Padaviya", "Padukka", "Paiyagala", "Palavi", "Pallebedda", "Pallekele", "Pallewela", "Pamanugama", "Panadura", "Pannala", "Pannipitiya", "Parakaduwa", "Parakramapura", "Paranthan", "Pasikudah", "Passara", "Pasyala", "Pelawatta", "Peliyagoda", "Pelmadulla", "Peradeniya", "Pettah", "Pilimathalawa", "Piliyandala", "Pitigala", "Point Pedro", "Polgahawela", "Polgasowita", "Polonnaruwa", "Polpithimukulana", "Poruwadanda", "Pottuvil", "Pugoda", "Pujapitiya", "Pulmoddai", "Punakarin", "Pundaluoya", "Pussellawa", "Puttalam", "Puwakpitiya", "Radawana", "Radawadunna", "Raddolugama", "Ragama", "Rajagiriya", "Rakwana", "Ramboda", "Rambukkana", "Ranala", "Ranna", "Rathgama", "Ratmalana", "Ratnapura", "Ridee", "Ruwanwella", "Sainthamaruthu", "Saliyapura", "Samanthurai", "Sandilipay", "Seeduwa", "Serunuwara", "Siddamulla", "Sigiriya", "Silavathurai", "Siyambalanduwa", "Slave Island", "Soranathota", "Sri Jayawardenepura Kotte", "Talaimannar", "Talawatugoda", "Talawakelle", "Tanamalwila", "Tangalle", "Teldeniya", "Tellippalai", "Thambuththegama", "Thanamalvila", "Thavady", "Theldeniya", "Thihagoda", "Thimbirigaskatuwa", "Tirunelveli", "Tissamaharama", "Trincomalee", "Tummodara", "Udagama", "Udappu", "Udathuthiripitiya", "Ududumbara", "Udugampola", "Udugoda", "Udumulla", "Uduvil", "Uggalboda", "Unawatuna", "Undugoda", "Unnichchai", "Uppuveli", "Urumpirai", "Uswetakeiyawa", "Vakaneri", "Valaichenai", "Valvettithurai", "Vavuniya", "Vidataltivu", "Veyangoda", "Wadduwa", "Waga", "Waikkal","Walasmulla", "Warakapola", "Wariyapola", "Watawala", "Watareka", "Wattala", "Wattegama", "Weligama", "Welikanda", "Welimada", "Wellawatta", "Wellawaya", "Wennappuwa","Weeraketiya", "Yakkala", "Yala", "Yatiyantota"
         ].sort();
 
         // --- Initialize Slim Select Dropdowns ---
+        const subjectSelect = new SlimSelect({
+            select: '#tutor-subjects',
+            data: sriLankaSubjects.map(subject => ({text: subject, value: subject})),
+            placeholder: 'Select subjects you can teach',
+        });
+
         const hometownSelect = new SlimSelect({
             select: '#hometown',
             data: sriLankaTowns.map(town => ({text: town, value: town})),
@@ -362,24 +331,35 @@
 
             const name = document.getElementById("tutor-name").value;
             const email = document.getElementById("tutor-email").value;
+            const mobile = document.getElementById("tutor-mobile").value;
             const password = document.getElementById("tutor-password").value;
             const confirmPassword = document.getElementById("tutor-confirm-password").value;
-            const subject = document.getElementById("tutor-subject").value;
+            const subjects = subjectSelect.selected();
             const experience = document.getElementById("tutor-experience").value;
             const education = document.getElementById("tutor-education").value;
             const hometown = hometownSelect.selected();
             const nearbyTowns = nearbyTownsSelect.selected();
+            const about = document.getElementById("tutor-about").value;
             const rate = document.getElementById("tutor-rate").value;
             const method = document.querySelector('input[name="teaching-method"]:checked').value;
             const availability = document.getElementById("tutor-availability").value;
 
-
+            // --- Validation ---
             if (password !== confirmPassword) {
                 showAlert("Error", "Passwords do not match!", true);
                 return;
             }
+            if (!subjects || subjects.length === 0) {
+                showAlert("Error", "Please select at least one subject you can teach.", true);
+                return;
+            }
             if (!hometown) {
                 showAlert("Error", "Please select your hometown.", true);
+                return;
+            }
+            const mobileRegex = /^07\d{8}$/;
+            if (!mobileRegex.test(mobile)) {
+                showAlert("Error", "Please enter a valid 10-digit Sri Lankan mobile number (e.g., 0771234567).", true);
                 return;
             }
 
@@ -391,11 +371,13 @@
                 await setDoc(doc(db, "tutors", user.uid), {
                     name,
                     email,
-                    subject,
+                    mobile,
+                    subjects, // Changed to 'subjects' array
                     experience,
                     education,
                     hometown,
                     nearbyTowns,
+                    about,
                     rate,
                     method,
                     availability,

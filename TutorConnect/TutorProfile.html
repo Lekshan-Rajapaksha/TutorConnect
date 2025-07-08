@@ -13,11 +13,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
-        /* Base styles for Poppins and Inter fonts */
+        /* ========================================
+            Glassmorphism Redesign (Blue Theme)
+          ======================================== */
+        :root {
+            --primary-color-start: #313e54; /* Blue 500 */
+            --primary-color-end: #152931; /* Sky 500 */
+            --secondary-color: #36545b; /* Cyan 300 */
+            
+            --bg-color-1: #7f99d8c5; /* Indigo 900 */
+            --bg-color-2: #5aa0c6c6; /* Sky 900 */
+            --bg-color-3: #918be2; /* Cyan 800 */
+
+            --text-primary: #131b27; 
+            --text-secondary: #1f262f;
+            --text-dark: #1e293b; 
+
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: rgba(8, 7, 16, 0.5);
+            --glass-blur: 12px;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(to bottom right, #f5f7fa, #eef1f5, #e0e6ed);
-            color: #333;
+            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--secondary-color));
+            background-size: 400% 400%;
+            animation: gradientAnimation 25s ease infinite;
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
@@ -33,58 +62,96 @@
             margin: 0 auto;
             padding: 0 1rem;
         }
+        
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.65s ease;
+            transform: skewX(-25deg);
+        }
+
+        .glass-panel:hover {
+            box-shadow: 0 12px 40px 0 rgba(8, 7, 16, 0.7);
+            transform: translateY(-5px);
+        }
+        
+        .glass-panel:hover::before {
+            left: 120%;
+        }
 
         .main-header {
-            background-color: #fff;
+            background-color: rgba(14, 25, 46, 0.5);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 50;
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #10B981;
+            color: var(--text-primary);
             text-decoration: none;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease;
         }
-        .logo:hover {
-            transform: scale(1.05);
-        }
+        .logo:hover { transform: scale(1.05); }
 
         .logo-icon-bg {
-            background-color: #D1FAE5;
-            padding: 0.5rem;
+            background-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end));
+            padding: 0.6rem;
             border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #047857;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff;
         }
 
         .main-nav a {
-            color: #4B5563;
+            color: var(--text-secondary);
             text-decoration: none;
             margin-left: 1.5rem;
             font-weight: 500;
-            transition: color 0.3s ease, transform 0.2s ease;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
         }
-
-        .main-nav a:hover {
-            color: #10B981;
-            transform: translateY(-2px);
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end));
+            transition: width 0.3s ease;
+            border-radius: 2px;
         }
+        .main-nav a:hover { color: #fff; }
+        .main-nav a:hover::after { width: 100%; }
 
         .btn {
             padding: 0.75rem 1.5rem;
@@ -96,51 +163,40 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000px;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
-            background-color: #10B981;
+            background-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end));
             color: #fff;
-            border: 2px solid #10B981;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
-
         .btn-primary:hover {
-            background-color: #047857;
-            border-color: #047857;
-            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.5);
-            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .btn-outline {
-            background-color: transparent;
-            border: 2px solid #10B981;
-            color: #10B981;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
         }
         .btn-outline:hover {
-            background-color: #D1FAE5;
-            color: #047857;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary-color-start);
+            color: #fff;
             transform: translateY(-2px);
         }
-
+        
         .profile-card {
-            background-color: #fff;
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            border: 1px solid #E5E7EB;
-            margin-top: 2.5rem;
-            animation: fadeInScale 0.8s ease-out forwards;
+             padding: 2.5rem;
         }
-
+        
         @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .profile-avatar {
@@ -148,338 +204,218 @@
             height: 150px;
             border-radius: 9999px;
             object-fit: cover;
-            border: 5px solid #10B981;
-            box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.3);
-            transition: all 0.3s ease;
+            border: 5px solid transparent;
+            background-image: linear-gradient(var(--glass-bg), var(--glass-bg)), linear-gradient(to right, var(--primary-color-start), var(--secondary-color), var(--primary-color-end));
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            box-shadow: 0 0 0 5px rgba(255,255,255,0.1), 0 5px 20px rgba(0,0,0,0.25);
+            transition: all 0.4s ease;
         }
         .profile-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.4);
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 0 0 8px rgba(255,255,255,0.1), 0 8px 25px rgba(0,0,0,0.3);
         }
 
+        h1 .text-transparent {
+             background-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end));
+        }
+        
         .info-block {
-            background-color: #F9FAFB;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 1px solid #E5E7EB;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            padding: 2rem;
         }
-        .info-block:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
-
-        .info-block h5 {
-            font-size: 1rem;
+        
+        .info-block h5, .my-reviews-section h3 {
+            font-size: 1.5rem;
             font-weight: 600;
-            color: #6B7280;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--glass-border);
         }
-        .info-block p, .info-block ul {
-            font-size: 1.05rem;
-            color: #1F2937;
+        
+        .detail-item {
+            display: flex; align-items: flex-start; gap: 1rem;
         }
-        .info-block ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 0.5rem;
+        .detail-item .icon-wrapper {
+            background-color: rgba(14, 165, 233, 0.15);
+            color: var(--primary-color-end);
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+            border: 1px solid var(--primary-color-end);
         }
-        .info-block ul li {
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .detail-item .icon-wrapper.sky { 
+            background-color: rgba(59, 130, 246, 0.15); 
+            color: var(--primary-color-start); 
+            border-color: var(--primary-color-start);
         }
-        .info-block ul li::before {
-            content: '👉'; /* Custom bullet point */
-            font-size: 0.8em;
-            line-height: 1;
-        }
+        .detail-item .label { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+        .detail-item .value { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
 
         .stat-card {
-            background-color: #EBF8F5; /* Light green background */
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            background-color: #D1FAE5; /* Slightly darker green on hover */
+            padding: 2rem;
         }
         .stat-card .value {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            color: #047857; /* Dark green for value */
+            background: linear-gradient(45deg, var(--primary-color-start), var(--primary-color-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             line-height: 1;
             margin-bottom: 0.5rem;
         }
         .stat-card .label {
             font-size: 1rem;
             font-weight: 500;
-            color: #374151; /* Dark gray for label */
+            color: var(--text-secondary);
         }
 
-        /* Student request specific styling */
-        .request-item {
-            display: flex;
-            align-items: flex-start; /* Align text to top */
-            padding: 0.75rem 0;
-            border-bottom: 1px dashed #E5E7EB;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
-        }
-        .request-item:last-child {
-            border-bottom: none;
-        }
-        .request-item .name {
-            font-weight: 600;
-            color: #1F2937;
-            flex-grow: 1;
-            min-width: 120px; /* Ensure name doesn't get too squished */
-        }
-        .request-item .subject {
-            font-size: 0.9em;
-            color: #6B7280;
-            margin-left: 0.5rem;
-            flex-grow: 1;
-        }
-        .request-item .action-btn {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.85rem;
-            border-radius: 0.5rem;
-            margin-left: 1rem;
-            white-space: nowrap; /* Prevent button text from wrapping */
-        }
-        .request-item .action-btn-primary {
-            background-color: #10B981;
-            color: #fff;
-            transition: background-color 0.2s ease;
-        }
-        .request-item .action-btn-primary:hover {
-            background-color: #047857;
-        }
-        .request-item .message {
-            width: 100%; /* Full width for message */
-            font-size: 0.9em;
-            color: #4B5563;
-            margin-top: 0.5rem;
-            padding-left: 0.5rem;
-            border-left: 2px solid #D1FAE5; /* Subtle visual cue for message */
-        }
-
-
-        /* Review Section for Tutor Profile */
         .my-reviews-section {
-            background-color: #F9FAFB;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #F3F4F6;
-            margin-top: 2rem;
+            padding: 2.5rem;
         }
         .my-reviews-section h3 {
             font-size: 1.75rem;
-            font-weight: 600;
-            color: #1F2937;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #E5E7EB;
+            border-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end)) 1;
         }
-        .my-reviews-container {
-            max-height: 400px; /* Limit height for scrollability */
-            overflow-y: auto;
-            padding-right: 0.5rem; /* Space for scrollbar */
-        }
-        .my-reviews-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        .my-reviews-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .my-reviews-container::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        .my-reviews-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
+
+        .review-card {
+            background: rgba(0,0,0,0.2) !important;
+            border: 1px solid var(--glass-border);
         }
         
-        /* Custom Modal Styles */
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+        /* MODIFIED: Added styles for request items, buttons, and status badges */
+        .request-item {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background: rgba(0,0,0,0.15);
+            border-radius: 0.75rem;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 1rem;
+            transition: background-color 0.3s;
+        }
+        .request-item:hover {
+            background: rgba(0,0,0,0.25);
+        }
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-accept {
+            background-color: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #34d399;
+        }
+        .btn-accept:hover {
+            background-color: rgba(16, 185, 129, 0.4);
+            color: #a7f3d0;
+        }
+        .btn-decline {
+            background-color: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #f87171;
+        }
+        .btn-decline:hover {
+            background-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+        .status-badge {
+            padding: 0.35rem 0.85rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .status-accepted {
+            background-color: rgba(16, 185, 129, 0.3);
+            color: #a7f3d0;
+        }
+        .status-declined {
+            background-color: rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+        }
+        
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
             z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
+            opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .modal-backdrop.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-backdrop.active { opacity: 1; visibility: visible; }
+        
         .modal-content {
-            background: white;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(12, 74, 110, 0.9));
             padding: 2rem;
             border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 90%;
             max-width: 450px;
             transform: scale(0.95);
             transition: transform 0.3s ease;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
         }
-        .modal-backdrop.active .modal-content {
-            transform: scale(1);
-        }
+        .modal-backdrop.active .modal-content { transform: scale(1); }
 
-        /* Responsive adjustments */
+        .main-footer {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 4rem 0 2rem 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            margin-top: auto;
+            border-top: 1px solid var(--glass-border);
+        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 3rem; }
+        .footer-about .logo { color: #fff; margin-bottom: 1.25rem; font-size: 1.75rem; }
+        .footer-about p { font-size: 1rem; color: var(--text-secondary); }
+        .footer-links h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; color: #fff; position: relative; }
+        .footer-links h4::after {
+            content: ''; display: block; width: 40px; height: 3px;
+            background-color: var(--secondary-color);
+            margin-top: 0.5rem; border-radius: 2px;
+        }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links ul li { margin-bottom: 0.9rem; }
+        .footer-links ul li a { color: var(--text-secondary); text-decoration: none; transition: all 0.3s ease; display: inline-block; }
+        .footer-links ul li a:hover { color: var(--secondary-color); transform: translateX(5px); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--glass-border); font-size: 0.95rem; color: var(--text-secondary); }
+
         @media (max-width: 768px) {
             .main-nav { display: none; }
-            .header-actions { margin-left: auto; }
             .profile-card { padding: 1.5rem; }
             .profile-header { flex-direction: column; text-align: center; }
             .profile-avatar { margin-bottom: 1.5rem; }
-            .stat-card { padding: 1rem; } /* Smaller padding on mobile */
-            .stat-card .value { font-size: 2rem; } /* Smaller value font on mobile */
-            .stat-card .label { font-size: 0.9rem; } /* Smaller label font on mobile */
-            .main-content-sections {
-                grid-template-columns: 1fr; /* Stack on mobile */
-            }
-            .main-content-sections > div {
-                grid-column: span 1 / span 1; /* Ensure full width for sections on mobile */
-            }
-            .request-item {
-                flex-direction: column;
-                align-items: flex-start;
-                padding-bottom: 1.5rem;
-            }
-            .request-item .name, .request-item .subject {
-                margin-left: 0;
-                width: 100%;
-                margin-bottom: 0.25rem;
-            }
-            .request-item .action-btn {
-                margin-left: 0;
-                margin-top: 0.75rem;
-                width: 100%;
-            }
-        }
-
-        /* Footer Specific Styles */
-        .main-footer {
-            background: linear-gradient(to right, #047857, #10B981);
-            color: #fff;
-            padding: 4rem 0 2rem 0;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-about .logo {
-            color: #fff;
-            margin-bottom: 1.25rem;
-            font-size: 1.75rem;
-        }
-        .footer-about .logo-icon-bg {
-            background-color: rgba(255,255,255,0.2);
-            color: #fff;
-        }
-
-        .footer-about p {
-            font-size: 1rem;
-            color: #E5E7EB;
-        }
-
-        .footer-links h4 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1.25rem;
-            color: #fff;
-            position: relative;
-        }
-        .footer-links h4::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 3px;
-            background-color: #A7F3D0;
-            margin-top: 0.5rem;
-            border-radius: 2px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 0.9rem;
-        }
-
-        .footer-links ul li a {
-            color: #E5E7EB;
-            text-decoration: none;
-            transition: color 0.3s ease, transform 0.2s ease;
-            display: inline-block;
-        }
-
-        .footer-links ul li a:hover {
-            color: #fff;
-            transform: translateX(5px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            font-size: 0.95rem;
-            color: #D1FAE5;
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .footer-links h4::after {
-                margin-left: auto;
-                margin-right: auto;
-            }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-links h4::after { margin-left: auto; margin-right: auto; }
         }
     </style>
 </head>
 <body class="flex flex-col">
 
-    <!-- Custom Modal for Alerts and Confirmations -->
     <div id="custom-modal" class="modal-backdrop">
-        <div class="modal-content text-center">
-            <p id="modal-message" class="text-lg mb-6"></p>
-            <div id="modal-actions" class="flex justify-center gap-4">
-                <!-- Buttons are added dynamically -->
+        <div class="modal-content">
+            <h4 id="modal-title" class="text-xl font-bold mb-4 text-center"></h4>
+            <div id="modal-body">
+                <p id="modal-message" class="text-lg mb-6 text-center"></p>
+                <div id="modal-custom-content"></div>
+            </div>
+            <div id="modal-actions" class="flex justify-center gap-4 mt-6">
             </div>
         </div>
     </div>
@@ -493,22 +429,18 @@
                 <span>TutorConnect</span>
             </a>
             <nav class="main-nav">
-                <a href="Findt.html">Find Tutors</a>
             </nav>
             <div class="header-actions">
-                <a href="#" class="btn btn-outline text-gray-700 hover:text-green-700 bg-gray-50 hover:bg-green-100 border border-gray-200 hover:border-green-300">
-                    My Profile <span class="ml-2">👨‍🏫</span> 
-                </a>
             </div>
         </div>
     </header>
 
     <main class="container py-8 flex-grow">
-        <section class="profile-card animate__animated animate__fadeInUp">
-            <div class="profile-header flex items-center gap-6 mb-8 pb-6 border-b border-gray-200 flex-wrap md:flex-nowrap justify-center md:justify-start">
-                <!-- Profile Picture Uploader -->
+        <section class="profile-card glass-panel animate__animated animate__fadeInUp">
+            
+            <div class="profile-header flex items-center gap-6 mb-8 pb-6 border-b flex-wrap md:flex-nowrap justify-center md:justify-start" style="border-color: var(--glass-border);">
                 <div class="relative group">
-                    <img src="https://placehold.co/150x150/047857/D1FAE5?text=Tutor" alt="Tutor Profile Picture" id="profile-avatar-img" class="profile-avatar">
+                    <img src="https://placehold.co/150x150/0c4a6e/f0f2f5?text=Tutor" alt="Tutor Profile Picture" id="profile-avatar-img" class="profile-avatar">
                     <label for="profile-picture-input" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity text-sm font-semibold">
                         Change
                     </label>
@@ -516,136 +448,77 @@
                 </div>
 
                 <div>
-                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Welcome, <span class="text-green-600" id="tutor-name-display">Tutor!</span> ✨</h1>
-                    <p class="text-lg text-gray-600">Your personalized dashboard to manage students and teaching requests.</p>
+                    <h1 class="text-4xl font-bold text-white mb-2">Welcome, <span class="text-transparent bg-clip-text" id="tutor-name-display">Tutor!</span> ✨</h1>
+                    <p class="text-lg text-dark">Your personalized dashboard to manage students and teaching requests.</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="stat-card">
-                    <div class="value">5</div>
-                    <div class="label">New Messages ✉️</div>
-                    <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="showModal('This feature is coming soon!', 'alert')">View Messages</button>
-                </div>
-                <div class="stat-card">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+                <div class="stat-card glass-panel">
                     <div class="value" id="new-requests-count">0</div>
                     <div class="label">New Requests 📝</div>
                     <button class="btn btn-primary mt-4 py-2 px-4 text-sm" onclick="document.getElementById('student-requests-section').scrollIntoView({ behavior: 'smooth' });">Manage Requests</button>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glass-panel">
                     <div class="value" id="avg-rating-display">0</div>
                     <div class="label">Avg. Rating ⭐</div>
                     <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="document.getElementById('my-reviews-section').scrollIntoView({ behavior: 'smooth' });">View Reviews</button>
                 </div>
-                <div class="stat-card">
-                    <div class="value" id="students-taught-display">0</div>
-                    <div class="label">Students Taught 🧑‍🎓</div>
-                    <button class="btn btn-outline mt-4 py-2 px-4 text-sm" onclick="showModal('This feature is coming soon!', 'alert')">View Students</button>
-                </div>
             </div>
 
-            <!-- Main content grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 flex flex-col gap-8">
-                    <div class="info-block" id="my-info-block">
-                        <!-- My Info content loaded by JS -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                <div class="lg:col-span-2 flex flex-col gap-10">
+                    <div class="info-block glass-panel" id="my-info-block">
                     </div>
-                    <div class="info-block" id="teaching-details-block">
-                        <!-- Teaching Details content loaded by JS -->
+                    <div class="info-block glass-panel" id="about-me-block">
+                    </div>
+                    <div class="info-block glass-panel" id="teaching-details-block">
                     </div>
                 </div>
 
                 <div class="lg:col-span-1" id="student-requests-section">
-                    <div class="info-block h-full flex flex-col">
+                    <div class="info-block glass-panel h-full flex flex-col">
                         <h5><span class="text-xl">🔔</span> Student Teaching Requests (<span id="requests-count-display">0</span>)</h5>
                         <div class="flex-grow overflow-y-auto pr-2" id="requests-container">
-                            <p class="text-center text-gray-500 py-4">No new requests.</p>
-                        </div>
-                        <div class="mt-4 text-center">
-                            <button class="btn btn-primary w-full py-2 px-4 text-sm" onclick="showModal('This feature is coming soon!', 'alert')">View All Requests</button>
+                            <p class="text-center text-gray-400 py-4">No new requests.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Photo Gallery Section -->
-            <div class="my-reviews-section mt-8 animate__animated animate__fadeInUp animate__slow" id="my-gallery-section">
+            <div class="my-reviews-section glass-panel mt-12 animate__animated animate__fadeInUp animate__slow" id="my-gallery-section">
                 <h3><span class="text-3xl">🖼️</span> My Photo Gallery</h3>
                 <div class="text-center my-4">
                     <label for="gallery-upload-input" class="btn btn-primary cursor-pointer">
                         Upload Photos
                     </label>
                     <input type="file" id="gallery-upload-input" class="hidden" accept="image/*" multiple>
-                    <p class="text-sm text-gray-500 mt-2">Add photos of your classroom or teaching materials.</p>
+                    <p class="text-sm text-gray-400 mt-2">Add photos of your classroom or teaching materials.</p>
                 </div>
                 <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <p class="text-center text-gray-500 col-span-full">No photos uploaded yet.</p>
+                    <p class="text-center text-gray-400 col-span-full">No photos uploaded yet.</p>
                 </div>
             </div>
 
-            <!-- Reviews Section -->
-            <div class="my-reviews-section animate__animated animate__fadeInUp animate__slow" id="my-reviews-section">
+            <div class="my-reviews-section glass-panel mt-12 animate__animated animate__fadeInUp animate__slow" id="my-reviews-section">
                 <h3><span class="text-3xl">⭐</span> My Reviews (<span id="tutor-reviews-count-display">0</span>)</h3>
                 <div id="my-reviews-container" class="my-reviews-container space-y-4">
-                    <p class="text-center text-gray-500">Loading reviews...</p>
+                    <p class="text-center text-gray-400">Loading reviews...</p>
                 </div>
             </div>
 
-            <div class="mt-10 text-center">
-                <button class="btn btn-outline text-red-500 hover:bg-red-50 hover:text-red-700 border-red-300 hover:border-red-400" id="sign-out-btn">
+            <div class="mt-12 text-center">
+                <button class="btn btn-outline text-red-400 hover:bg-red-900 hover:bg-opacity-30 hover:text-red-300 border-red-500 hover:border-red-400" id="sign-out-btn">
                     Sign Out <span class="ml-2">🚪</span>
                 </button>
             </div>
         </section>
     </main>
 
-    <footer class="main-footer mt-10">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <a href="index.html" class="logo">
-                        <div class="logo-icon-bg">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                        </div>
-                        <span>TutorConnect</span>
-                    </a>
-                    <p>Connecting students with qualified tutors for personalized learning experiences.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>For Students</h4>
-                    <ul>
-                        <li><a href="#">Find Tutors</a></li>
-                        <li><a href="#">Browse Subjects</a></li>
-                        <li><a href="#">How It Works</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>For Tutors</h4>
-                    <ul>
-                        <li><a href="#">Become a Tutor</a></li>
-                        <li><a href="#">Resources</a></li>
-                        <li><a href="#">Tutor FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 TutorConnect. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, query, getDocs, orderBy, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, orderBy } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
 
         // IMPORTANT: Replace with your actual Firebase project configuration
@@ -672,9 +545,9 @@
         const galleryUploadInput = document.getElementById('gallery-upload-input');
         const signOutBtn = document.getElementById('sign-out-btn');
         const myInfoBlock = document.getElementById('my-info-block');
+        const aboutMeBlock = document.getElementById('about-me-block');
         const teachingDetailsBlock = document.getElementById('teaching-details-block');
         const avgRatingDisplay = document.getElementById('avg-rating-display');
-        const studentsTaughtDisplay = document.getElementById('students-taught-display');
         const tutorReviewsCountDisplay = document.getElementById('tutor-reviews-count-display');
         const myReviewsContainer = document.getElementById('my-reviews-container');
         const newRequestsCount = document.getElementById('new-requests-count');
@@ -683,53 +556,58 @@
         
         // Modal elements
         const modal = document.getElementById('custom-modal');
+        const modalTitle = document.getElementById('modal-title');
         const modalMessage = document.getElementById('modal-message');
+        const modalCustomContent = document.getElementById('modal-custom-content');
         const modalActions = document.getElementById('modal-actions');
 
         let currentTutorData = {};
         let currentTutorReviews = [];
 
         // --- Custom Modal Functions ---
-        function showModal(message, type = 'alert', onConfirm = null) {
-            modalMessage.innerHTML = ''; // Clear previous content
-            modalActions.innerHTML = ''; // Clear previous buttons
+        window.showModal = function(options) {
+            const { title = '', message = '', type = 'alert', onConfirm = null, customHtml = '' } = options;
+
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modalCustomContent.innerHTML = customHtml;
+            modalActions.innerHTML = '';
+
+            modalMessage.style.display = message ? 'block' : 'none';
+            modalTitle.style.display = title ? 'block' : 'none';
 
             if (type === 'loading') {
-                const loadingHTML = `
+                modalMessage.innerHTML = `
                     <div class="flex justify-center items-center">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                         <span>${message}</span>
                     </div>
                 `;
-                modalMessage.innerHTML = loadingHTML;
-            } else {
-                 modalMessage.textContent = message;
-                if (type === 'confirm') {
-                    const confirmBtn = document.createElement('button');
-                    confirmBtn.textContent = 'Confirm';
-                    confirmBtn.className = 'btn btn-primary';
-                    confirmBtn.onclick = () => {
-                        if(onConfirm) onConfirm();
-                        hideModal();
-                    };
-                    
-                    const cancelBtn = document.createElement('button');
-                    cancelBtn.textContent = 'Cancel';
-                    cancelBtn.className = 'btn btn-outline';
-                    cancelBtn.onclick = hideModal;
+            } else if (type === 'confirm') {
+                const confirmBtn = document.createElement('button');
+                confirmBtn.textContent = 'Confirm';
+                confirmBtn.className = 'btn btn-primary';
+                confirmBtn.onclick = () => {
+                    if(onConfirm) onConfirm();
+                    hideModal();
+                };
+                
+                const cancelBtn = document.createElement('button');
+                cancelBtn.textContent = 'Cancel';
+                cancelBtn.className = 'btn btn-outline';
+                cancelBtn.onclick = hideModal;
 
-                    modalActions.appendChild(cancelBtn);
-                    modalActions.appendChild(confirmBtn);
-                } else { // alert
-                    const okBtn = document.createElement('button');
-                    okBtn.textContent = 'OK';
-                    okBtn.className = 'btn btn-primary';
-                    okBtn.onclick = hideModal;
-                    modalActions.appendChild(okBtn);
-                }
+                modalActions.appendChild(cancelBtn);
+                modalActions.appendChild(confirmBtn);
+            } else { // alert
+                const okBtn = document.createElement('button');
+                okBtn.textContent = 'OK';
+                okBtn.className = 'btn btn-primary';
+                okBtn.onclick = hideModal;
+                modalActions.appendChild(okBtn);
             }
             modal.classList.add('active');
         }
@@ -741,7 +619,7 @@
         function getStarRatingHtml(rating) {
             const fullStars = '★'.repeat(Math.floor(rating));
             const emptyStars = '☆'.repeat(5 - Math.floor(rating));
-            return `<span class="text-amber-500">${fullStars}</span><span class="text-gray-300">${emptyStars}</span>`;
+            return `<span class="text-amber-400">${fullStars}</span><span class="text-gray-500">${emptyStars}</span>`;
         }
 
         // --- Main Application Logic ---
@@ -762,30 +640,37 @@
                     
                     // Populate UI
                     tutorNameDisplay.textContent = currentTutorData.name || 'Tutor';
-                    profileAvatarImg.src = currentTutorData.profilePictureUrl || 'https://placehold.co/150x150/047857/D1FAE5?text=Tutor';
+                    profileAvatarImg.src = currentTutorData.profilePictureUrl || 'https://placehold.co/150x150/0c4a6e/f0f2f5?text=Tutor';
 
                     renderMyInfo(false);
+                    renderAboutMe(false);
                     renderTeachingDetails(false);
                     renderGallery(currentTutorData.classPhotoUrls || []);
                     loadReviewsAndRequests(userUid);
                 } else {
-                    showModal("Tutor profile not found. Please complete your registration.", "alert");
+                    showModal({ title: "Error", message: "Tutor profile not found. Please complete your registration." });
                 }
             } catch (error) {
                 console.error("Error loading profile:", error);
-                showModal("Error loading your profile. Please try again later.", "alert");
+                showModal({ title: "Error", message: "Error loading your profile. Please try again later." });
             }
         }
 
         function renderMyInfo(isEditing = false) {
             if (isEditing) {
                 myInfoBlock.innerHTML = `
-                    <h5><span class="text-xl">🌟</span> My Information</h5>
-                    <p><span class="font-medium text-gray-700">Name:</span> <input type="text" id="tutor-name-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.name || ''}"></p>
-                    <p><span class="font-medium text-gray-700">Email:</span> <span>${currentTutorData.email}</span></p>
-                    <p><span class="font-medium text-gray-700">Tutor ID:</span> <span>${auth.currentUser.uid}</span></p>
-                    <p><span class="font-medium text-gray-700">Member Since:</span> <span>${currentTutorData.createdAt?.toDate().toDateString() || '—'}</span></p>
-                    <div class="mt-4 flex gap-4">
+                    <h5><span class="text-xl">✏️</span> Edit Information</h5>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="tutor-name-input" class="block text-sm font-medium text-slate-300">Name</label>
+                            <input type="text" id="tutor-name-input" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="${currentTutorData.name || ''}">
+                        </div>
+                        <div>
+                            <label for="tutor-mobile-input" class="block text-sm font-medium text-slate-300">Contact Number</label>
+                            <input type="tel" id="tutor-mobile-input" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="${currentTutorData.mobile || ''}">
+                        </div>
+                    </div>
+                    <div class="mt-6 flex gap-4">
                         <button class="btn btn-primary" id="save-my-info-btn">Save</button>
                         <button class="btn btn-outline" id="cancel-my-info-btn">Cancel</button>
                     </div>
@@ -793,12 +678,64 @@
             } else {
                 myInfoBlock.innerHTML = `
                     <h5><span class="text-xl">🌟</span> My Information</h5>
-                    <p><span class="font-medium text-gray-700">Email:</span> <span>${currentTutorData.email}</span></p>
-                    <p><span class="font-medium text-gray-700">Tutor ID:</span> <span>${auth.currentUser.uid}</span></p>
-                    <p><span class="font-medium text-gray-700">Member Since:</span> <span>${currentTutorData.createdAt?.toDate().toDateString() || '—'}</span></p>
-                    <div class="mt-4 flex gap-4">
+                    <div class="space-y-4">
+                        <div class="detail-item">
+                            <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></div>
+                            <div>
+                                <p class="label">Email</p>
+                                <p class="value">${currentTutorData.email}</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="label">Contact Number</p>
+                                <p class="value">${currentTutorData.mobile || 'Not specified'}</p>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon-wrapper sky"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg></div>
+                            <div>
+                                <p class="label">Tutor ID</p>
+                                <p class="value break-all">${auth.currentUser.uid}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex gap-4 flex-wrap">
                         <button class="btn btn-primary" id="edit-my-info-btn">Edit Profile</button>
-                        <button class="btn btn-outline">Change Password</button>
+                        <button class="btn btn-outline" id="change-password-btn">Change Password</button>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderAboutMe(isEditing = false) {
+             if (isEditing) {
+                aboutMeBlock.innerHTML = `
+                    <h5><span class="text-xl">✏️</span> Edit About Me</h5>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="tutor-about-input" class="block text-sm font-medium text-slate-300">Your Bio</label>
+                            <textarea id="tutor-about-input" rows="5" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">${currentTutorData.about || ''}</textarea>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex gap-4">
+                        <button class="btn btn-primary" id="save-about-me-btn">Save</button>
+                        <button class="btn btn-outline" id="cancel-about-me-btn">Cancel</button>
+                    </div>
+                `;
+            } else {
+                aboutMeBlock.innerHTML = `
+                    <h5><span class="text-xl">👤</span> About Me</h5>
+                    <div class="space-y-4">
+                        <p class="text-slate-300 whitespace-pre-line">${currentTutorData.about || 'You have not added a bio yet. Click Edit to add one!'}</p>
+                    </div>
+                    <div class="mt-6">
+                        <button class="btn btn-primary" id="edit-about-me-btn">Edit About Me</button>
                     </div>
                 `;
             }
@@ -807,35 +744,56 @@
         function renderTeachingDetails(isEditing = false) {
             if (isEditing) {
                 teachingDetailsBlock.innerHTML = `
-                    <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
-                    <p><span class="font-medium text-gray-700">Subjects:</span> <input type="text" id="tutor-subject-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.subject || ''}"></p>
-                    <p><span class="font-medium text-gray-700">Years Exp:</span> <input type="number" id="tutor-experience-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.experience || 0}"></p>
-                    <p><span class="font-medium text-gray-700">Qualifications:</span> <input type="text" id="tutor-education-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.education || ''}"></p>
-                    <p><span class="font-medium text-gray-700">Hourly Rate:</span> $<input type="number" id="tutor-rate-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.rate || ''}"></p>
-                    <p><span class="font-medium text-gray-700">Teaching Method:</span> 
-                        <select id="tutor-method-input" class="form-select rounded-md border-gray-300 w-full mt-1">
-                            <option value="online" ${currentTutorData.method === 'online' ? 'selected' : ''}>Online</option>
-                            <option value="in-person" ${currentTutorData.method === 'in-person' ? 'selected' : ''}>In-person</option>
-                            <option value="hybrid" ${currentTutorData.method === 'hybrid' ? 'selected' : ''}>Hybrid</option>
-                        </select>
-                    </p>
-                    <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> <input type="text" id="tutor-availability-input" class="form-input rounded-md border-gray-300 w-full mt-1" value="${currentTutorData.availability || ''}"></p>
-                    <div class="mt-4">
-                        <button class="btn btn-primary" id="save-teaching-info-btn">Save</button>
+                    <h5><span class="text-xl">✏️</span> Edit Teaching Expertise</h5>
+                    <div class="space-y-4">
+                        <div><label class="block text-sm font-medium text-slate-300">Subjects (comma-separated)</label><input type="text" id="tutor-subject-input" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm" value="${currentTutorData.subject || ''}"></div>
+                        <div><label class="block text-sm font-medium text-slate-300">Years of Experience</label><input type="number" id="tutor-experience-input" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm" value="${currentTutorData.experience || 0}"></div>
+                        <div><label class="block text-sm font-medium text-slate-300">Qualifications</label><textarea id="tutor-education-input" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm">${currentTutorData.education || ''}</textarea></div>
+                        <div><label class="block text-sm font-medium text-slate-300">Hourly Rate (LKR)</label><input type="number" id="tutor-rate-input" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm" value="${currentTutorData.rate || ''}"></div>
+                        <div><label class="block text-sm font-medium text-slate-300">Teaching Method</label>
+                            <select id="tutor-method-input" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm">
+                                <option value="online" ${currentTutorData.method === 'online' ? 'selected' : ''}>Online</option>
+                                <option value="in-person" ${currentTutorData.method === 'in-person' ? 'selected' : ''}>In-person</option>
+                                <option value="both" ${currentTutorData.method === 'both' ? 'selected' : ''}>Both</option>
+                            </select>
+                        </div>
+                        <div><label class="block text-sm font-medium text-slate-300">Availability</label><textarea id="tutor-availability-input" rows="3" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm">${currentTutorData.availability || ''}</textarea></div>
+                    </div>
+                    <div class="mt-6 flex gap-4">
+                        <button class="btn btn-primary" id="save-teaching-info-btn">Save Changes</button>
                         <button class="btn btn-outline" id="cancel-teaching-info-btn">Cancel</button>
                     </div>
                 `;
             } else {
                 teachingDetailsBlock.innerHTML = `
                     <h5><span class="text-xl">📚</span> Teaching Expertise</h5>
-                    <p><span class="font-medium text-gray-700">Subjects:</span> ${currentTutorData.subject || 'Not specified'}</p>
-                    <p><span class="font-medium text-gray-700">Years Exp:</span> ${currentTutorData.experience || 0} years</p>
-                    <p><span class="font-medium text-gray-700">Qualifications:</span> ${currentTutorData.education || 'Not specified'}</p>
-                    <p><span class="font-medium text-gray-700">Hourly Rate:</span> $${currentTutorData.rate || 'N/A'}/hr</p>
-                    <p><span class="font-medium text-gray-700">Teaching Method:</span> ${currentTutorData.method ? currentTutorData.method.charAt(0).toUpperCase() + currentTutorData.method.slice(1) : 'Not specified'}</p>
-                    <p class="mt-2"><span class="font-medium text-gray-700">Availability:</span> ${currentTutorData.availability || 'Not specified'}</p>
-                    ${currentTutorData.method !== 'online' && currentTutorData.location ? `<p><span class="font-medium text-gray-700">Location:</span> ${currentTutorData.location}</p>` : ''}
-                    <div class="mt-4"><button class="btn btn-primary" id="edit-teaching-info-btn">Update Teaching Info</button></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+                        <div class="detail-item">
+                            <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+                            <div><p class="label">Subjects</p><p class="value">${currentTutorData.subject || 'Not specified'}</p></div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></div>
+                            <div><p class="label">Years of Experience</p><p class="value">${currentTutorData.experience || 0} years</p></div>
+                        </div>
+                        <div class="detail-item col-span-1 md:col-span-2">
+                            <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20" /></svg></div>
+                            <div><p class="label">Qualifications</p><p class="value">${currentTutorData.education || 'Not specified'}</p></div>
+                        </div>
+                         <div class="detail-item">
+                            <div class="icon-wrapper sky"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+                            <div><p class="label">Hourly Rate</p><p class="value">LKR ${currentTutorData.rate || 'N/A'} / hr</p></div>
+                        </div>
+                         <div class="detail-item">
+                            <div class="icon-wrapper sky"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></div>
+                            <div><p class="label">Teaching Method</p><p class="value">${currentTutorData.method ? currentTutorData.method.charAt(0).toUpperCase() + currentTutorData.method.slice(1) : 'Not specified'}</p></div>
+                        </div>
+                        <div class="detail-item col-span-1 md:col-span-2">
+                            <div class="icon-wrapper sky"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <div><p class="label">Availability</p><p class="value whitespace-pre-line">${currentTutorData.availability || 'Not specified'}</p></div>
+                        </div>
+                    </div>
+                    <div class="mt-6"><button class="btn btn-primary" id="edit-teaching-info-btn">Update Teaching Info</button></div>
                 `;
             }
         }
@@ -855,66 +813,112 @@
 
             avgRatingDisplay.textContent = averageRating;
             tutorReviewsCountDisplay.textContent = currentTutorReviews.length;
-            studentsTaughtDisplay.textContent = currentTutorData.studentsTaught || 0;
 
             myReviewsContainer.innerHTML = '';
             if (currentTutorReviews.length === 0) {
-                myReviewsContainer.innerHTML = '<p class="text-center text-gray-500 py-4">No reviews yet.</p>';
+                myReviewsContainer.innerHTML = '<p class="text-center text-gray-400 py-4">No reviews yet.</p>';
             } else {
                 currentTutorReviews.forEach(review => {
                     const reviewCard = `
-                        <div class="review-card bg-white p-4 rounded-lg shadow-sm border border-gray-200" id="review-${review.id}">
+                        <div class="review-card p-4 rounded-lg shadow-sm border" id="review-${review.id}">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <div class="font-bold text-gray-800">${review.studentName || 'Anonymous'}</div>
+                                    <div class="font-bold text-slate-200">${review.studentName || 'Anonymous'}</div>
                                     <div class="review-stars">${getStarRatingHtml(review.rating)}</div>
                                 </div>
-                                <button class="delete-review-btn text-gray-400 hover:text-red-500" data-review-id="${review.id}" title="Delete Review">
+                                <button class="delete-review-btn text-gray-500 hover:text-red-500" data-review-id="${review.id}" title="Delete Review">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
                                     </svg>
                                 </button> 
                             </div>
-                            <p class="text-gray-600 mt-2">"${review.comment}"</p>
-                            <p class="text-xs text-gray-400 mt-2 text-right">${review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
+                            <p class="text-slate-300 mt-2">"${review.comment}"</p>
+                            <p class="text-xs text-gray-500 mt-2 text-right">${review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</p>
                         </div>
                     `;
                     myReviewsContainer.innerHTML += reviewCard;
                 });
             }
 
-            // Load Requests
+            // MODIFIED: Load Requests with action buttons
             const requestsCollectionRef = collection(db, "tutors", userUid, "requests");
             const requestsQuery = query(requestsCollectionRef, orderBy("createdAt", "desc"));
             const requestsSnapshot = await getDocs(requestsQuery);
             const studentRequests = requestsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-            newRequestsCount.textContent = studentRequests.length;
+            const pendingRequests = studentRequests.filter(req => req.status === 'pending');
+            newRequestsCount.textContent = pendingRequests.length;
             requestsCountDisplay.textContent = studentRequests.length;
             requestsContainer.innerHTML = '';
 
             if (studentRequests.length === 0) {
-                requestsContainer.innerHTML = '<p class="text-center text-gray-500 py-4">No new requests.</p>';
+                requestsContainer.innerHTML = '<p class="text-center text-gray-400 py-4">No requests found.</p>';
             } else {
                 studentRequests.forEach(request => {
+                    const actionsHtml = request.status === 'pending'
+                        ? `<div class="request-actions mt-3 flex gap-2 justify-end w-full">
+                                <button class="btn-sm btn-accept" data-request-id="${request.id}">Accept</button>
+                                <button class="btn-sm btn-decline" data-request-id="${request.id}">Decline</button>
+                            </div>`
+                        : `<div class="request-actions mt-3 flex gap-2 justify-end w-full">
+                                <span class="status-badge status-${request.status}">${request.status}</span>
+                            </div>`;
+
                     const requestItem = `
-                        <div class="request-item">
-                            <span class="name">${request.studentName || 'Anonymous Student'}</span>
-                            <span class="subject"> - ${request.subject || 'Unspecified Subject'}</span>
-                            <button class="action-btn action-btn-primary">View</button>
-                            <p class="message">"${request.message}"</p>
-                            <p class="text-xs text-gray-400 mt-1 w-full text-right">${request.createdAt ? new Date(request.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                        <div class="request-item" id="request-${request.id}">
+                            <span class="name font-semibold text-slate-200 w-full">${request.studentName || 'Anonymous Student'}</span>
+                            <span class="subject text-sky-300 text-sm w-full">${request.subject || 'Unspecified Subject'}</span>
+                            <p class="message w-full mt-2 text-slate-300 italic">"${request.message}"</p>
+                            <p class="text-xs text-gray-500 mt-1 w-full text-right">${request.createdAt ? new Date(request.createdAt.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                            ${actionsHtml}
                         </div>
                     `;
                     requestsContainer.innerHTML += requestItem;
                 });
             }
         }
+        
+        // MODIFIED: New function to handle updating a request's status
+        async function updateRequestStatus(requestId, newStatus) {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            showModal({ title: "Updating...", message: `Setting status to ${newStatus}...`, type: 'loading' });
+
+            const requestDocRef = doc(db, "tutors", user.uid, "requests", requestId);
+
+            try {
+                await updateDoc(requestDocRef, { status: newStatus });
+                
+                // Update UI for the specific card without a full reload
+                const requestCard = document.getElementById(`request-${requestId}`);
+                if (requestCard) {
+                    const actionsContainer = requestCard.querySelector('.request-actions');
+                    if (actionsContainer) {
+                        actionsContainer.innerHTML = `<span class="status-badge status-${newStatus}">${newStatus}</span>`;
+                    }
+                }
+
+                // Re-query to get the accurate count of pending requests
+                const requestsCollectionRef = collection(db, "tutors", user.uid, "requests");
+                const q = query(requestsCollectionRef, where("status", "==", "pending"));
+                const pendingSnapshot = await getDocs(q);
+                newRequestsCount.textContent = pendingSnapshot.size;
+
+                hideModal();
+                showModal({ title: "Success", message: `Request has been ${newStatus}.` });
+
+            } catch (error) {
+                console.error("Error updating request status:", error);
+                hideModal();
+                showModal({ title: "Error", message: "Could not update the request status. Please try again." });
+            }
+        }
 
         function renderGallery(photos = []) {
             galleryContainer.innerHTML = '';
             if (photos.length === 0) {
-                galleryContainer.innerHTML = '<p class="text-center text-gray-500 col-span-full">No photos uploaded yet.</p>';
+                galleryContainer.innerHTML = '<p class="text-center text-gray-400 col-span-full">No photos uploaded yet.</p>';
                 return;
             }
 
@@ -922,9 +926,9 @@
                 const photoCard = document.createElement('div');
                 photoCard.className = 'relative group aspect-square';
                 photoCard.innerHTML = `
-                    <img src="${photo.url}" alt="Class photo" class="w-full h-full object-cover rounded-lg shadow-md">
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
-                        <button class="delete-photo-btn text-white p-2 rounded-full bg-red-600 hover:bg-red-700" data-photo-path="${photo.path}" title="Delete Photo">
+                    <img src="${photo.url}" alt="Class photo" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                        <button class="delete-photo-btn text-white p-2 rounded-full bg-red-600 hover:bg-red-700 transform transition-transform hover:scale-110" data-photo-path="${photo.path}" title="Delete Photo">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
                             </svg>
@@ -941,45 +945,35 @@
             if (!file) return;
             const user = auth.currentUser;
             if (!user) {
-                showModal("Authentication error. Please sign out and sign in again.", "alert");
+                showModal({ title: "Authentication Error", message: "Please sign out and sign in again."});
                 return;
             }
 
-            showModal("Uploading profile picture...", "loading");
+            showModal({ title: "Uploading", message: "Uploading profile picture...", type: 'loading' });
             const filePath = `tutors/${user.uid}/profilePicture/profile.jpg`;
             const storageRef = ref(storage, filePath);
 
             try {
-                console.log(`Attempting to upload to: ${filePath}`);
                 await uploadBytes(storageRef, file);
-                console.log("Upload to Storage successful.");
-
                 const downloadURL = await getDownloadURL(storageRef);
-                console.log(`Successfully got download URL: ${downloadURL}`);
                 
                 const tutorDocRef = doc(db, "tutors", user.uid);
                 await updateDoc(tutorDocRef, { profilePictureUrl: downloadURL });
-                console.log("Firestore document successfully updated.");
 
                 profileAvatarImg.src = downloadURL;
                 currentTutorData.profilePictureUrl = downloadURL;
                 
                 hideModal();
-                showModal("✅ Profile picture updated successfully!", "alert");
+                showModal({ title: "Success", message: "✅ Profile picture updated successfully!" });
 
             } catch (error) {
-                console.error("--- UPLOAD FAILED ---");
-                console.error("Firebase Error Code:", error.code);
-                console.error("Firebase Error Message:", error.message);
-                
+                console.error("Upload failed:", error);
                 hideModal();
                 let userMessage = "Failed to upload profile picture. Please try again.";
                 if (error.code === 'storage/unauthorized') {
                     userMessage = "Upload failed: You don't have permission. Please check Firebase Storage rules.";
-                } else {
-                    userMessage = `Upload failed: ${error.code}`;
                 }
-                showModal(userMessage, "alert");
+                showModal({ title: "Upload Failed", message: userMessage });
             }
         });
 
@@ -988,11 +982,11 @@
             if (files.length === 0) return;
             const user = auth.currentUser;
             if (!user) {
-                showModal("Authentication error. Please sign out and sign in again.", "alert");
+                showModal({ title: "Authentication Error", message: "Please sign out and sign in again." });
                 return;
             }
 
-            showModal(`Uploading ${files.length} photo(s)...`, "loading");
+            showModal({ title: "Uploading", message: `Uploading ${files.length} photo(s)...`, type: 'loading' });
             const tutorDocRef = doc(db, "tutors", user.uid);
             let successfulUploads = 0;
             let failedUploads = 0;
@@ -1024,9 +1018,9 @@
             hideModal();
 
             if (failedUploads === 0) {
-                showModal(`✅ Successfully uploaded ${successfulUploads} photo(s)!`, "alert");
+                showModal({ title: "Success", message: `✅ Successfully uploaded ${successfulUploads} photo(s)!` });
             } else {
-                showModal(`⚠️ Completed with ${successfulUploads} uploads and ${failedUploads} failures. Check console for details.`, "alert");
+                showModal({ title: "Upload Complete", message: `⚠️ Completed with ${successfulUploads} uploads and ${failedUploads} failures. Check console for details.` });
             }
         });
 
@@ -1034,7 +1028,12 @@
             const deleteButton = e.target.closest('.delete-photo-btn');
             if (deleteButton) {
                 const photoPath = deleteButton.dataset.photoPath;
-                showModal("Are you sure you want to delete this photo?", 'confirm', () => deleteGalleryPhoto(photoPath));
+                showModal({
+                    title: "Delete Photo",
+                    message: "Are you sure you want to delete this photo?",
+                    type: 'confirm',
+                    onConfirm: () => deleteGalleryPhoto(photoPath)
+                });
             }
         });
         
@@ -1042,7 +1041,7 @@
             const user = auth.currentUser;
             if (!user) return;
             
-            showModal("Deleting photo...", "loading");
+            showModal({ title: "Deleting", message: "Deleting photo...", type: 'loading' });
             const storageRef = ref(storage, photoPath);
             const tutorDocRef = doc(db, "tutors", user.uid);
 
@@ -1056,61 +1055,75 @@
                     currentTutorData.classPhotoUrls = currentTutorData.classPhotoUrls.filter(p => p.path !== photoPath);
                     renderGallery(currentTutorData.classPhotoUrls);
                     hideModal();
-                    showModal("Photo deleted successfully.", "alert");
+                    showModal({ title: "Success", message: "Photo deleted successfully." });
                 } else {
                     throw new Error("Photo data not found in profile.");
                 }
             } catch (error) {
                 console.error("Error deleting photo:", error);
                 hideModal();
-                showModal("Failed to delete photo. It may have already been removed.", "alert");
+                showModal({ title: "Error", message: "Failed to delete photo. It may have already been removed." });
             }
         }
 
         signOutBtn.addEventListener('click', () => {
-            showModal("Are you sure you want to sign out?", 'confirm', async () => {
-                try {
-                    await signOut(auth);
-                    window.location.href = "Signin.html";
-                } catch (error) {
-                    console.error("Error signing out:", error);
-                    showModal("Failed to sign out. Please try again.", "alert");
+            showModal({
+                title: "Sign Out",
+                message: "Are you sure you want to sign out?",
+                type: 'confirm',
+                onConfirm: async () => {
+                    try {
+                        await signOut(auth);
+                        window.location.href = "Signin.html";
+                    } catch (error) {
+                        console.error("Error signing out:", error);
+                        showModal({ title: "Error", message: "Failed to sign out. Please try again." });
+                    }
                 }
             });
         });
 
         document.addEventListener('click', async (e) => {
-            if (e.target && e.target.id === 'edit-my-info-btn') {
-                renderMyInfo(true);
-            }
-
-            if (e.target && e.target.id === 'cancel-my-info-btn') {
-                renderMyInfo(false);
-            }
-
+            // My Info Listeners
+            if (e.target && e.target.id === 'edit-my-info-btn') renderMyInfo(true);
+            if (e.target && e.target.id === 'cancel-my-info-btn') renderMyInfo(false);
             if (e.target && e.target.id === 'save-my-info-btn') {
                 const newName = document.getElementById('tutor-name-input').value;
+                const newMobile = document.getElementById('tutor-mobile-input').value;
                 const tutorDocRef = doc(db, "tutors", auth.currentUser.uid);
                 try {
-                    await updateDoc(tutorDocRef, { name: newName });
+                    await updateDoc(tutorDocRef, { name: newName, mobile: newMobile });
                     currentTutorData.name = newName;
+                    currentTutorData.mobile = newMobile;
                     tutorNameDisplay.textContent = newName;
                     renderMyInfo(false);
-                    showModal("Profile updated successfully!", "alert");
+                    showModal({ title: "Success", message: "Profile updated successfully!" });
                 } catch (error) {
                     console.error("Error updating profile:", error);
-                    showModal("Failed to update profile.", "alert");
+                    showModal({ title: "Error", message: "Failed to update profile." });
+                }
+            }
+            
+            // About Me Listeners
+            if (e.target && e.target.id === 'edit-about-me-btn') renderAboutMe(true);
+            if (e.target && e.target.id === 'cancel-about-me-btn') renderAboutMe(false);
+            if (e.target && e.target.id === 'save-about-me-btn') {
+                const newAbout = document.getElementById('tutor-about-input').value;
+                const tutorDocRef = doc(db, "tutors", auth.currentUser.uid);
+                 try {
+                    await updateDoc(tutorDocRef, { about: newAbout });
+                    currentTutorData.about = newAbout;
+                    renderAboutMe(false);
+                    showModal({ title: "Success", message: "About Me section updated!" });
+                } catch (error) {
+                    console.error("Error updating About Me:", error);
+                    showModal({ title: "Error", message: "Failed to update About Me." });
                 }
             }
 
-            if (e.target && e.target.id === 'edit-teaching-info-btn') {
-                renderTeachingDetails(true);
-            }
-
-            if (e.target && e.target.id === 'cancel-teaching-info-btn') {
-                renderTeachingDetails(false);
-            }
-            
+            // Teaching Details Listeners
+            if (e.target && e.target.id === 'edit-teaching-info-btn') renderTeachingDetails(true);
+            if (e.target && e.target.id === 'cancel-teaching-info-btn') renderTeachingDetails(false);
             if (e.target && e.target.id === 'save-teaching-info-btn') {
                 const newTeachingData = {
                     subject: document.getElementById('tutor-subject-input').value,
@@ -1126,11 +1139,74 @@
                     await updateDoc(tutorDocRef, newTeachingData);
                     Object.assign(currentTutorData, newTeachingData);
                     renderTeachingDetails(false);
-                    showModal("Teaching info updated successfully!", "alert");
+                    showModal({ title: "Success", message: "Teaching info updated successfully!" });
                 } catch (error) {
                     console.error("Error updating teaching info:", error);
-                    showModal("Failed to update teaching info.", "alert");
+                    showModal({ title: "Error", message: "Failed to update teaching info." });
                 }
+            }
+            
+            // MODIFIED: Added listeners for request action buttons
+            if (e.target.matches('.btn-accept')) {
+                const requestId = e.target.dataset.requestId;
+                updateRequestStatus(requestId, 'accepted');
+            }
+
+            if (e.target.matches('.btn-decline')) {
+                const requestId = e.target.dataset.requestId;
+                updateRequestStatus(requestId, 'declined');
+            }
+
+
+            if (e.target && e.target.id === 'change-password-btn') {
+                const customHtml = `
+                    <div class="space-y-4">
+                        <div>
+                            <label for="new-password" class="block text-sm font-medium text-left text-slate-300">New Password</label>
+                            <input type="password" id="new-password" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm" required>
+                        </div>
+                        <div>
+                            <label for="confirm-password" class="block text-sm font-medium text-left text-slate-300">Confirm New Password</label>
+                            <input type="password" id="confirm-password" class="mt-1 block w-full px-3 py-2 bg-slate-800 text-white border border-slate-600 rounded-md shadow-sm" required>
+                        </div>
+                    </div>
+                `;
+                showModal({
+                    title: "Change Your Password",
+                    message: "Enter and confirm your new password below.",
+                    type: 'confirm',
+                    customHtml: customHtml,
+                    onConfirm: async () => {
+                        const newPassword = document.getElementById('new-password').value;
+                        const confirmPassword = document.getElementById('confirm-password').value;
+
+                        if (!newPassword || newPassword.length < 6) {
+                            hideModal();
+                            setTimeout(() => showModal({ title: "Error", message: "Password must be at least 6 characters long." }), 350);
+                            return;
+                        }
+
+                        if (newPassword !== confirmPassword) {
+                            hideModal();
+                            setTimeout(() => showModal({ title: "Error", message: "Passwords do not match." }), 350);
+                            return;
+                        }
+
+                        try {
+                            const user = auth.currentUser;
+                            await updatePassword(user, newPassword);
+                            showModal({ title: "Success", message: "Your password has been updated successfully." });
+                        } catch (error) {
+                            console.error("Password update error:", error);
+                            let errorMessage = "Failed to update password. Please try again.";
+                            if (error.code === 'auth/requires-recent-login') {
+                                errorMessage = "This action is sensitive and requires recent authentication. Please sign out and sign back in to change your password.";
+                            }
+                            hideModal();
+                            setTimeout(() => showModal({ title: "Error", message: errorMessage }), 350);
+                        }
+                    }
+                });
             }
 
             // Handle review deletion
@@ -1139,17 +1215,22 @@
                 const reviewId = deleteButton.dataset.reviewId;
                 if (!reviewId) return;
 
-                showModal("Are you sure you want to delete this review? This action cannot be undone.", "confirm", async () => {
-                    const user = auth.currentUser;
-                    if (user) {
-                        const reviewDocRef = doc(db, "tutors", user.uid, "reviews", reviewId);
-                        try {
-                            await deleteDoc(reviewDocRef);
-                            await loadTutorProfile(user.uid); // Reload to update stats
-                            showModal("Review deleted successfully.", "alert");
-                        } catch (error) {
-                            console.error("Error deleting review:", error);
-                            showModal("Failed to delete review. Please try again.", "alert");
+                showModal({
+                    title: "Delete Review",
+                    message: "Are you sure you want to delete this review? This action cannot be undone.",
+                    type: 'confirm',
+                    onConfirm: async () => {
+                        const user = auth.currentUser;
+                        if (user) {
+                            const reviewDocRef = doc(db, "tutors", user.uid, "reviews", reviewId);
+                            try {
+                                await deleteDoc(reviewDocRef);
+                                await loadTutorProfile(user.uid); // Reload to update stats
+                                showModal({ title: "Success", message: "Review deleted successfully." });
+                            } catch (error) {
+                                console.error("Error deleting review:", error);
+                                showModal({ title: "Error", message: "Failed to delete review. Please try again." });
+                            }
                         }
                     }
                 });
