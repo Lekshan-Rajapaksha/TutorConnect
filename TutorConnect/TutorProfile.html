@@ -13,9 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
-        /* ========================================
-            Glassmorphism Redesign (Blue Theme)
-          ======================================== */
+
         :root {
             --primary-color-start: #313e54; /* Blue 500 */
             --primary-color-end: #152931; /* Sky 500 */
@@ -732,7 +730,7 @@
                 aboutMeBlock.innerHTML = `
                     <h5><span class="text-xl">👤</span> About Me</h5>
                     <div class="space-y-4">
-                        <p class="text-slate-300 whitespace-pre-line">${currentTutorData.about || 'You have not added a bio yet. Click Edit to add one!'}</p>
+                        <p class="whitespace-pre-line" style="color: #000000;">${currentTutorData.about || 'You have not added a bio yet. Click Edit to add one!'}</p>
                     </div>
                     <div class="mt-6">
                         <button class="btn btn-primary" id="edit-about-me-btn">Edit About Me</button>
