@@ -295,388 +295,396 @@
     </div>
     
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, orderBy } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, deleteDoc, updateDoc, arrayUnion, arrayRemove, orderBy } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-storage.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
-            authDomain: "tutorconnect-a9b1e.firebaseapp.com",
-            projectId: "tutorconnect-a9b1e",
-            storageBucket: "tutorconnect-a9b1e.appspot.com",
-            messagingSenderId: "511276105084",
-            appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
-            measurementId: "G-7M72STVQKP"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
+    const firebaseConfig = {
+        apiKey: "AIzaSyBXIlpd17s5xEIyct8PRJVaNNA6QajqGjE",
+        authDomain: "tutorconnect-a9b1e.firebaseapp.com",
+        projectId: "tutorconnect-a9b1e",
+        storageBucket: "tutorconnect-a9b1e.appspot.com",
+        messagingSenderId: "511276105084",
+        appId: "1:511276105084:web:25dc9ef6fc8c7ce2efb8f9",
+        measurementId: "G-7M72STVQKP"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
-        const sriLankanTowns = ["Achchuvely", "Adampan", "Addalaichenai", "Adhikarigama", "Adippala", "Agalawatta", "Agaliya", "Agarapathana", "Agbopura", "Ahangama", "Ahungalla", "Akaragama", "Akarawita", "Akarella", "Akkaraipattu", "Akmeemana", "Akuramboda", "Akurana", "Akuressa", "Alahengama", "Alahitiyawa", "Alapaladeniya", "Alawala", "Alawatugoda", "Alawatura", "Alawatuwala", "Alawwa", "Algama", "Allaipiddi", "Alubomulla", "Alutgama", "Alutnuwara", "Aluthwala", "Alvai", "Alwatta", "Ambalangoda", "Ambalantota", "Ambana", "Ambanpola", "Ambewela", "Ampara", "Ampitiya", "Amunakole", "Anaicoddai", "Analaitivu", "Anamaduwa", "Andiambalama", "Andigama", "Angoda", "Angunakolapelessa", "Anguruwatota", "Anhandiya", "Ankokkawala", "Ankumbura", "Anuradhapura", "Apparekka", "Aralaganwila", "Aranayaka", "Arawakumbura", "Aruggammana", "Arugam Bay", "Aselapura", "Atabage", "Atakalanpanna", "Atale", "Ataragalla", "Athurugiriya", "Attanagalla", "Avissawella", "Ayagama", "Ayithiyamalai", "Badalkumbura", "Baddegama", "Badulla", "Baduraliya", "Bakamuna", "Bakiella", "Balagolla", "Balalla", "Balangoda", "Balapitiya", "Bambalapitiya", "Bambarapana", "Bandaragama", "Bandarawela", "Bangadeniya", "Barawakumbuka", "Batapola", "Batawala", "Battaramulla", "Batticaloa", "Batuwatta", "Beliatta", "Belihuloya", "Bellana", "Bellanwila", "Bemmulla", "Bentota", "Beruwala", "Bibile", "Bingiriya", "Biyagama", "Bogawantalawa", "Bokalagama", "Bollete (WP)", "Bope", "Boralesgamuwa", "Borella", "Bothale Ihalagama", "Bowalagama", "Bulathkohupitiya", "Bulathsinhala", "Buttala", "Chankanai", "Chavakachcheri", "Cheddikulam", "Chenkaladi", "Chilaw", "Chunnakam", "Colombo", "Colpetty", "Dambadeniya", "Dambagalla", "Dambana", "Dambulla", "Dankotuwa", "Danowita", "Dedigamuwa", "Deegala Lenama", "Dehiattakandiya", "Dehiowita", "Dehiwala-Mount Lavinia", "Dekatana", "Delgoda", "Dellawa", "Delmella", "Deltara", "Deltota", "Demanhandiya", "Denagama", "Deniyaya", "Deraniyagala", "Devinuwara", "Dharga Town", "Digana", "Dikoya", "Dikwella", "Diyatalawa", "Divulapitiya", "Dodangaslanda", "Doluwa", "Dompe", "Doranagoda", "Dumbara", "Dunagaha", "Eheliyagoda", "Elephant Pass", "Ella", "Elpitiya", "Embilipitiya", "Eppawala", "Eravur", "Etawatunuwewa", "Ethkandura", "Fort", "Galagedara", "Galaha", "Galapitamada", "Galatara", "Galenbindunuwewa", "Galewela", "Galgamuwa", "Galle", "Galnewa", "Galpatha", "Gampaha", "Gampola", "Ganemulla", "Ganga Ihala Korale", "Ganewatta", "Ginigathhena", "Giriulla", "Godagama", "Godakawela", "Gokarella", "Gonagaldeniya", "Gonapinuwala", "Gonawala", "Gothatuwa", "Habarakada", "Habarana", "Hakmana", "Hali-Ela", "Hambantota", "Handapangoda", "Handessa", "Hanguranketha", "Hanwella", "Hapugastalawa", "Haputale", "Harispattuwa", "Hatton", "Havelock Town", "Hendala", "Henegama", "Hettimulla", "Hettipola", "Hewainna", "Hikkaduwa", "Hingula", "Hingurakgoda", "Hingurana", "Hiripitya", "Hiswella", "Hokandara", "Homagama", "Horana", "Horampella", "Horowpathana", "Hulangamuwa", "Hunumulla", "Ibbagamuwa", "Ihala Madampella", "Imaduwa", "Imbulgoda", "Ingiriya", "Inuvil", "Ipalogama", "Ittapana", "Ja-Ela", "Jaffna", "Kadawatha", "Kadugannawa", "Kaduwela", "Kahaduwa", "Kahataruppa", "Kahawatta", "Kalagedihena", "Kalawana", "Kalkudah", "Kalmunai", "Kalpitiya", "Kalutara", "Kamburupitiya", "Kandana", "Kandeketiya", "Kandy", "Kantale", "Kapugoda", "Karadiyanaru", "Karagahatenna", "Karampon", "Karaveddy", "Kataragama", "Kathiraveli", "Kattankudy", "Katugastota", "Katunayake", "Katuneriya", "Katuwana", "Kayts", "Kebithigollewa", "Kegalle", "Kekirawa", "Kelaniya", "Kendagolla", "Kesbewa", "Kilinochchi", "Kinniya", "Kirama", "Kiran", "Kiribathgoda", "Kirinda", "Kiriwattuduwa", "Kirulapone", "Kitulgala", "Kochchikade", "Kodikamam", "Koggala", "Kokkilai", "Kohuwala", "Kokkadicholai", "Kolonnawa", "Kopay", "Kosgama", "Kosgoda", "Koslanda", "Kotagala", "Kotahena", "Kotikawatta", "Kottawa", "Kotte", "Kottegoda", "Kuliyapitiya", "Kundasale", "Kurunegala", "Kuruvita", "Lihiriyagama", "Lindula", "Loluwagoda", "Lunugamvehera", "Lunugala", "Lunugama", "Lunuvila", "Mabole", "Madahapola", "Madampe", "Madapatha", "Madawachchiya", "Madelgamuwa", "Madu Road", "Madulla", "Madulsima", "Mahagama", "Mahakumbukkadawala", "Mahanuwara", "Maharagama", "Mahawa", "Mahawela", "Mahiyanganaya", "Makandura", "Makewita", "Makola", "Malabe", "Mallakam", "Mandapam", "Mandawala", "Mankulam", "Mannar", "Mapalagama", "Maradana", "Marassana", "Marawila", "Maskeliya", "Matale", "Matara", "Mattegoda", "Matugama", "Mawanella", "Mawathagama", "Medawachchiya", "Meddegama", "Medirigiriya", "Meegahatenna", "Meegoda", "Meethirigala", "Melsiripura", "Middeniya", "Mihintale", "Millaniya", "Minuwangoda", "Mirigama", "Mirissa", "Monaragala", "Moragahahena", "Moratuwa", "Morawaka", "Mount Lavinia", "Mullaitivu", "Mulleriyawa New Town", "Mutur", "Mutwal", "Nagoda", "Nakkawatta", "Nalanda", "Nanu Oya", "Napawela", "Narahenpita", "Narammala", "Nattandiya", "Naula", "Nawalapitiya", "Nawana", "Negombo", "Nelliady", "Nikaweratiya", "Nilaveli", "Nildandahinna", "Nittambuwa", "Nochchiyagama", "Norwood", "Nugegoda", "Nuwara Eliya", "Oddamavadi", "Oddusuddan", "Ohiya", "Padaviya", "Padukka", "Paiyagala", "Palavi", "Pallebedda", "Pallekele", "Pallewela", "Pamanugama", "Panadura", "Pannala", "Pannipitiya", "Parakaduwa", "Parakramapura", "Paranthan", "Pasikudah", "Passara", "Pasyala", "Pelawatta", "Peliyagoda", "Pelmadulla", "Peradeniya", "Pettah", "Pilimathalawa", "Piliyandala", "Pitigala", "Point Pedro", "Polgahawela", "Polgasowita", "Polonnaruwa", "Polpithimukulana", "Poruwadanda", "Pottuvil", "Pugoda", "Pujapitiya", "Pulmoddai", "Punakarin", "Pundaluoya", "Pussellawa", "Puttalam", "Puwakpitiya", "Radawana", "Radawadunna", "Raddolugama", "Ragama", "Rajagiriya", "Rakwana", "Ramboda", "Rambukkana", "Ranala", "Ranna", "Rathgama", "Ratmalana", "Ratnapura", "Ridee", "Ruwanwella", "Sainthamaruthu", "Saliyapura", "Samanthurai", "Sandilipay", "Seeduwa", "Serunuwara", "Siddamulla", "Sigiriya", "Silavathurai", "Siyambalanduwa", "Slave Island", "Soranathota", "Sri Jayawardenepura Kotte", "Talaimannar", "Talawatugoda", "Talawakelle", "Tanamalwila", "Tangalle", "Teldeniya", "Tellippalai", "Thambuththegama", "Thanamalvila", "Thavady", "Theldeniya", "Thihagoda", "Thimbirigaskatuwa", "Tirunelveli", "Tissamaharama", "Trincomalee", "Tummodara", "Udagama", "Udappu", "Udathuthiripitiya", "Ududumbara", "Udugampola", "Udugoda", "Udumulla", "Uduvil", "Uggalboda", "Unawatuna", "Undugoda", "Unnichchai", "Uppuveli", "Urumpirai", "Uswetakeiyawa", "Vakaneri", "Valaichenai", "Valvettithurai", "Vavuniya", "Vidataltivu", "Veyangoda", "Wadduwa", "Waga", "Waikkal","Walasmulla", "Warakapola", "Wariyapola", "Watawala", "Watareka", "Wattala", "Wattegama", "Weligama", "Welikanda", "Welimada", "Wellawatta", "Wellawaya", "Wennappuwa","Weeraketiya", "Yakkala", "Yala", "Yatiyantota"];
+    const sriLankanTowns = ["Achchuvely", "Adampan", "Addalaichenai", "Adhikarigama", "Adippala", "Agalawatta", "Agaliya", "Agarapathana", "Agbopura", "Ahangama", "Ahungalla", "Akaragama", "Akarawita", "Akarella", "Akkaraipattu", "Akmeemana", "Akuramboda", "Akurana", "Akuressa", "Alahengama", "Alahitiyawa", "Alapaladeniya", "Alawala", "Alawatugoda", "Alawatura", "Alawatuwala", "Alawwa", "Algama", "Allaipiddi", "Alubomulla", "Alutgama", "Alutnuwara", "Aluthwala", "Alvai", "Alwatta", "Ambalangoda", "Ambalantota", "Ambana", "Ambanpola", "Ambewela", "Ampara", "Ampitiya", "Amunakole", "Anaicoddai", "Analaitivu", "Anamaduwa", "Andiambalama", "Andigama", "Angoda", "Angunakolapelessa", "Anguruwatota", "Anhandiya", "Ankokkawala", "Ankumbura", "Anuradhapura", "Apparekka", "Aralaganwila", "Aranayaka", "Arawakumbura", "Aruggammana", "Arugam Bay", "Aselapura", "Atabage", "Atakalanpanna", "Atale", "Ataragalla", "Athurugiriya", "Attanagalla", "Avissawella", "Ayagama", "Ayithiyamalai", "Badalkumbura", "Baddegama", "Badulla", "Baduraliya", "Bakamuna", "Bakiella", "Balagolla", "Balalla", "Balangoda", "Balapitiya", "Bambalapitiya", "Bambarapana", "Bandaragama", "Bandarawela", "Bangadeniya", "Barawakumbuka", "Batapola", "Batawala", "Battaramulla", "Batticaloa", "Batuwatta", "Beliatta", "Belihuloya", "Bellana", "Bellanwila", "Bemmulla", "Bentota", "Beruwala", "Bibile", "Bingiriya", "Biyagama", "Bogawantalawa", "Bokalagama", "Bollete (WP)", "Bope", "Boralesgamuwa", "Borella", "Bothale Ihalagama", "Bowalagama", "Bulathkohupitiya", "Bulathsinhala", "Buttala", "Chankanai", "Chavakachcheri", "Cheddikulam", "Chenkaladi", "Chilaw", "Chunnakam", "Colombo", "Colpetty", "Dambadeniya", "Dambagalla", "Dambana", "Dambulla", "Dankotuwa", "Danowita", "Dedigamuwa", "Deegala Lenama", "Dehiattakandiya", "Dehiowita", "Dehiwala-Mount Lavinia", "Dekatana", "Delgoda", "Dellawa", "Delmella", "Deltara", "Deltota", "Demanhandiya", "Denagama", "Deniyaya", "Deraniyagala", "Devinuwara", "Dharga Town", "Digana", "Dikoya", "Dikwella", "Diyatalawa", "Divulapitiya", "Dodangaslanda", "Doluwa", "Dompe", "Doranagoda", "Dumbara", "Dunagaha", "Eheliyagoda", "Elephant Pass", "Ella", "Elpitiya", "Embilipitiya", "Eppawala", "Eravur", "Etawatunuwewa", "Ethkandura", "Fort", "Galagedara", "Galaha", "Galapitamada", "Galatara", "Galenbindunuwewa", "Galewela", "Galgamuwa", "Galle", "Galnewa", "Galpatha", "Gampaha", "Gampola", "Ganemulla", "Ganga Ihala Korale", "Ganewatta", "Ginigathhena", "Giriulla", "Godagama", "Godakawela", "Gokarella", "Gonagaldeniya", "Gonapinuwala", "Gonawala", "Gothatuwa", "Habarakada", "Habarana", "Hakmana", "Hali-Ela", "Hambantota", "Handapangoda", "Handessa", "Hanguranketha", "Hanwella", "Hapugastalawa", "Haputale", "Harispattuwa", "Hatton", "Havelock Town", "Hendala", "Henegama", "Hettimulla", "Hettipola", "Hewainna", "Hikkaduwa", "Hingula", "Hingurakgoda", "Hingurana", "Hiripitya", "Hiswella", "Hokandara", "Homagama", "Horana", "Horampella", "Horowpathana", "Hulangamuwa", "Hunumulla", "Ibbagamuwa", "Ihala Madampella", "Imaduwa", "Imbulgoda", "Ingiriya", "Inuvil", "Ipalogama", "Ittapana", "Ja-Ela", "Jaffna", "Kadawatha", "Kadugannawa", "Kaduwela", "Kahaduwa", "Kahataruppa", "Kahawatta", "Kalagedihena", "Kalawana", "Kalkudah", "Kalmunai", "Kalpitiya", "Kalutara", "Kamburupitiya", "Kandana", "Kandeketiya", "Kandy", "Kantale", "Kapugoda", "Karadiyanaru", "Karagahatenna", "Karampon", "Karaveddy", "Kataragama", "Kathiraveli", "Kattankudy", "Katugastota", "Katunayake", "Katuneriya", "Katuwana", "Kayts", "Kebithigollewa", "Kegalle", "Kekirawa", "Kelaniya", "Kendagolla", "Kesbewa", "Kilinochchi", "Kinniya", "Kirama", "Kiran", "Kiribathgoda", "Kirinda", "Kiriwattuduwa", "Kirulapone", "Kitulgala", "Kochchikade", "Kodikamam", "Koggala", "Kokkilai", "Kohuwala", "Kokkadicholai", "Kolonnawa", "Kopay", "Kosgama", "Kosgoda", "Koslanda", "Kotagala", "Kotahena", "Kotikawatta", "Kottawa", "Kotte", "Kottegoda", "Kuliyapitiya", "Kundasale", "Kurunegala", "Kuruvita", "Lihiriyagama", "Lindula", "Loluwagoda", "Lunugamvehera", "Lunugala", "Lunugama", "Lunuvila", "Mabole", "Madahapola", "Madampe", "Madapatha", "Madawachchiya", "Madelgamuwa", "Madu Road", "Madulla", "Madulsima", "Mahagama", "Mahakumbukkadawala", "Mahanuwara", "Maharagama", "Mahawa", "Mahawela", "Mahiyanganaya", "Makandura", "Makewita", "Makola", "Malabe", "Mallakam", "Mandapam", "Mandawala", "Mankulam", "Mannar", "Mapalagama", "Maradana", "Marassana", "Marawila", "Maskeliya", "Matale", "Matara", "Mattegoda", "Matugama", "Mawanella", "Mawathagama", "Medawachchiya", "Meddegama", "Medirigiriya", "Meegahatenna", "Meegoda", "Meethirigala", "Melsiripura", "Middeniya", "Mihintale", "Millaniya", "Minuwangoda", "Mirigama", "Mirissa", "Monaragala", "Moragahahena", "Moratuwa", "Morawaka", "Mount Lavinia", "Mullaitivu", "Mulleriyawa New Town", "Mutur", "Mutwal", "Nagoda", "Nakkawatta", "Nalanda", "Nanu Oya", "Napawela", "Narahenpita", "Narammala", "Nattandiya", "Naula", "Nawalapitiya", "Nawana", "Negombo", "Nelliady", "Nikaweratiya", "Nilaveli", "Nildandahinna", "Nittambuwa", "Nochchiyagama", "Norwood", "Nugegoda", "Nuwara Eliya", "Oddamavadi", "Oddusuddan", "Ohiya", "Padaviya", "Padukka", "Paiyagala", "Palavi", "Pallebedda", "Pallekele", "Pallewela", "Pamanugama", "Panadura", "Pannala", "Pannipitiya", "Parakaduwa", "Parakramapura", "Paranthan", "Pasikudah", "Passara", "Pasyala", "Pelawatta", "Peliyagoda", "Pelmadulla", "Peradeniya", "Pettah", "Pilimathalawa", "Piliyandala", "Pitigala", "Point Pedro", "Polgahawela", "Polgasowita", "Polonnaruwa", "Polpithimukulana", "Poruwadanda", "Pottuvil", "Pugoda", "Pujapitiya", "Pulmoddai", "Punakarin", "Pundaluoya", "Pussellawa", "Puttalam", "Puwakpitiya", "Radawana", "Radawadunna", "Raddolugama", "Ragama", "Rajagiriya", "Rakwana", "Ramboda", "Rambukkana", "Ranala", "Ranna", "Rathgama", "Ratmalana", "Ratnapura", "Ridee", "Ruwanwella", "Sainthamaruthu", "Saliyapura", "Samanthurai", "Sandilipay", "Seeduwa", "Serunuwara", "Siddamulla", "Sigiriya", "Silavathurai", "Siyambalanduwa", "Slave Island", "Soranathota", "Sri Jayawardenepura Kotte", "Talaimannar", "Talawatugoda", "Talawakelle", "Tanamalwila", "Tangalle", "Teldeniya", "Tellippalai", "Thambuththegama", "Thanamalvila", "Thavady", "Theldeniya", "Thihagoda", "Thimbirigaskatuwa", "Tirunelveli", "Tissamaharama", "Trincomalee", "Tummodara", "Udagama", "Udappu", "Udathuthiripitiya", "Ududumbara", "Udugampola", "Udugoda", "Udumulla", "Uduvil", "Uggalboda", "Unawatuna", "Undugoda", "Unnichchai", "Uppuveli", "Urumpirai", "Uswetakeiyawa", "Vakaneri", "Valaichenai", "Valvettithurai", "Vavuniya", "Vidataltivu", "Veyangoda", "Wadduwa", "Waga", "Waikkal","Walasmulla", "Warakapola", "Wariyapola", "Watawala", "Watareka", "Wattala", "Wattegama", "Weligama", "Welikanda", "Welimada", "Wellawatta", "Wellawaya", "Wennappuwa","Weeraketiya", "Yakkala", "Yala", "Yatiyantota"];
 
-        // --- DOM Elements ---
-        const tutorNameDisplay = document.getElementById('tutor-name-display');
-        const profileAvatarImg = document.getElementById('profile-avatar-img');
-        const myInfoBlock = document.getElementById('my-info-block');
-        const aboutMeBlock = document.getElementById('about-me-block');
-        const teachingDetailsBlock = document.getElementById('teaching-details-block');
-        // Other elements...
+    // --- DOM Elements ---
+    const tutorNameDisplay = document.getElementById('tutor-name-display');
+    const profileAvatarImg = document.getElementById('profile-avatar-img');
+    const myInfoBlock = document.getElementById('my-info-block');
+    const aboutMeBlock = document.getElementById('about-me-block');
+    const teachingDetailsBlock = document.getElementById('teaching-details-block');
+    // Other elements...
 
-        let currentTutorData = {};
-        
-        // --- Modal Functions ---
-        const modal = document.getElementById('custom-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalMessage = document.getElementById('modal-message');
-        const modalCustomContent = document.getElementById('modal-custom-content');
-        const modalActions = document.getElementById('modal-actions');
+    let currentTutorData = {};
+    
+    // --- Modal Functions ---
+    const modal = document.getElementById('custom-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMessage = document.getElementById('modal-message');
+    const modalCustomContent = document.getElementById('modal-custom-content');
+    const modalActions = document.getElementById('modal-actions');
 
-        window.showModal = function(options) {
-            const { title = '', message = '', type = 'alert', onConfirm = null, customHtml = '' } = options;
-            modalTitle.textContent = title;
-            modalMessage.innerHTML = message;
-            modalCustomContent.innerHTML = customHtml;
-            modalActions.innerHTML = '';
-            modalMessage.style.display = message ? 'block' : 'none';
-            modalTitle.style.display = title ? 'block' : 'none';
+    window.showModal = function(options) {
+        const { title = '', message = '', type = 'alert', onConfirm = null, customHtml = '' } = options;
+        modalTitle.textContent = title;
+        modalMessage.innerHTML = message;
+        modalCustomContent.innerHTML = customHtml;
+        modalActions.innerHTML = '';
+        modalMessage.style.display = message ? 'block' : 'none';
+        modalTitle.style.display = title ? 'block' : 'none';
 
-            if (type === 'loading') {
-                modalMessage.innerHTML = `<div class="flex justify-center items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>${message}</span></div>`;
-            } else if (type === 'confirm') {
-                const confirmBtn = document.createElement('button');
-                confirmBtn.textContent = 'Confirm';
-                confirmBtn.className = 'btn btn-primary';
-                confirmBtn.onclick = () => { if(onConfirm) onConfirm(); hideModal(); };
-                
-                const cancelBtn = document.createElement('button');
-                cancelBtn.textContent = 'Cancel';
-                cancelBtn.className = 'btn btn-outline';
-                cancelBtn.onclick = hideModal;
+        if (type === 'loading') {
+            modalMessage.innerHTML = `<div class="flex justify-center items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>${message}</span></div>`;
+        } else if (type === 'confirm') {
+            const confirmBtn = document.createElement('button');
+            confirmBtn.textContent = 'Confirm';
+            confirmBtn.className = 'btn btn-primary';
+            confirmBtn.onclick = () => { if(onConfirm) onConfirm(); hideModal(); };
+            
+            const cancelBtn = document.createElement('button');
+            cancelBtn.textContent = 'Cancel';
+            cancelBtn.className = 'btn btn-outline';
+            cancelBtn.onclick = hideModal;
 
-                modalActions.appendChild(cancelBtn);
-                modalActions.appendChild(confirmBtn);
-            } else {
-                const okBtn = document.createElement('button');
-                okBtn.textContent = 'OK';
-                okBtn.className = 'btn btn-primary';
-                okBtn.onclick = hideModal;
-                modalActions.appendChild(okBtn);
+            modalActions.appendChild(cancelBtn);
+            modalActions.appendChild(confirmBtn);
+        } else {
+            const okBtn = document.createElement('button');
+            okBtn.textContent = 'OK';
+            okBtn.className = 'btn btn-primary';
+            okBtn.onclick = hideModal;
+            modalActions.appendChild(okBtn);
+        }
+        modal.classList.add('active');
+    }
+
+    function hideModal() { modal.classList.remove('active'); }
+    
+    // --- Helper Functions ---
+    function getStarRatingHtml(rating) {
+        const fullStars = '★'.repeat(Math.floor(rating));
+        const emptyStars = '☆'.repeat(5 - Math.floor(rating));
+        return `<span class="profile-rating-stars">${fullStars}${emptyStars}</span>`;
+    }
+
+    function populateTownDropdown(selectElementId, selectedValue) {
+        const selectElement = document.getElementById(selectElementId);
+        selectElement.innerHTML = '<option value="">Select a town</option>'; // Default option
+        sriLankanTowns.forEach(town => {
+            const option = document.createElement('option');
+            option.value = town;
+            option.textContent = town;
+            if (town === selectedValue) {
+                option.selected = true;
             }
-            modal.classList.add('active');
-        }
-
-        function hideModal() { modal.classList.remove('active'); }
-        
-        // --- Helper Functions ---
-        function getStarRatingHtml(rating) {
-            const fullStars = '★'.repeat(Math.floor(rating));
-            const emptyStars = '☆'.repeat(5 - Math.floor(rating));
-            return `<span class="profile-rating-stars">${fullStars}${emptyStars}</span>`;
-        }
-
-        function populateTownDropdown(selectElementId, selectedValue) {
-            const selectElement = document.getElementById(selectElementId);
-            selectElement.innerHTML = '<option value="">Select a town</option>'; // Default option
-            sriLankanTowns.forEach(town => {
-                const option = document.createElement('option');
-                option.value = town;
-                option.textContent = town;
-                if (town === selectedValue) {
-                    option.selected = true;
-                }
-                selectElement.appendChild(option);
-            });
-        }
-        
-        function populateMultiSelectTownDropdown(selectElementId, selectedValuesArray = []) {
-            const selectElement = document.getElementById(selectElementId);
-            selectElement.innerHTML = '';
-            sriLankanTowns.forEach(town => {
-                const option = document.createElement('option');
-                option.value = town;
-                option.textContent = town;
-                if (selectedValuesArray.includes(town)) {
-                    option.selected = true;
-                }
-                selectElement.appendChild(option);
-            });
-        }
-        
-        // --- Auth & Main Data Loading ---
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                await loadTutorProfile(user.uid);
-            } else {
-                window.location.href = "Signin.html";
-            }
+            selectElement.appendChild(option);
         });
-
-        async function loadTutorProfile(userUid) {
-            const tutorDocRef = doc(db, "tutors", userUid);
-            try {
-                const tutorDocSnap = await getDoc(tutorDocRef);
-                if (tutorDocSnap.exists()) {
-                    currentTutorData = tutorDocSnap.data();
-                    tutorNameDisplay.textContent = currentTutorData.name || 'Tutor';
-                    profileAvatarImg.src = currentTutorData.profilePictureUrl || `https://placehold.co/160x160/64ffda/0a192f?text=${currentTutorData.name ? currentTutorData.name.charAt(0) : 'T'}`;
-                    renderAllSections();
-                    await loadReviewsAndRequests(userUid);
-                } else {
-                    showModal({ title: "Error", message: "Tutor profile not found. Please complete your registration." });
-                }
-            } catch (error) {
-                console.error("Error loading profile:", error);
-                showModal({ title: "Error", message: `Error loading your profile: ${error.message}` });
+    }
+    
+    function populateMultiSelectTownDropdown(selectElementId, selectedValuesArray = []) {
+        const selectElement = document.getElementById(selectElementId);
+        selectElement.innerHTML = '';
+        sriLankanTowns.forEach(town => {
+            const option = document.createElement('option');
+            option.value = town;
+            option.textContent = town;
+            if (selectedValuesArray.includes(town)) {
+                option.selected = true;
             }
-        }
-        
-        // --- Render Functions ---
-        function renderAllSections() {
-            renderMyInfo(false);
-            renderAboutMe(false);
-            renderTeachingDetails(false);
-            renderGallery(currentTutorData.classPhotoUrls || []);
-        }
-
-        function renderMyInfo(isEditing = false) {
-             myInfoBlock.innerHTML = isEditing ? `
-                <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit Information</h3>
-                <div class="space-y-4">
-                    <div><label for="tutor-name-input">Name</label><input type="text" id="tutor-name-input" value="${currentTutorData.name || ''}"></div>
-                    <div><label for="tutor-mobile-input">Contact Number</label><input type="tel" id="tutor-mobile-input" value="${currentTutorData.mobile || ''}"></div>
-                    <div><label for="tutor-hometown-input">Hometown / Location</label><select id="tutor-hometown-input"></select></div>
-                </div>
-                <div class="mt-6 flex gap-4"><button class="btn btn-primary" id="save-my-info-btn">Save</button><button class="btn btn-outline" id="cancel-my-info-btn">Cancel</button></div>`
-            : `
-                <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Information</h3>
-                <div class="details-grid">
-                    <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><div><p class="label">Email</p><p class="value">${currentTutorData.email}</p></div></div>
-                    <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><div><p class="label">Contact</p><p class="value">${currentTutorData.mobile || 'Not specified'}</p></div></div>
-                    <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div><p class="label">Hometown</p><p class="value">${currentTutorData.hometown || 'Not specified'}</p></div></div>
-                </div>
-                <div class="mt-6 flex gap-4 flex-wrap"><button class="btn btn-primary" id="edit-my-info-btn">Edit Profile</button><button class="btn btn-outline" id="change-password-btn">Change Password</button></div>`;
-            if (isEditing) {
-                populateTownDropdown('tutor-hometown-input', currentTutorData.hometown);
-            }
-        }
-        
-        function renderAboutMe(isEditing = false) {
-             aboutMeBlock.innerHTML = isEditing ? `
-                <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit About Me</h3>
-                <div class="space-y-4"><textarea id="tutor-about-input" rows="5">${currentTutorData.about || ''}</textarea></div>
-                <div class="mt-6 flex gap-4"><button class="btn btn-primary" id="save-about-me-btn">Save</button><button class="btn btn-outline" id="cancel-about-me-btn">Cancel</button></div>` 
-            : `
-                <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> About Me</h3>
-                <div class="prose"><p class="whitespace-pre-line">${currentTutorData.about || 'You have not added a bio yet. Click Edit to add one!'}</p></div>
-                <div class="mt-6"><button class="btn btn-primary" id="edit-about-me-btn">Edit About Me</button></div>`;
-        }
-
-        function renderTeachingDetails(isEditing = false) {
-             teachingDetailsBlock.innerHTML = isEditing ? `
-                <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit Teaching Expertise</h3>
-                <div class="space-y-4">
-                    <div><label>Subjects (comma-separated)</label><input type="text" id="tutor-subject-input" value="${currentTutorData.subject || ''}"></div>
-                    <div><label>Years of Experience</label><input type="number" id="tutor-experience-input" value="${currentTutorData.experience || 0}"></div>
-                    <div><label>Qualifications</label><textarea id="tutor-education-input" rows="3">${currentTutorData.education || ''}</textarea></div>
-                    <div><label>Hourly Rate (LKR)</label><input type="number" id="tutor-rate-input" value="${currentTutorData.rate || ''}"></div>
-                    <div><label>Teaching Method</label><select id="tutor-method-input"><option value="online" ${currentTutorData.method === 'online' ? 'selected' : ''}>Online</option><option value="in-person" ${currentTutorData.method === 'in-person' ? 'selected' : ''}>In-person</option><option value="both" ${currentTutorData.method === 'both' ? 'selected' : ''}>Both</option></select></div>
-                    <div><label>Towns You Can Tutor In</label><select multiple id="tutor-towns-input" class="h-40"></select><p class="text-xs text-slate-500 mt-1">Hold Ctrl (or Cmd on Mac) to select multiple towns.</p></div>
-                    <div><label>Availability</label><textarea id="tutor-availability-input" rows="3">${currentTutorData.availability || ''}</textarea></div>
-                </div>
-                <div class="mt-6 flex gap-4"><button class="btn btn-primary" id="save-teaching-info-btn">Save</button><button class="btn btn-outline" id="cancel-teaching-info-btn">Cancel</button></div>`
-            : `
-                <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Teaching Expertise</h3>
-                <div class="details-grid">
-                    <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg><div><p class="label">Subjects</p><p class="value">${currentTutorData.subject || 'Not specified'}</p></div></div>
-                    <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><p class="label">Experience</p><p class="value">${currentTutorData.experience || 0} years</p></div></div>
-                    <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path><path d="M12 22c-3.31 0-6-2.69-6-6 0-1.84.83-3.49 2.13-4.59"></path><path d="M18.87 11.41c-1.3-1.1-2.95-1.7-4.87-1.81V4c0-1.1-.9-2-2-2s-2 .9-2 2v2.19c-1.92.11-3.57.71-4.87 1.81-1.14.98-1.87 2.4-1.87 4.09 0 3.31 2.69 6 6 6s6-2.69 6-6c0-1.69-.73-3.11-1.87-4.09z"></path></svg><div><p class="label">Rate</p><p class="value">LKR ${currentTutorData.rate || 'N/A'} / hr</p></div></div>
-                    <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-5-4v6m4-2H8m4 0a2 2 0 100-4 2 2 0 000 4zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><p class="label">Method</p><p class="value">${currentTutorData.method ? currentTutorData.method.charAt(0).toUpperCase() + currentTutorData.method.slice(1) : 'Not specified'}</p></div></div>
-                    <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div><p class="label">Towns I Can Tutor In</p><p class="value">${(currentTutorData.tutorTowns && currentTutorData.tutorTowns.length) ? currentTutorData.tutorTowns.join(', ') : 'Not specified'}</p></div></div>
-                    <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><div><p class="label">Availability</p><p class="value whitespace-pre-line">${currentTutorData.availability || 'Not specified'}</p></div></div>
-                </div>
-                <div class="mt-6"><button class="btn btn-primary" id="edit-teaching-info-btn">Update Teaching Info</button></div>`;
-            if (isEditing) {
-                populateMultiSelectTownDropdown('tutor-towns-input', currentTutorData.tutorTowns);
-            }
-        }
-        
-        // --- Dynamic Data Loading ---
-        async function loadReviewsAndRequests(userUid) {
-            // Load Reviews
-            const reviewsCollectionRef = collection(db, "tutors", userUid, "reviews");
-            const reviewsSnapshot = await getDocs(query(reviewsCollectionRef, orderBy("createdAt", "desc")));
-            const currentTutorReviews = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            
-            document.getElementById('tutor-reviews-count-display').textContent = currentTutorReviews.length;
-            document.getElementById('my-reviews-container').innerHTML = currentTutorReviews.length === 0 ? '<p class="text-center text-slate-500 py-4">No reviews yet.</p>' : currentTutorReviews.map(review => `
-                <div class="review-card" id="review-${review.id}">
-                    <div class="review-header">
-                        <div>
-                            <div class="review-author">${review.studentName || 'Anonymous'}</div>
-                            <div class="text-xs text-slate-500">${review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
-                        </div>
-                        <div class="ml-auto flex items-center gap-4">
-                           ${getStarRatingHtml(review.rating)}
-                           <button class="delete-review-btn text-slate-400 hover:text-red-500 font-bold text-2xl" data-review-id="${review.id}" title="Delete Review">&times;</button>
-                        </div>
-                    </div>
-                    <p class="prose italic">"${review.comment}"</p>
-                </div>`).join('');
-
-            // Load Requests
-            const requestsCollectionRef = collection(db, "tutors", userUid, "requests");
-            const requestsSnapshot = await getDocs(query(requestsCollectionRef, orderBy("createdAt", "desc")));
-            const studentRequests = requestsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-            document.getElementById('requests-count-display').textContent = studentRequests.length;
-            document.getElementById('requests-container').innerHTML = studentRequests.length === 0 ? '<p class="text-center text-slate-500 py-4">No requests found.</p>' : studentRequests.map(request => `
-                <div class="request-item" id="request-${request.id}">
-                    <div class="w-full">
-                      <div class="font-semibold text-navy-dark">${request.studentName || 'Anonymous'}</div>
-                      <div class="text-sm text-teal-dark font-medium">${request.subject || 'Unspecified'}</div>
-                      <p class="text-xs text-slate-500 mt-1">${request.createdAt ? new Date(request.createdAt.seconds * 1000).toLocaleString() : ''}</p>
-                    </div>
-                    <p class="w-full mt-2 text-slate-600 italic">"${request.message}"</p>
-                    ${request.status === 'pending'
-                        ? `<div class="w-full mt-3 flex gap-2 justify-end"><button class="btn-sm btn-accept" data-request-id="${request.id}">Accept</button><button class="btn-sm btn-decline" data-request-id="${request.id}">Decline</button></div>`
-                        : `<div class="w-full mt-3 flex justify-end"><span class="status-badge status-${request.status}">${request.status}</span></div>`
-                    }
-                </div>`).join('');
-        }
-
-        async function updateRequestStatus(requestId, newStatus) {
-            const user = auth.currentUser;
-            if (!user) return;
-            showModal({ message: `Updating status to ${newStatus}...`, type: 'loading' });
-            try {
-                await updateDoc(doc(db, "tutors", user.uid, "requests", requestId), { status: newStatus });
-                hideModal();
-                showModal({ title: "Success", message: `Request has been ${newStatus}.` });
-                await loadReviewsAndRequests(user.uid);
-            } catch (error) {
-                hideModal();
-                showModal({ title: "Error", message: `Could not update the request status: ${error.message}` });
-            }
-        }
-        
-        function renderGallery(photos = []) {
-            document.getElementById('gallery-container').innerHTML = photos.length === 0 ? '<p class="text-center text-slate-500 col-span-full">No photos uploaded yet.</p>' : photos.map(photo => `
-                <div class="relative group aspect-square">
-                    <img src="${photo.url}" alt="Class photo" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
-                        <button class="delete-photo-btn text-white p-2 rounded-full bg-red-600 hover:bg-red-700" data-photo-path="${photo.path}" title="Delete Photo"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg></button>
-                    </div>
-                </div>`).join('');
-        }
-        
-        // --- Event Listeners ---
-        document.addEventListener('click', async (e) => {
-            const user = auth.currentUser;
-            if (!user) return;
-            const tutorDocRef = doc(db, "tutors", user.uid);
-
-            // Save/Cancel Buttons
-            if (e.target.id === 'edit-my-info-btn') renderMyInfo(true);
-            if (e.target.id === 'cancel-my-info-btn') renderMyInfo(false);
-            if (e.target.id === 'edit-about-me-btn') renderAboutMe(true);
-            if (e.target.id === 'cancel-about-me-btn') renderAboutMe(false);
-            if (e.target.id === 'edit-teaching-info-btn') renderTeachingDetails(true);
-            if (e.target.id === 'cancel-teaching-info-btn') renderTeachingDetails(false);
-
-            // SAVE My Info
-            if (e.target.id === 'save-my-info-btn') {
-                const updateData = {
-                    name: document.getElementById('tutor-name-input').value,
-                    mobile: document.getElementById('tutor-mobile-input').value,
-                    hometown: document.getElementById('tutor-hometown-input').value
-                };
-                showModal({ message: 'Saving...', type: 'loading' });
-                try {
-                    await updateDoc(tutorDocRef, updateData);
-                    Object.assign(currentTutorData, updateData);
-                    tutorNameDisplay.textContent = updateData.name;
-                    renderMyInfo(false);
-                    hideModal();
-                } catch (error) {
-                    showModal({ title: "Error", message: `Failed to update profile: ${error.message}` });
-                }
-            }
-            
-            // SAVE About Me
-            if (e.target.id === 'save-about-me-btn') {
-                const newAbout = document.getElementById('tutor-about-input').value;
-                showModal({ message: 'Saving...', type: 'loading' });
-                try {
-                    await updateDoc(tutorDocRef, { about: newAbout });
-                    currentTutorData.about = newAbout;
-                    renderAboutMe(false);
-                    hideModal();
-                } catch (error) {
-                    showModal({ title: "Error", message: `Failed to update About Me: ${error.message}` });
-                }
-            }
-
-            // SAVE Teaching Info
-            if (e.target.id === 'save-teaching-info-btn') {
-                const selectedTowns = Array.from(document.getElementById('tutor-towns-input').selectedOptions).map(opt => opt.value);
-                const newTeachingData = {
-                    subject: document.getElementById('tutor-subject-input').value,
-                    experience: Number(document.getElementById('tutor-experience-input').value),
-                    education: document.getElementById('tutor-education-input').value,
-                    rate: Number(document.getElementById('tutor-rate-input').value),
-                    method: document.getElementById('tutor-method-input').value,
-                    availability: document.getElementById('tutor-availability-input').value,
-                    tutorTowns: selectedTowns
-                };
-                showModal({ message: 'Saving...', type: 'loading' });
-                try {
-                    await updateDoc(tutorDocRef, newTeachingData);
-                    Object.assign(currentTutorData, newTeachingData);
-                    renderTeachingDetails(false);
-                    hideModal();
-                } catch (error) {
-                    showModal({ title: "Error", message: `Failed to update teaching info: ${error.message}` });
-                }
-            }
-            
-            // Other Actions
-            if (e.target.matches('.btn-accept')) updateRequestStatus(e.target.dataset.requestId, 'accepted');
-            if (e.target.matches('.btn-decline')) updateRequestStatus(e.target.dataset.requestId, 'declined');
-            const deleteReviewBtn = e.target.closest('.delete-review-btn');
-            if (deleteReviewBtn) {
-                const reviewId = deleteReviewBtn.dataset.reviewId;
-                showModal({
-                    title: "Delete Review", message: "Are you sure you want to delete this review?", type: 'confirm',
-                    onConfirm: async () => {
-                        showModal({ message: 'Deleting review...', type: 'loading'});
-                        try {
-                            await deleteDoc(doc(db, "tutors", user.uid, "reviews", reviewId));
-                            await loadReviewsAndRequests(user.uid);
-                            hideModal();
-                        } catch (error) {
-                            showModal({ title: "Error", message: `You need to get Pro Account for this feature` });
-                        }
-                    }
-                });
-            }
+            selectElement.appendChild(option);
         });
+    }
+    
+    // --- Auth & Main Data Loading ---
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            await loadTutorProfile(user.uid);
+        } else {
+            window.location.href = "Signin.html";
+        }
+    });
 
-        document.getElementById('sign-out-btn').addEventListener('click', () => {
-             showModal({
-                title: "Sign Out", message: "Are you sure you want to sign out?", type: 'confirm',
-                onConfirm: async () => { 
+    async function loadTutorProfile(userUid) {
+        const tutorDocRef = doc(db, "tutors", userUid);
+        try {
+            const tutorDocSnap = await getDoc(tutorDocRef);
+            if (tutorDocSnap.exists()) {
+                currentTutorData = tutorDocSnap.data();
+                tutorNameDisplay.textContent = currentTutorData.name || 'Tutor';
+                profileAvatarImg.src = currentTutorData.profilePictureUrl || `https://placehold.co/160x160/64ffda/0a192f?text=${currentTutorData.name ? currentTutorData.name.charAt(0) : 'T'}`;
+                renderAllSections();
+                await loadReviewsAndRequests(userUid);
+            } else {
+                showModal({ title: "Error", message: "Tutor profile not found. Please complete your registration." });
+            }
+        } catch (error) {
+            console.error("Error loading profile:", error);
+            showModal({ title: "Error", message: `Error loading your profile: ${error.message}` });
+        }
+    }
+    
+    // --- Render Functions ---
+    function renderAllSections() {
+        renderMyInfo(false);
+        renderAboutMe(false);
+        renderTeachingDetails(false);
+        renderGallery(currentTutorData.classPhotoUrls || []);
+    }
+
+    function renderMyInfo(isEditing = false) {
+         myInfoBlock.innerHTML = isEditing ? `
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit Information</h3>
+            <div class="space-y-4">
+                <div><label for="tutor-name-input">Name</label><input type="text" id="tutor-name-input" value="${currentTutorData.name || ''}"></div>
+                <div><label for="tutor-mobile-input">Contact Number</label><input type="tel" id="tutor-mobile-input" value="${currentTutorData.mobile || ''}"></div>
+                <div><label for="tutor-hometown-input">Hometown / Location</label><select id="tutor-hometown-input"></select></div>
+            </div>
+            <div class="mt-6 flex gap-4"><button class="btn btn-primary" id="save-my-info-btn">Save</button><button class="btn btn-outline" id="cancel-my-info-btn">Cancel</button></div>`
+        : `
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Information</h3>
+            <div class="details-grid">
+                <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><div><p class="label">Email</p><p class="value">${currentTutorData.email}</p></div></div>
+                <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg><div><p class="label">Contact</p><p class="value">${currentTutorData.mobile || 'Not specified'}</p></div></div>
+                <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div><p class="label">Hometown</p><p class="value">${currentTutorData.hometown || 'Not specified'}</p></div></div>
+            </div>
+            <div class="mt-6 flex gap-4 flex-wrap"><button class="btn btn-primary" id="edit-my-info-btn">Edit Profile</button><button class="btn btn-outline" id="change-password-btn">Change Password</button></div>`;
+        if (isEditing) {
+            populateTownDropdown('tutor-hometown-input', currentTutorData.hometown);
+        }
+    }
+    
+    function renderAboutMe(isEditing = false) {
+         aboutMeBlock.innerHTML = isEditing ? `
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit About Me</h3>
+            <div class="space-y-4"><textarea id="tutor-about-input" rows="5">${currentTutorData.about || ''}</textarea></div>
+            <div class="mt-6 flex gap-4"><button class="btn btn-primary" id="save-about-me-btn">Save</button><button class="btn btn-outline" id="cancel-about-me-btn">Cancel</button></div>` 
+        : `
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> About Me</h3>
+            <div class="prose"><p class="whitespace-pre-line">${currentTutorData.about || 'You have not added a bio yet. Click Edit to add one!'}</p></div>
+            <div class="mt-6"><button class="btn btn-primary" id="edit-about-me-btn">Edit About Me</button></div>`;
+    }
+
+    function renderTeachingDetails(isEditing = false) {
+        // FIX 1: Use 'subjects' (plural) to correctly join the array into a comma-separated string for editing.
+        const subjectsForEdit = (currentTutorData.subjects && Array.isArray(currentTutorData.subjects)) ? currentTutorData.subjects.join(', ') : '';
+        
+        teachingDetailsBlock.innerHTML = isEditing ? `
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Edit Teaching Expertise</h3>
+            <div class="space-y-4">
+                <div><label>Subjects (comma-separated)</label><input type="text" id="tutor-subjects-input" value="${subjectsForEdit}"></div>
+                <div><label>Years of Experience</label><input type="number" id="tutor-experience-input" value="${currentTutorData.experience || 0}"></div>
+                <div><label>Qualifications</label><textarea id="tutor-education-input" rows="3">${currentTutorData.education || ''}</textarea></div>
+                <div><label>Hourly Rate (LKR)</label><input type="number" id="tutor-rate-input" value="${currentTutorData.rate || ''}"></div>
+                <div><label>Teaching Method</label><select id="tutor-method-input"><option value="online" ${currentTutorData.method === 'online' ? 'selected' : ''}>Online</option><option value="in-person" ${currentTutorData.method === 'in-person' ? 'selected' : ''}>In-person</option><option value="both" ${currentTutorData.method === 'both' ? 'selected' : ''}>Both</option></select></div>
+                <div><label>Towns You Can Tutor In</label><select multiple id="tutor-towns-input" class="h-40"></select><p class="text-xs text-slate-500 mt-1">Hold Ctrl (or Cmd on Mac) to select multiple towns.</p></div>
+                <div><label>Availability</label><textarea id="tutor-availability-input" rows="3">${currentTutorData.availability || ''}</textarea></div>
+            </div>
+            <div class="mt-6 flex gap-4"><button class="btn btn-primary" id="save-teaching-info-btn">Save</button><button class="btn btn-outline" id="cancel-teaching-info-btn">Cancel</button></div>`
+        : `
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Teaching Expertise</h3>
+            <div class="details-grid">
+                <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg><div><p class="label">Subjects</p><p class="value">${(currentTutorData.subjects && currentTutorData.subjects.length) ? currentTutorData.subjects.join(', ') : 'Not specified'}</p></div></div>
+                <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><p class="label">Experience</p><p class="value">${currentTutorData.experience || 0} years</p></div></div>
+                <div class="detail-item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path><path d="M12 22c-3.31 0-6-2.69-6-6 0-1.84.83-3.49 2.13-4.59"></path><path d="M18.87 11.41c-1.3-1.1-2.95-1.7-4.87-1.81V4c0-1.1-.9-2-2-2s-2 .9-2 2v2.19c-1.92.11-3.57.71-4.87 1.81-1.14.98-1.87 2.4-1.87 4.09 0 3.31 2.69 6 6 6s6-2.69 6-6c0-1.69-.73-3.11-1.87-4.09z"></path></svg><div><p class="label">Rate</p><p class="value">LKR ${currentTutorData.rate || 'N/A'} / hr</p></div></div>
+                <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-5-4v6m4-2H8m4 0a2 2 0 100-4 2 2 0 000 4zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><p class="label">Method</p><p class="value">${currentTutorData.method ? currentTutorData.method.charAt(0).toUpperCase() + currentTutorData.method.slice(1) : 'Not specified'}</p></div></div>
+                <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg><div><p class="label">Towns I Can Tutor In</p><p class="value">${(currentTutorData.nearbyTowns && currentTutorData.nearbyTowns.length) ? currentTutorData.nearbyTowns.join(', ') : 'Not specified'}</p></div></div>
+                <div class="detail-item detail-item-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><div><p class="label">Availability</p><p class="value whitespace-pre-line">${currentTutorData.availability || 'Not specified'}</p></div></div>
+            </div>
+            <div class="mt-6"><button class="btn btn-primary" id="edit-teaching-info-btn">Update Teaching Info</button></div>`;
+        if (isEditing) {
+            // FIX 4: Use 'nearbyTowns' to correctly populate the multi-select dropdown in edit mode.
+            populateMultiSelectTownDropdown('tutor-towns-input', currentTutorData.nearbyTowns || []);
+        }
+    }
+    
+    // --- Dynamic Data Loading ---
+    async function loadReviewsAndRequests(userUid) {
+        // Load Reviews
+        const reviewsCollectionRef = collection(db, "tutors", userUid, "reviews");
+        const reviewsSnapshot = await getDocs(query(reviewsCollectionRef, orderBy("createdAt", "desc")));
+        const currentTutorReviews = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        document.getElementById('tutor-reviews-count-display').textContent = currentTutorReviews.length;
+        document.getElementById('my-reviews-container').innerHTML = currentTutorReviews.length === 0 ? '<p class="text-center text-slate-500 py-4">No reviews yet.</p>' : currentTutorReviews.map(review => `
+            <div class="review-card" id="review-${review.id}">
+                <div class="review-header">
+                    <div>
+                        <div class="review-author">${review.studentName || 'Anonymous'}</div>
+                        <div class="text-xs text-slate-500">${review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A'}</div>
+                    </div>
+                    <div class="ml-auto flex items-center gap-4">
+                       ${getStarRatingHtml(review.rating)}
+                        <button class="delete-review-btn text-slate-400 hover:text-red-500 font-bold text-2xl" data-review-id="${review.id}" title="Delete Review">&times;</button>
+                    </div>
+                </div>
+                <p class="prose italic">"${review.comment}"</p>
+            </div>`).join('');
+
+        // Load Requests
+        const requestsCollectionRef = collection(db, "tutors", userUid, "requests");
+        const requestsSnapshot = await getDocs(query(requestsCollectionRef, orderBy("createdAt", "desc")));
+        const studentRequests = requestsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        document.getElementById('requests-count-display').textContent = studentRequests.length;
+        document.getElementById('requests-container').innerHTML = studentRequests.length === 0 ? '<p class="text-center text-slate-500 py-4">No requests found.</p>' : studentRequests.map(request => `
+            <div class="request-item" id="request-${request.id}">
+                <div class="w-full">
+                  <div class="font-semibold text-navy-dark">${request.studentName || 'Anonymous'}</div>
+                  <div class="text-sm text-teal-dark font-medium">${request.subject || 'Unspecified'}</div>
+                  <p class="text-xs text-slate-500 mt-1">${request.createdAt ? new Date(request.createdAt.seconds * 1000).toLocaleString() : ''}</p>
+                </div>
+                <p class="w-full mt-2 text-slate-600 italic">"${request.message}"</p>
+                ${request.status === 'pending'
+                    ? `<div class="w-full mt-3 flex gap-2 justify-end"><button class="btn-sm btn-accept" data-request-id="${request.id}">Accept</button><button class="btn-sm btn-decline" data-request-id="${request.id}">Decline</button></div>`
+                    : `<div class="w-full mt-3 flex justify-end"><span class="status-badge status-${request.status}">${request.status}</span></div>`
+                }
+            </div>`).join('');
+    }
+
+    async function updateRequestStatus(requestId, newStatus) {
+        const user = auth.currentUser;
+        if (!user) return;
+        showModal({ message: `Updating status to ${newStatus}...`, type: 'loading' });
+        try {
+            await updateDoc(doc(db, "tutors", user.uid, "requests", requestId), { status: newStatus });
+            hideModal();
+            showModal({ title: "Success", message: `Request has been ${newStatus}.` });
+            await loadReviewsAndRequests(user.uid);
+        } catch (error) {
+            hideModal();
+            showModal({ title: "Error", message: `Could not update the request status: ${error.message}` });
+        }
+    }
+    
+    function renderGallery(photos = []) {
+        document.getElementById('gallery-container').innerHTML = photos.length === 0 ? '<p class="text-center text-slate-500 col-span-full">No photos uploaded yet.</p>' : photos.map(photo => `
+            <div class="relative group aspect-square">
+                <img src="${photo.url}" alt="Class photo" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105">
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg">
+                    <button class="delete-photo-btn text-white p-2 rounded-full bg-red-600 hover:bg-red-700" data-photo-path="${photo.path}" title="Delete Photo"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" /></svg></button>
+                </div>
+            </div>`).join('');
+    }
+    
+    // --- Event Listeners ---
+    document.addEventListener('click', async (e) => {
+        const user = auth.currentUser;
+        if (!user) return;
+        const tutorDocRef = doc(db, "tutors", user.uid);
+
+        // Save/Cancel Buttons
+        if (e.target.id === 'edit-my-info-btn') renderMyInfo(true);
+        if (e.target.id === 'cancel-my-info-btn') renderMyInfo(false);
+        if (e.target.id === 'edit-about-me-btn') renderAboutMe(true);
+        if (e.target.id === 'cancel-about-me-btn') renderAboutMe(false);
+        if (e.target.id === 'edit-teaching-info-btn') renderTeachingDetails(true);
+        if (e.target.id === 'cancel-teaching-info-btn') renderTeachingDetails(false);
+
+        // SAVE My Info
+        if (e.target.id === 'save-my-info-btn') {
+            const updateData = {
+                name: document.getElementById('tutor-name-input').value,
+                mobile: document.getElementById('tutor-mobile-input').value,
+                hometown: document.getElementById('tutor-hometown-input').value
+            };
+            showModal({ message: 'Saving...', type: 'loading' });
+            try {
+                await updateDoc(tutorDocRef, updateData);
+                Object.assign(currentTutorData, updateData);
+                tutorNameDisplay.textContent = updateData.name;
+                renderMyInfo(false);
+                hideModal();
+            } catch (error) {
+                showModal({ title: "Error", message: `Failed to update profile: ${error.message}` });
+            }
+        }
+        
+        // SAVE About Me
+        if (e.target.id === 'save-about-me-btn') {
+            const newAbout = document.getElementById('tutor-about-input').value;
+            showModal({ message: 'Saving...', type: 'loading' });
+            try {
+                await updateDoc(tutorDocRef, { about: newAbout });
+                currentTutorData.about = newAbout;
+                renderAboutMe(false);
+                hideModal();
+            } catch (error) {
+                showModal({ title: "Error", message: `Failed to update About Me: ${error.message}` });
+            }
+        }
+
+        // SAVE Teaching Info
+        if (e.target.id === 'save-teaching-info-btn') {
+            const selectedTowns = Array.from(document.getElementById('tutor-towns-input').selectedOptions).map(opt => opt.value);
+            // FIX 5: Convert the comma-separated subjects string back into an array.
+            const subjectsArray = document.getElementById('tutor-subjects-input').value.split(',').map(s => s.trim()).filter(Boolean);
+
+            const newTeachingData = {
+                // FIX 6: Save as 'subjects' (plural) and 'nearbyTowns' to match the sign-up page.
+                subjects: subjectsArray, 
+                experience: Number(document.getElementById('tutor-experience-input').value),
+                education: document.getElementById('tutor-education-input').value,
+                rate: Number(document.getElementById('tutor-rate-input').value),
+                method: document.getElementById('tutor-method-input').value,
+                availability: document.getElementById('tutor-availability-input').value,
+                nearbyTowns: selectedTowns 
+            };
+            showModal({ message: 'Saving...', type: 'loading' });
+            try {
+                await updateDoc(tutorDocRef, newTeachingData);
+                Object.assign(currentTutorData, newTeachingData);
+                renderTeachingDetails(false);
+                hideModal();
+            } catch (error) {
+                showModal({ title: "Error", message: `Failed to update teaching info: ${error.message}` });
+            }
+        }
+        
+        // Other Actions
+        if (e.target.matches('.btn-accept')) updateRequestStatus(e.target.dataset.requestId, 'accepted');
+        if (e.target.matches('.btn-decline')) updateRequestStatus(e.target.dataset.requestId, 'declined');
+        const deleteReviewBtn = e.target.closest('.delete-review-btn');
+        if (deleteReviewBtn) {
+            const reviewId = deleteReviewBtn.dataset.reviewId;
+            showModal({
+                title: "Delete Review", message: "Are you sure you want to delete this review?", type: 'confirm',
+                onConfirm: async () => {
+                    showModal({ message: 'Deleting review...', type: 'loading'});
                     try {
-                        await signOut(auth);
-                        window.location.href = "Signin.html"; 
+                        await deleteDoc(doc(db, "tutors", user.uid, "reviews", reviewId));
+                        await loadReviewsAndRequests(user.uid);
+                        hideModal();
                     } catch (error) {
-                        showModal({ title: "Error", message: `Failed to sign out: ${error.message}`});
+                        showModal({ title: "Error", message: `You need to get Pro Account for this feature` });
                     }
                 }
-             });
-        });
-    </script>
+            });
+        }
+    });
+
+    document.getElementById('sign-out-btn').addEventListener('click', () => {
+         showModal({
+            title: "Sign Out", message: "Are you sure you want to sign out?", type: 'confirm',
+            onConfirm: async () => { 
+                try {
+                    await signOut(auth);
+                    window.location.href = "Signin.html"; 
+                } catch (error) {
+                    showModal({ title: "Error", message: `Failed to sign out: ${error.message}`});
+                }
+            }
+         });
+    });
+</script>
 </body>
 </html>
